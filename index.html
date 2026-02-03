@@ -1446,7 +1446,9 @@
         logToConsole('Inline script loaded. Waiting for main script...');
     </script>
 
-    <script src="script.js"></script>
+    <script type="module" src="./script.js" onload="logToConsole('SUCCESS: script.js loaded correctly', 'lime')"
+        onerror="logToConsole('CRITICAL ERROR: Failed to load script.js (404 Not Found or MIME type error)', 'red')">
+        </script>
 </body>
 
 </html>
