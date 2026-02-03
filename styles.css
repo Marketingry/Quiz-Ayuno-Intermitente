@@ -1494,25 +1494,122 @@ input {
 }
 
 /* Carousel Styles */
+/* Carousel Styles - Professional */
+.carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto var(--space-xl) auto;
+    padding: 0 var(--space-md);
+}
+
 .stories-carousel {
     overflow: hidden;
     width: 100%;
     position: relative;
     border-radius: var(--radius-lg);
-    margin-bottom: var(--space-xl);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    /* Premium shadow */
+    background: #fff;
+    border: 4px solid #fff;
+    /* White frame */
 }
 
 .carousel-track {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    /* Smoother bezier */
     width: 100%;
 }
 
 .carousel-slide {
+    width: 100%;
+    /* Force exact width */
     min-width: 100%;
+    /* Ensure no shrinking */
     flex-shrink: 0;
-    padding: 0 var(--space-xs);
-    /* Optional: gap simulation */
+    box-sizing: border-box;
+    /* Include padding in width if any */
+    padding: 0;
+    /* Remove padding to guarantee exact fit */
+    display: flex;
+    justify-content: center;
+}
+
+.story-card {
+    width: 100%;
+}
+
+.story-card img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: var(--radius-md);
+    object-fit: contain;
+    /* Ensure image fits nicely */
+}
+
+/* Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-green);
+    /* Green Background */
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    font-size: 18px;
+    color: white;
+    /* White Arrow */
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-nav:hover {
+    background: #1b5e20;
+    /* Darker green on hover */
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 15px rgba(27, 94, 32, 0.4);
+}
+
+.prev-btn {
+    left: -10px;
+    /* Overhang slightly */
+}
+
+.next-btn {
+    right: -10px;
+    /* Overhang slightly */
+}
+
+/* Carousel Dots */
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: #e0e0e0;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: var(--primary-green);
+    transform: scale(1.2);
 }
 
 /* Old Grid - Deprecated/Fallback */

@@ -657,24 +657,76 @@ function shakeInput(input) {
 
 function initCarousel() {
     const track = document.getElementById('storiesTrack');
+    const prevBtn = document.getElementById('prevSlide');
+    const nextBtn = document.getElementById('nextSlide');
+    const dots = document.querySelectorAll('.dot');
+
     if (!track) return;
 
     const slides = track.children;
     const slideCount = slides.length;
     let currentIndex = 0;
+    let autoPlayInterval;
 
-    // Clear any existing interval to prevent duplicates
-    if (window.carouselInterval) clearInterval(window.carouselInterval);
-
-    window.carouselInterval = setInterval(() => {
-        currentIndex++;
-        if (currentIndex >= slideCount) {
-            currentIndex = 0;
-        }
-
+    function updateCarousel() {
+        // Move track
         const translateValue = -(currentIndex * 100);
         track.style.transform = `translateX(${translateValue}%)`;
-    }, 4000);
+
+        // Update dots
+        dots.forEach((dot, index) => {
+            if (index === currentIndex) {
+                dot.classList.add('active');
+            } else {
+                dot.classList.remove('active');
+            }
+        });
+    }
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slideCount;
+        updateCarousel();
+        resetAutoPlay();
+    }
+
+    function prevSlide() {
+        currentIndex = (currentIndex - 1 + slideCount) % slideCount;
+        updateCarousel();
+        resetAutoPlay();
+    }
+
+    function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+        resetAutoPlay();
+    }
+
+    function startAutoPlay() {
+        if (autoPlayInterval) clearInterval(autoPlayInterval);
+        autoPlayInterval = setInterval(() => {
+            currentIndex = (currentIndex + 1) % slideCount;
+            updateCarousel();
+        }, 4000);
+    }
+
+    function resetAutoPlay() {
+        clearInterval(autoPlayInterval);
+        startAutoPlay();
+    }
+
+    // Event Listeners
+    if (nextBtn) nextBtn.addEventListener('click', nextSlide);
+    if (prevBtn) prevBtn.addEventListener('click', prevSlide);
+
+    dots.forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            goToSlide(index);
+        });
+    });
+
+    // Start
+    startAutoPlay();
 }
 
 // Add shake animation to CSS dynamically
