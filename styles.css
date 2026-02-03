@@ -1905,11 +1905,11 @@ input {
     margin: 0 auto var(--space-xl) auto;
     padding: 0;
     /* Remove padding to maximize size */
-    background: transparent;
-    /* Remove background */
-    border: none;
-    /* Remove border */
-    border-radius: 0;
+    background: var(--bg-white);
+    /* Restore background */
+    border: 1px solid var(--border-gray);
+    /* Restore border */
+    border-radius: 12px;
 }
 
 .weight-chart-svg {
