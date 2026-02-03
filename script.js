@@ -236,7 +236,7 @@ function positionBMIArrow() {
     // Update arrow label with real BMI
     const bmiLabel = document.getElementById('bmiArrowLabel');
     if (bmiLabel) {
-        bmiLabel.textContent = `Você: ${bmi.toFixed(1)}`;
+        bmiLabel.textContent = `Tú: ${bmi.toFixed(1)}`;
     }
 
     // Position arrow based on BMI value
@@ -478,19 +478,19 @@ function calculateAndShowBMI() {
 
         let status = '';
         if (bmi < 18.5) {
-            status = 'abaixo do peso';
+            status = 'bajo peso';
         } else if (bmi < 25) {
-            status = 'dentro do ideal';
+            status = 'peso saludable';
         } else if (bmi < 30) {
-            status = 'acima do ideal';
+            status = 'sobrepeso';
         } else {
-            status = 'muito acima do ideal';
+            status = 'obesidad';
         }
 
         if (elements.bmiResult) {
             elements.bmiResult.innerHTML = `
-                <p>O seu IMC é <strong>${bmiRounded}</strong> e está <strong>${status}</strong>!</p>
-                <p>É hora de cuidar do seu peso!</p>
+                <p>Tu IMC es <strong>${bmiRounded}</strong> y tienes <strong>${status}</strong>.</p>
+                <p>¡Es hora de cuidar tu peso!</p>
             `;
             elements.bmiResult.classList.add('visible');
         }
@@ -509,10 +509,10 @@ function startLoadingAnimation() {
     if (!progressBar || !percentageText || !statusText) return;
 
     const statusMessages = [
-        "Analisando seu perfil metabólico...",
-        "Otimizando cronograma de jejum...",
-        "Selecionando alimentos permitidos...",
-        "Finalizando seu Plano Personalizado!"
+        "Analizando tu perfil metabólico...",
+        "Optimizando cronograma de ayuno...",
+        "Seleccionando alimentos permitidos...",
+        "Finalizando tu Plan Personalizado..."
     ];
 
     let progress = 0;
@@ -579,7 +579,7 @@ function initWeightChart() {
         // Update "Seu peso" label
         const startWeightLabel = chart.querySelector('#chart-start-weight');
         if (startWeightLabel) {
-            startWeightLabel.textContent = `Seu peso: ${currentWeight}kg`;
+            startWeightLabel.textContent = `Tu peso: ${currentWeight}kg`;
         }
 
         // Update "Objetivo" label
