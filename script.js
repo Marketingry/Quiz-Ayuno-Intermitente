@@ -323,6 +323,16 @@ function updateUI() {
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    // Handle Wide View for Chart Step (Step 39)
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) {
+        if (quizState.currentStep === 39) {
+            quizContainer.classList.add('wide-view');
+        } else {
+            quizContainer.classList.remove('wide-view');
+        }
+    }
 }
 
 // ============================================

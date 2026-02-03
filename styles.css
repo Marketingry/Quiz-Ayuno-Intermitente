@@ -163,6 +163,11 @@ input {
     margin: 0 auto;
     padding: var(--space-lg);
     padding-bottom: 120px;
+    transition: max-width var(--transition-base);
+}
+
+.quiz-container.wide-view {
+    max-width: 1000px;
 }
 
 /* ============================================
