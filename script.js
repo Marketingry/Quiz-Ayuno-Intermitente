@@ -204,6 +204,9 @@ function goToNextStep() {
         if (quizState.currentStep === 41) {
             setTimeout(initWeightChart, 300);
         }
+        if (quizState.currentStep === 42) {
+            setTimeout(initCarousel, 300);
+        }
     }
 }
 
@@ -646,6 +649,32 @@ function shakeInput(input) {
     setTimeout(() => {
         input.style.borderColor = '';
     }, 2000);
+}
+
+// ============================================
+// CAROUSEL LOGIC (Step 42)
+// ============================================
+
+function initCarousel() {
+    const track = document.getElementById('storiesTrack');
+    if (!track) return;
+
+    const slides = track.children;
+    const slideCount = slides.length;
+    let currentIndex = 0;
+
+    // Clear any existing interval to prevent duplicates
+    if (window.carouselInterval) clearInterval(window.carouselInterval);
+
+    window.carouselInterval = setInterval(() => {
+        currentIndex++;
+        if (currentIndex >= slideCount) {
+            currentIndex = 0;
+        }
+
+        const translateValue = -(currentIndex * 100);
+        track.style.transform = `translateX(${translateValue}%)`;
+    }, 4000);
 }
 
 // Add shake animation to CSS dynamically
