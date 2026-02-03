@@ -72,29 +72,49 @@ function initQuiz() {
 // ============================================
 
 function setupEventListeners() {
+    // Event Delegation for dynamic elements and reliability
+    document.addEventListener('click', (e) => {
+        const target = e.target;
+
+        // Option cards
+        const optionCard = target.closest('.option-card');
+        if (optionCard) {
+            handleOptionSelect(optionCard);
+            return;
+        }
+
+        // Food buttons
+        const foodBtn = target.closest('.food-btn');
+        if (foodBtn) {
+            handleFoodSelect(foodBtn);
+            return;
+        }
+
+        // Continue buttons
+        const continueBtn = target.closest('.continue-btn');
+        if (continueBtn) {
+            // Ignore metric buttons handled separately
+            if (['heightContinue', 'weightContinue', 'targetContinue', 'ageContinue'].includes(continueBtn.id)) {
+                return;
+            }
+            handleContinue(continueBtn);
+            return;
+        }
+
+        // FAQ items
+        const faqHeader = target.closest('.faq-question');
+        if (faqHeader) {
+            const faqItem = faqHeader.closest('.faq-item');
+            toggleFaq(faqItem);
+            return;
+        }
+    });
+
     // Back button
-    elements.backBtn.addEventListener('click', goToPreviousStep);
-
-    // Option cards (single select - auto advance)
-    elements.optionCards.forEach(card => {
-        card.addEventListener('click', handleOptionSelect);
-    });
-
-    // Food buttons (multi-select)
-    elements.foodBtns.forEach(btn => {
-        btn.addEventListener('click', handleFoodSelect);
-    });
-
-    // Continue buttons
-    elements.continueBtns.forEach(btn => {
-        btn.addEventListener('click', handleContinue);
-    });
-
-    // FAQ accordion
-    elements.faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => toggleFaq(item));
-    });
+    // Check if element exists before adding listener
+    if (elements.backBtn) {
+        elements.backBtn.addEventListener('click', goToPreviousStep);
+    }
 
     // Metric inputs
     if (elements.heightContinue) {
@@ -329,8 +349,8 @@ function updateStickyWarning() {
 // OPTION HANDLING
 // ============================================
 
-function handleOptionSelect(e) {
-    const card = e.currentTarget;
+function handleOptionSelect(card) {
+    // const card = e.currentTarget; // handled by delegation
     const step = card.closest('.quiz-step');
     const stepNumber = parseInt(step.dataset.step);
     const value = card.dataset.value;
@@ -383,8 +403,8 @@ function handleOptionSelect(e) {
     }
 }
 
-function handleFoodSelect(e) {
-    const btn = e.currentTarget;
+function handleFoodSelect(btn) {
+    // const btn = e.currentTarget; // handled by delegation
     btn.classList.toggle('selected');
 
     // Save all selected foods
@@ -397,8 +417,8 @@ function handleFoodSelect(e) {
     quizState.answers['step_17_foods'] = selectedFoods;
 }
 
-function handleContinue(e) {
-    const btn = e.currentTarget;
+function handleContinue(btn) {
+    // const btn = e.currentTarget; // handled by delegation
 
     // Ignore metric buttons as they have their own event listeners
     if (['heightContinue', 'weightContinue', 'targetContinue', 'ageContinue'].includes(btn.id)) {
