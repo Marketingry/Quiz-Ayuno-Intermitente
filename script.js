@@ -73,30 +73,48 @@ function initQuiz() {
 
 function setupEventListeners() {
     // Back button
-    elements.backBtn.addEventListener('click', goToPreviousStep);
+    if (elements.backBtn) {
+        elements.backBtn.addEventListener('click', goToPreviousStep);
+    }
 
-    // Option cards (single select - auto advance)
-    elements.optionCards.forEach(card => {
-        card.addEventListener('click', handleOptionSelect);
-    });
+    // Event Delegation for Quiz Container (Handles Option Cards & Food Buttons)
+    const quizContainer = document.querySelector('.quiz-container');
+    if (quizContainer) {
+        quizContainer.addEventListener('click', (e) => {
+            // Handle Option Card Clicks
+            const card = e.target.closest('.option-card');
+            if (card) {
+                handleOptionSelectDelegated(card);
+                return;
+            }
 
-    // Food buttons (multi-select)
-    elements.foodBtns.forEach(btn => {
-        btn.addEventListener('click', handleFoodSelect);
-    });
+            // Handle Food Button Clicks
+            const foodBtn = e.target.closest('.food-btn');
+            if (foodBtn) {
+                handleFoodSelectDelegated(foodBtn);
+                return;
+            }
+        });
+    }
 
-    // Continue buttons
-    elements.continueBtns.forEach(btn => {
-        btn.addEventListener('click', handleContinue);
-    });
+    // Continue buttons (handled separately as they are distinct actions)
+    if (elements.continueBtns) {
+        elements.continueBtns.forEach(btn => {
+            btn.addEventListener('click', handleContinue);
+        });
+    }
 
     // FAQ accordion
-    elements.faqItems.forEach(item => {
-        const question = item.querySelector('.faq-question');
-        question.addEventListener('click', () => toggleFaq(item));
-    });
+    if (elements.faqItems) {
+        elements.faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            if (question) {
+                question.addEventListener('click', () => toggleFaq(item));
+            }
+        });
+    }
 
-    // Metric inputs
+    // Metric inputs logic remains the same...
     if (elements.heightContinue) {
         elements.heightContinue.addEventListener('click', () => {
             const value = elements.heightInput.value;
@@ -147,7 +165,8 @@ function setupEventListeners() {
     }
 
     // Enter key for metric inputs
-    [elements.heightInput, elements.currentWeightInput, elements.targetWeightInput, elements.ageInput].forEach(input => {
+    const inputs = [elements.heightInput, elements.currentWeightInput, elements.targetWeightInput, elements.ageInput];
+    inputs.forEach(input => {
         if (input) {
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -329,8 +348,7 @@ function updateStickyWarning() {
 // OPTION HANDLING
 // ============================================
 
-function handleOptionSelect(e) {
-    const card = e.currentTarget;
+function handleOptionSelectDelegated(card) {
     const step = card.closest('.quiz-step');
     const stepNumber = parseInt(step.dataset.step);
     const value = card.dataset.value;
@@ -383,16 +401,14 @@ function handleOptionSelect(e) {
     }
 }
 
-function handleFoodSelect(e) {
-    const btn = e.currentTarget;
+function handleFoodSelectDelegated(btn) {
     btn.classList.toggle('selected');
 
     // Save all selected foods
     const selectedFoods = [];
-    elements.foodBtns.forEach(foodBtn => {
-        if (foodBtn.classList.contains('selected')) {
-            selectedFoods.push(foodBtn.dataset.value);
-        }
+    const step = btn.closest('.quiz-step');
+    step.querySelectorAll('.food-btn.selected').forEach(foodBtn => {
+        selectedFoods.push(foodBtn.dataset.value);
     });
     quizState.answers['step_17_foods'] = selectedFoods;
 }
