@@ -327,10 +327,14 @@ function updateUI() {
     // Handle Wide View for Chart Step (Step 39)
     const quizContainer = document.querySelector('.quiz-container');
     if (quizContainer) {
+        // Force a reflow or check to ensure it applies
         if (quizState.currentStep === 39) {
             quizContainer.classList.add('wide-view');
+            // Also ensure body doesn't restrict it
+            document.body.classList.add('wide-body-view');
         } else {
             quizContainer.classList.remove('wide-view');
+            document.body.classList.remove('wide-body-view');
         }
     }
 }
