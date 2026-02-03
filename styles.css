@@ -1941,18 +1941,19 @@ input {
 /* Specific Mobile Adjustments for Chart */
 @media (max-width: 480px) {
     .weight-chart-wrapper {
-        width: auto !important;
-        max-width: none !important;
-        margin-left: calc(-1 * var(--space-md)) !important;
-        margin-right: calc(-1 * var(--space-md)) !important;
-        border-radius: 0 !important;
-        /* Edge to edge, so square corners look better or maintain overlap style */
-        border-left: none;
-        /* Make it feel like it extends infinitely */
-        border-right: none;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 12px !important;
+        /* Restore rounded corners if desired or keep square */
+        border: 1px solid var(--border-gray);
+        /* Ensure border is visible */
         margin-bottom: var(--space-2xl) !important;
-        padding: 0 5px;
-        /* Slight padding to keep content safe */
+        padding: 5px;
+        /* Minimal padding to prevent content touching border */
+        box-sizing: border-box;
+        /* Crucial for including border/padding in width */
     }
 
     .weight-chart-svg text {
@@ -2491,9 +2492,10 @@ input {
     font-size: 18px;
     font-weight: 800;
     color: var(--text-black);
-    margin-bottom: 15px;
-    padding-left: 10px;
-    /* Align with chart start */
+    margin-bottom: 10px;
+    /* Reduced from 15px to be tighter */
+    padding-left: 5px;
+    /* Reduced to align better with start point circle if needed, or 15px if matching padding */
     font-family: 'Montserrat', sans-serif;
 }
 
