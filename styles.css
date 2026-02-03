@@ -2290,3 +2290,41 @@ input {
 .weight-loss-chart.chart-animate {
     animation: chartEnter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
+
+/* Clothing Size Grid Customization */
+.clothing-size-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+}
+
+.clothing-size-grid .option-card {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 15px !important;
+    min-height: 60px !important;
+    height: auto !important;
+    aspect-ratio: auto !important;
+    /* Override square aspect ratio if present */
+}
+
+/* Text styling */
+.clothing-size-grid .option-card span {
+    font-size: 1.2rem;
+    font-weight: 500;
+    order: 1;
+    /* Text on left */
+}
+
+/* Image styling */
+.clothing-size-grid .grid-img {
+    width: 60px !important;
+    height: 70px !important;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 0 !important;
+    order: 2;
+    /* Image on right */
+}
