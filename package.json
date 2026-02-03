@@ -1,0 +1,13 @@
+{
+  "name": "seca-jejum-quiz",
+  "version": "1.0.0",
+  "description": "Quiz funnel de jejum intermitente",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

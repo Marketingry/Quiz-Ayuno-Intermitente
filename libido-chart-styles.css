@@ -1,0 +1,131 @@
+/* ============================================
+   LIBIDO CHART (Step 12) - Custom SVG Design
+   ============================================ */
+
+.libido-chart-card {
+    background: white;
+    padding: 40px 30px 30px 30px;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    margin: var(--space-xl) 0;
+    position: relative;
+}
+
+/* Labels (Balões) */
+.libido-tooltip {
+    position: absolute;
+    padding: 10px 18px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 800;
+    font-size: 14px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.libido-tooltip::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+}
+
+/* Label Gordura Corporal (Amarelo) */
+.libido-label-fat {
+    background-color: #b59000;
+    top: 20px;
+    left: 40px;
+}
+
+.libido-label-fat::after {
+    background-color: #b59000;
+    left: 20px;
+}
+
+/* Label Libido (Rosa) */
+.libido-label-libido {
+    background-color: #ff4d5a;
+    top: 20px;
+    right: 80px;
+}
+
+.libido-label-libido::after {
+    background-color: #ff4d5a;
+    left: 50%;
+    margin-left: -6px;
+}
+
+/* SVG Container */
+.libido-svg {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    margin-top: 20px;
+}
+
+/* Grid Lines */
+.libido-grid-line {
+    stroke: #efefef;
+    stroke-width: 2;
+    stroke-dasharray: 6, 4;
+}
+
+/* Path Lines */
+.libido-path-line {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+}
+
+.libido-path-fat {
+    stroke: url(#libidoGradFat);
+}
+
+.libido-path-libido {
+    stroke: #ff4d5a;
+}
+
+/* Axis Labels (ANTES / DEPOIS) */
+.libido-axis {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 0 10px;
+}
+
+.libido-axis-before {
+    color: #b0b0b0;
+}
+
+.libido-axis-after {
+    color: #333;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 600px) {
+    .libido-chart-card {
+        padding: 50px 20px 25px 20px;
+    }
+
+    .libido-label-fat {
+        left: 20px;
+        font-size: 12px;
+        padding: 8px 14px;
+    }
+
+    .libido-label-libido {
+        right: 20px;
+        font-size: 12px;
+        padding: 8px 14px;
+    }
+
+    .libido-axis {
+        font-size: 11px;
+    }
+}

@@ -1,0 +1,1410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Descubra seu plano personalizado de jejum intermitente e perca peso de forma saudável.">
+    <title>Seca Jejum - Jejum Intermitente Personalizado</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="back-btn" id="backBtn" aria-label="Voltar">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M19 12H5M12 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <div class="logo-container">
+            <img src="https://i.ibb.co/B5w43MMs/file-000000006a1c71f5ac74a4a050224225.png" alt="Seca Jejum Logo"
+                class="header-logo">
+        </div>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Main Quiz Container -->
+    <main class="quiz-container">
+
+        <!-- Etapa 1: Idade -->
+        <section class="quiz-step active" data-step="1">
+            <h1 class="quiz-title">Jejum intermitente</h1>
+            <p class="quiz-subtitle">De acordo com sua idade</p>
+            <div class="options-list">
+                <button class="option-card" data-value="18-25">
+                    <img src="https://i.ibb.co/jvy7XmSL/1.webp" alt="18-25 anos" class="option-outcome-img">
+                    <span>18 a 25 anos</span>
+                </button>
+                <button class="option-card" data-value="26-35">
+                    <img src="https://i.ibb.co/8DXkg6N7/faca618d-5574-44ea-a30c-045460638fdf.webp" alt="26-35 anos"
+                        class="option-outcome-img">
+                    <span>26 a 35 anos</span>
+                </button>
+                <button class="option-card" data-value="36-45">
+                    <img src="https://i.ibb.co/0Pq8FK4/c2f506ba-599f-449c-b87b-a651a70ad591.webp" alt="36-45 anos"
+                        class="option-outcome-img">
+                    <span>36 a 45 anos</span>
+                </button>
+                <button class="option-card" data-value="46+">
+                    <img src="https://i.ibb.co/jPQnZgpZ/8334d8e8-5f6a-42b8-9cbb-5462ff2a49eb.webp" alt="+46 anos"
+                        class="option-outcome-img">
+                    <span>+46 anos</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 2: Objetivo -->
+        <section class="quiz-step" data-step="2">
+            <h1 class="quiz-title">Qual é o seu objetivo principal?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="perder-peso">
+                    <img src="https://i.ibb.co/nFhNQcD/1.webp" alt="Perder peso" class="option-outcome-img">
+                    <span>Perder peso</span>
+                </button>
+                <button class="option-card" data-value="ficar-forma">
+                    <img src="https://i.ibb.co/bgDptcmH/2.webp" alt="Ficar em forma" class="option-outcome-img">
+                    <span>Ficar em forma</span>
+                </button>
+                <button class="option-card" data-value="saude-coracao">
+                    <img src="https://i.ibb.co/Q33dp46T/3.webp" alt="Melhorar saúde" class="option-outcome-img">
+                    <span>Melhorar a saúde do coração</span>
+                </button>
+                <button class="option-card" data-value="aliviar-estresse">
+                    <img src="https://i.ibb.co/jvwzmfLj/4.webp" alt="Aliviar estresse" class="option-outcome-img">
+                    <span>Aliviar o estresse</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 3: Tamanho atual -->
+        <section class="quiz-step" data-step="3">
+            <h1 class="quiz-title">Escolha o tamanho da sua roupa</h1>
+            <div class="options-grid">
+                <button class="option-card grid-card" data-value="PP">
+                    <img src="https://i.ibb.co/Tq2ChLzV/2.webp" alt="PP" class="grid-img">
+                    <span>PP</span>
+                </button>
+                <button class="option-card grid-card" data-value="P">
+                    <img src="https://i.ibb.co/x8ghqW77/1.webp" alt="P" class="grid-img">
+                    <span>P</span>
+                </button>
+                <button class="option-card grid-card" data-value="M">
+                    <img src="https://i.ibb.co/VWLd7ZZN/3.webp" alt="M" class="grid-img">
+                    <span>M</span>
+                </button>
+                <button class="option-card grid-card" data-value="G">
+                    <img src="https://i.ibb.co/bMxfmRxh/4.webp" alt="G" class="grid-img">
+                    <span>G</span>
+                </button>
+                <button class="option-card grid-card" data-value="GG">
+                    <img src="https://i.ibb.co/84KRKdnx/5.webp" alt="GG" class="grid-img">
+                    <span>GG</span>
+                </button>
+                <button class="option-card grid-card" data-value="XGG">
+                    <img src="https://i.ibb.co/hvdx3qY/6.webp" alt="XGG" class="grid-img">
+                    <span>XGG</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 4: Tamanho desejado -->
+        <section class="quiz-step" data-step="4">
+            <h1 class="quiz-title">Escolha o tamanho que você quer usar</h1>
+            <div class="options-grid">
+                <button class="option-card grid-card" data-value="PP">
+                    <img src="https://i.ibb.co/Tq2ChLzV/2.webp" alt="PP" class="grid-img">
+                    <span>PP</span>
+                </button>
+                <button class="option-card grid-card" data-value="P">
+                    <img src="https://i.ibb.co/x8ghqW77/1.webp" alt="P" class="grid-img">
+                    <span>P</span>
+                </button>
+                <button class="option-card grid-card" data-value="M">
+                    <img src="https://i.ibb.co/VWLd7ZZN/3.webp" alt="M" class="grid-img">
+                    <span>M</span>
+                </button>
+                <button class="option-card grid-card" data-value="G">
+                    <img src="https://i.ibb.co/bMxfmRxh/4.webp" alt="G" class="grid-img">
+                    <span>G</span>
+                </button>
+                <button class="option-card grid-card" data-value="GG">
+                    <img src="https://i.ibb.co/84KRKdnx/5.webp" alt="GG" class="grid-img">
+                    <span>GG</span>
+                </button>
+                <button class="option-card grid-card" data-value="XGG">
+                    <img src="https://i.ibb.co/hvdx3qY/6.webp" alt="XGG" class="grid-img">
+                    <span>XGG</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 5: Dificuldade com roupas -->
+        <section class="quiz-step" data-step="5">
+            <h1 class="quiz-title">Você tem dificuldade para escolher suas roupas com seu peso atual?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="quase-sempre"><span>Quase sempre</span></button>
+                <button class="option-card" data-value="as-vezes"><span>Às vezes</span></button>
+                <button class="option-card" data-value="raramente"><span>Raramente</span></button>
+                <button class="option-card" data-value="nunca"><span>Nunca</span></button>
+            </div>
+            <img src="https://i.ibb.co/Q3fJjcTL/a.webp" alt="Vestido" class="step-img-large">
+        </section>
+
+        <!-- Etapa 6: Prova Social Carol -->
+        <section class="quiz-step interlude" data-step="6">
+            <h1 class="quiz-title">Vestindo roupas antigas novamente</h1>
+            <div class="before-after-container">
+                <img src="https://i.ibb.co/CKv9jRvN/10a56da9-9f88-48f2-879e-66fdd81927ee.webp"
+                    alt="Carol Antes e Depois" class="before-after-img">
+            </div>
+            <div class="testimonial-box">
+                <p class="testimonial-text">"Desde que conheci o conteúdo de vcs, consegui perder aqueles quilos a mais
+                    que ganhei dps de engravidar... e o que achei mais incrível é que nem passei fome!! Gratidão!"</p>
+                <p class="testimonial-author">— Carol Santana</p>
+            </div>
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 7: Áreas do corpo -->
+        <section class="quiz-step" data-step="7">
+            <h1 class="quiz-title">Quais áreas do corpo você quer focar?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="barriga">
+                    <img src="https://i.ibb.co/KgnsXDf/1.webp" alt="Barriga" class="option-outcome-img">
+                    <span>Barriga</span>
+                </button>
+                <button class="option-card" data-value="bunda">
+                    <img src="https://i.ibb.co/0SjJLgS/2.webp" alt="Bunda" class="option-outcome-img">
+                    <span>Bunda</span>
+                </button>
+                <button class="option-card" data-value="peito">
+                    <img src="https://i.ibb.co/tPK7s2SB/3.webp" alt="Peito" class="option-outcome-img">
+                    <span>Peito</span>
+                </button>
+                <button class="option-card" data-value="pernas">
+                    <img src="https://i.ibb.co/Lz0j23MM/4.webp" alt="Pernas" class="option-outcome-img">
+                    <span>Pernas</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 8: Tipo corporal -->
+        <section class="quiz-step" data-step="8">
+            <h1 class="quiz-title">O que mais te descreve?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="dificuldade-musculos">
+                    <span class="emoji">🏋️‍♀️</span>
+                    <span>Tenho dificuldade em ganhar músculos</span>
+                </button>
+                <button class="option-card" data-value="ganho-perco-facil">
+                    <span class="emoji">⚖️</span>
+                    <span>Eu ganho e perco peso sem esforço</span>
+                </button>
+                <button class="option-card" data-value="ganho-facil-perco-dificil">
+                    <span class="emoji">😓</span>
+                    <span>Eu ganho peso facilmente, mas tenho dificuldade para perder</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 9: Melhor forma -->
+        <section class="quiz-step" data-step="9">
+            <h1 class="quiz-title">Faz quanto tempo que você se sentiu na sua melhor forma?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="0-6-meses"><span>0 a 6 meses atrás</span></button>
+                <button class="option-card" data-value="7-12-meses"><span>7 a 12 meses atrás</span></button>
+                <button class="option-card" data-value="1-3-anos"><span>1 a 3 anos atrás</span></button>
+                <button class="option-card" data-value="mais-3-anos"><span>Mais de 3 anos atrás</span></button>
+            </div>
+            <img src="https://i.ibb.co/PZ6gxFVM/71c71a60-cefe-4ccb-8f0c-6d2dc81b6c59.webp" alt="Silhueta"
+                class="step-img-large">
+        </section>
+
+        <!-- Etapa 10: Conhecimento sobre JI -->
+        <section class="quiz-step" data-step="10">
+            <h1 class="quiz-title">O que você sabe sobre o jejum intermitente?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="nada">
+                    <span class="emoji">🤔</span>
+                    <span>Não sei nada</span>
+                </button>
+                <button class="option-card" data-value="pouco">
+                    <span class="emoji">👋</span>
+                    <span>Já ouvi falar um pouco</span>
+                </button>
+                <button class="option-card" data-value="bastante">
+                    <span class="emoji">😎</span>
+                    <span>Entendo bastante</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 11: Sentir desejada -->
+        <section class="quiz-step" data-step="11">
+            <h1 class="quiz-title">Quando foi a última vez que você se sentiu desejada?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="sempre"><span>Eu me sinto desejada o tempo todo</span></button>
+                <button class="option-card" data-value="vez-quando"><span>De vez em quando, eu me sinto
+                        desejada</span></button>
+                <button class="option-card" data-value="anos-magra"><span>Já faz alguns anos, quando eu era mais
+                        magra</span></button>
+                <button class="option-card" data-value="nao-lembro"><span>Não me lembro da última vez que me senti
+                        assim</span></button>
+            </div>
+            <img src="https://i.ibb.co/LXJ0rBZX/Captura-de-tela-2025-07-23-003458.png" alt="Mulher confiante"
+                class="step-img-large">
+        </section>
+
+        <!-- Etapa 12: Interlúdio Libido -->
+        <section class="quiz-step interlude" data-step="12">
+            <h1 class="quiz-title">Aumente a sua libido: Sua perda de peso pode aumentar sua energia e bem-estar!</h1>
+
+            <p class="interlude-text">Perder até mesmo uma pequena quantidade de peso pode aumentar sua energia e
+                libido. Com o nosso plano personalizado, você não apenas se sentirá mais saudável, mas também notará uma
+                mudança positiva no seu desejo sexual.</p>
+
+            <div class="libido-chart-card">
+                <!-- Labels (Balões) -->
+                <div class="libido-tooltip libido-label-fat">Gordura corporal</div>
+                <div class="libido-tooltip libido-label-libido">Libido</div>
+
+                <svg class="libido-svg" viewBox="0 0 500 200">
+                    <defs>
+                        <!-- Gradiente da linha de gordura (amarelo → verde) -->
+                        <linearGradient id="libidoGradFat" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#b59000" />
+                            <stop offset="100%" style="stop-color:#1e8b7e" />
+                        </linearGradient>
+
+                        <!-- Área de preenchimento gordura (amarelo suave) -->
+                        <linearGradient id="libidoAreaFat" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#fff9e6; stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#e6f7f5; stop-opacity:0.3" />
+                        </linearGradient>
+
+                        <!-- Área de preenchimento libido (rosa suave) -->
+                        <linearGradient id="libidoAreaLibido" x1="0%" y1="100%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#ffe6e8; stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#ffe6e8; stop-opacity:0.8" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Grid Lines Tracejadas -->
+                    <line class="libido-grid-line" x1="0" y1="10" x2="500" y2="10" />
+                    <line class="libido-grid-line" x1="0" y1="70" x2="500" y2="70" />
+                    <line class="libido-grid-line" x1="0" y1="130" x2="500" y2="130" />
+                    <line class="libido-grid-line" x1="0" y1="190" x2="500" y2="190" />
+
+                    <!-- Área de preenchimento - Libido (rosa) -->
+                    <path fill="url(#libidoAreaLibido)" d="M 10,190 C 120,190 280,40 480,40 L 500,200 L 0,200 Z"
+                        opacity="0.6" />
+
+                    <!-- Área de preenchimento - Gordura (amarelo) -->
+                    <path fill="url(#libidoAreaFat)" d="M 10,45 C 150,45 280,195 480,195 L 500,200 L 0,200 L 0,0 Z"
+                        opacity="0.5" />
+
+                    <!-- Linha Libido (sobe - coral/rosa) -->
+                    <path class="libido-path-line libido-path-libido" d="M 10,190 C 120,190 280,40 480,40" />
+
+                    <!-- Linha Gordura (desce - amarelo→verde) -->
+                    <path class="libido-path-line libido-path-fat" d="M 10,45 C 150,45 280,195 480,195" />
+
+                    <!-- Ponto inicial - Gordura (amarelo escuro) -->
+                    <circle cx="10" cy="45" r="7" fill="#c29a00" />
+
+                    <!-- Ponto inicial - Libido (coral/laranja) -->
+                    <circle cx="10" cy="190" r="7" fill="#ff6b4a" />
+
+                    <!-- Ponto final - Libido (rosa) -->
+                    <circle class="libido-dot-outer" cx="480" cy="40" r="14" fill="#ff4d5a" opacity="0.2" />
+                    <circle class="pulse-point" cx="480" cy="40" r="7" fill="#ff4d5a" />
+
+                    <!-- Ponto final - Gordura (verde) -->
+                    <circle class="libido-dot-outer" cx="480" cy="195" r="14" fill="#1e8b7e" opacity="0.2" />
+                    <circle class="pulse-point" cx="480" cy="195" r="7" fill="#1e8b7e" />
+                </svg>
+
+                <div class="libido-axis">
+                    <span class="libido-axis-before">ANTES</span>
+                    <span class="libido-axis-after">DEPOIS</span>
+                </div>
+            </div>
+
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 13: Café da manhã -->
+        <section class="quiz-step" data-step="13">
+            <h1 class="quiz-title">Quando você costuma tomar seu café da manhã?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="6-8">
+                    <img src="https://i.ibb.co/cc5Cybt1/1.webp" alt="6-8h" class="option-outcome-img">
+                    <span>Entre 6 e 8 da manhã</span>
+                </button>
+                <button class="option-card" data-value="8-10">
+                    <img src="https://i.ibb.co/sdhP2Dzy/2.webp" alt="8-10h" class="option-outcome-img">
+                    <span>Entre 8 e 10 da manhã</span>
+                </button>
+                <button class="option-card" data-value="10-12">
+                    <img src="https://i.ibb.co/d0KPS6Q2/3.webp" alt="10-12h" class="option-outcome-img">
+                    <span>Entre 10h e meio-dia</span>
+                </button>
+                <button class="option-card" data-value="pular">
+                    <img src="https://i.ibb.co/W4JDnQYP/4.webp" alt="Pular" class="option-outcome-img">
+                    <span>Eu costumo pular o café da manhã</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 14: Almoço -->
+        <section class="quiz-step" data-step="14">
+            <h1 class="quiz-title">Quando você costuma almoçar?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="10-12">
+                    <img src="https://i.ibb.co/PvqmpgnX/1.webp" alt="10-12h" class="option-outcome-img">
+                    <span>Entre 10h e meio-dia</span>
+                </button>
+                <button class="option-card" data-value="12-14">
+                    <img src="https://i.ibb.co/JwNpCNp2/2.webp" alt="12-14h" class="option-outcome-img">
+                    <span>Entre meio-dia e 14h</span>
+                </button>
+                <button class="option-card" data-value="14-16">
+                    <img src="https://i.ibb.co/dsMwSfwD/3.webp" alt="14-16h" class="option-outcome-img">
+                    <span>Entre 14h e 16h</span>
+                </button>
+                <button class="option-card" data-value="pular">
+                    <img src="https://i.ibb.co/8DMwWTTF/4.webp" alt="Pular" class="option-outcome-img">
+                    <span>Eu costumo pular o almoço</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 15: Jantar -->
+        <section class="quiz-step" data-step="15">
+            <h1 class="quiz-title">Quando você janta?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="16-18">
+                    <img src="https://i.ibb.co/RkpxbJJ0/1.webp" alt="16-18h" class="option-outcome-img">
+                    <span>Entre 16h e 18h</span>
+                </button>
+                <button class="option-card" data-value="18-20">
+                    <img src="https://i.ibb.co/21qpdvgK/2.webp" alt="18-20h" class="option-outcome-img">
+                    <span>Entre 18h e 20h</span>
+                </button>
+                <button class="option-card" data-value="20-22">
+                    <img src="https://i.ibb.co/VhfdZJh/3.webp" alt="20-22h" class="option-outcome-img">
+                    <span>Entre 20h e 22h</span>
+                </button>
+                <button class="option-card" data-value="pular">
+                    <img src="https://i.ibb.co/8DMwWTTF/4.webp" alt="Pular" class="option-outcome-img">
+                    <span>Eu costumo pular o jantar</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 16: Restrições alimentares -->
+        <section class="quiz-step" data-step="16">
+            <h1 class="quiz-title">Você tem alguma restrição alimentar?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="sem-lactose">
+                    <span>Sem lactose</span>
+                </button>
+                <button class="option-card" data-value="sem-gluten">
+                    <span>Sem glúten</span>
+                </button>
+                <button class="option-card" data-value="vegetariano">
+                    <span>Vegetariano</span>
+                </button>
+                <button class="option-card" data-value="vegano">
+                    <span>Vegano</span>
+                </button>
+                <button class="option-card" data-value="sem-peixe">
+                    <span>Nenhum peixe</span>
+                </button>
+                <button class="option-card" data-value="nenhuma">
+                    <span class="emoji">❌</span>
+                    <span>Nenhuma das acima</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 17: Comidas favoritas (Multi-select) -->
+        <section class="quiz-step" data-step="17">
+            <h1 class="quiz-title">Escolha as comidas que você gosta</h1>
+            <p class="quiz-subtitle">Selecione todas que se aplicam</p>
+
+            <div class="food-category">
+                <h3>Vegetais</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="brocolis">🥦 Brócolis</button>
+                    <button class="food-btn" data-value="cenoura">🥕 Cenoura</button>
+                    <button class="food-btn" data-value="espinafre">🥬 Espinafre</button>
+                    <button class="food-btn" data-value="tomate">🍅 Tomate</button>
+                </div>
+            </div>
+
+            <div class="food-category">
+                <h3>Grãos e Pães</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="arroz">🍚 Arroz</button>
+                    <button class="food-btn" data-value="pao">🍞 Pão</button>
+                    <button class="food-btn" data-value="aveia">🌾 Aveia</button>
+                    <button class="food-btn" data-value="massa">🍝 Massa</button>
+                </div>
+            </div>
+
+            <div class="food-category">
+                <h3>Carnes e Ovos</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="frango">🍗 Frango</button>
+                    <button class="food-btn" data-value="carne">🥩 Carne</button>
+                    <button class="food-btn" data-value="ovos">🥚 Ovos</button>
+                    <button class="food-btn" data-value="porco">🥓 Porco</button>
+                </div>
+            </div>
+
+            <div class="food-category">
+                <h3>Peixe</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="salmao">🐟 Salmão</button>
+                    <button class="food-btn" data-value="atum">🐠 Atum</button>
+                    <button class="food-btn" data-value="tilapia">🐡 Tilápia</button>
+                    <button class="food-btn" data-value="camarao">🦐 Camarão</button>
+                </div>
+            </div>
+
+            <div class="food-category">
+                <h3>Laticínios</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="leite">🥛 Leite</button>
+                    <button class="food-btn" data-value="queijo">🧀 Queijo</button>
+                    <button class="food-btn" data-value="iogurte">🥣 Iogurte</button>
+                    <button class="food-btn" data-value="manteiga">🧈 Manteiga</button>
+                </div>
+            </div>
+
+            <div class="food-category">
+                <h3>Frutas</h3>
+                <div class="food-grid">
+                    <button class="food-btn" data-value="maca">🍎 Maçã</button>
+                    <button class="food-btn" data-value="banana">🍌 Banana</button>
+                    <button class="food-btn" data-value="laranja">🍊 Laranja</button>
+                    <button class="food-btn" data-value="morango">🍓 Morango</button>
+                </div>
+            </div>
+
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 18: Preferência de refeição -->
+        <section class="quiz-step" data-step="18">
+            <h1 class="quiz-title">Você prefere cozinhar, comer fora ou pedir comida?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="cozinhar">
+                    <span class="emoji">👩‍🍳</span>
+                    <span>Cozinhar em casa</span>
+                </button>
+                <button class="option-card" data-value="restaurante">
+                    <span class="emoji">🍽️</span>
+                    <span>Eu prefiro ir a um restaurante</span>
+                </button>
+                <button class="option-card" data-value="delivery">
+                    <span class="emoji">📦</span>
+                    <span>Gosto de pedir comida</span>
+                </button>
+                <button class="option-card" data-value="tudo">
+                    <span class="emoji">🔄</span>
+                    <span>Eu faço um pouco de tudo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 19: Pausa no fim de semana -->
+        <section class="quiz-step" data-step="19">
+            <h1 class="quiz-title">Você precisa de uma pausa no Jejum para o final de semana?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="sim">
+                    <span class="emoji">🎉</span>
+                    <span>Claro que sim!</span>
+                </button>
+                <button class="option-card" data-value="nao">
+                    <span class="emoji">💪</span>
+                    <span>Não paro nem no fim de semana!</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 20: Exercício -->
+        <section class="quiz-step" data-step="20">
+            <h1 class="quiz-title">Com que frequência você se exercita?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="nunca"><span>Quase nunca</span></button>
+                <button class="option-card" data-value="1-2"><span>1-2 vezes por semana</span></button>
+                <button class="option-card" data-value="3-4"><span>3-4 vezes por semana</span></button>
+                <button class="option-card" data-value="5+"><span>5 ou mais vezes por semana</span></button>
+            </div>
+            <img src="https://i.ibb.co/Q2g89qC/Captura-de-tela-2025-07-23-003649.png" alt="Mulher exercitando"
+                class="step-img-large">
+        </section>
+
+        <!-- Etapa 21: Apoio -->
+        <section class="quiz-step" data-step="21">
+            <h1 class="quiz-title">Sua família e amigos apoiam você para manter a forma?</h1>
+            <div class="info-box warning">
+                <span class="emoji">⚠️</span>
+                <p>68% das pessoas que tentam perder peso não têm apoio da família e amigos.</p>
+            </div>
+            <div class="options-list">
+                <button class="option-card" data-value="sim"><span>Sim, sempre me apoiam</span></button>
+                <button class="option-card" data-value="as-vezes"><span>Às vezes</span></button>
+                <button class="option-card" data-value="nao"><span>Não, não tenho apoio</span></button>
+            </div>
+        </section>
+
+        <!-- Etapa 22: Rotina de trabalho -->
+        <section class="quiz-step" data-step="22">
+            <h1 class="quiz-title">Como é a sua rotina de trabalho?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="comercial">
+                    <span class="emoji">🏢</span>
+                    <span>Horário comercial</span>
+                </button>
+                <button class="option-card" data-value="noturno">
+                    <span class="emoji">🌙</span>
+                    <span>Turnos noturnos</span>
+                </button>
+                <button class="option-card" data-value="flexivel">
+                    <span class="emoji">🏠</span>
+                    <span>Meu horário é flexível</span>
+                </button>
+                <button class="option-card" data-value="aposentada">
+                    <span class="emoji">🌴</span>
+                    <span>Estou aposentada</span>
+                </button>
+            </div>
+            <img src="https://i.ibb.co/xtbJmxgG/Captura-de-tela-2025-07-23-003858.png" alt="Rotina trabalho"
+                class="step-img-large">
+        </section>
+
+        <!-- Etapa 23: Dia a dia -->
+        <section class="quiz-step" data-step="23">
+            <h1 class="quiz-title">Como você descreve o seu dia a dia?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="sentado">
+                    <span class="emoji">🪑</span>
+                    <span>Eu passo a maior parte do dia sentado</span>
+                </button>
+                <button class="option-card" data-value="misto">
+                    <span class="emoji">🚶‍♀️</span>
+                    <span>Um pouco sentado e um pouco caminhando</span>
+                </button>
+                <button class="option-card" data-value="pe">
+                    <span class="emoji">🧍‍♀️</span>
+                    <span>Fico em pé o dia todo</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Interlúdio 3: Carreira -->
+        <section class="quiz-step interlude" data-step="24">
+            <h1 class="quiz-title">Dinheiro e peso: um impacto inesperado na sua carreira</h1>
+            <img src="https://i.ibb.co/Z1NDFSgL/980e0f99-2a77-47d0-bab1-e13de8afe2ce.webp" alt="Carreira e peso"
+                class="step-img-large">
+            <p class="interlude-text">Mulheres com sobrepeso frequentemente ganham menos do que aquelas com peso
+                saudável. Nosso plano pode te ajudar a atingir um peso mais saudável, aumentando sua energia e confiança
+                para alcançar seus objetivos profissionais.</p>
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 25: Fôlego -->
+        <section class="quiz-step" data-step="25">
+            <h1 class="quiz-title">Você fica sem fôlego depois de subir um lance de escadas?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="sempre">
+                    <span class="emoji">😮‍💨</span>
+                    <span>Sim, sempre</span>
+                </button>
+                <button class="option-card" data-value="as-vezes">
+                    <span class="emoji">😤</span>
+                    <span>Às vezes</span>
+                </button>
+                <button class="option-card" data-value="raramente">
+                    <span class="emoji">😊</span>
+                    <span>Raramente</span>
+                </button>
+                <button class="option-card" data-value="nunca">
+                    <span class="emoji">💪</span>
+                    <span>Nunca</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 26: Caminhada -->
+        <section class="quiz-step" data-step="26">
+            <h1 class="quiz-title">Com que frequência você sai para caminhar?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="nunca"><span>Quase nunca</span></button>
+                <button class="option-card" data-value="1-2"><span>1-2 vezes por semana</span></button>
+                <button class="option-card" data-value="3-4"><span>3-4 vezes por semana</span></button>
+                <button class="option-card" data-value="todos-dias"><span>Todos os dias</span></button>
+            </div>
+        </section>
+
+        <!-- Etapa 27: Sono -->
+        <section class="quiz-step" data-step="27">
+            <h1 class="quiz-title">Quantas horas você costuma dormir?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="menos-5">
+                    <span class="emoji">😴</span>
+                    <span>Menos de 5 horas</span>
+                </button>
+                <button class="option-card" data-value="5-6">
+                    <span class="emoji">🛏️</span>
+                    <span>5-6 horas</span>
+                </button>
+                <button class="option-card" data-value="7-8">
+                    <span class="emoji">😊</span>
+                    <span>7-8 horas</span>
+                </button>
+                <button class="option-card" data-value="mais-8">
+                    <span class="emoji">😴💤</span>
+                    <span>Mais de 8 horas</span>
+                </button>
+            </div>
+            <img src="https://i.ibb.co/JjbBMFHW/Captura-de-tela-2025-07-23-004104.png" alt="Sono"
+                class="step-img-large">
+        </section>
+
+        <!-- Etapa 28: Água -->
+        <section class="quiz-step" data-step="28">
+            <h1 class="quiz-title">Qual é a sua ingestão diária de água?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="menos-1L">
+                    <span class="emoji">💧</span>
+                    <span>Menos de 1 litro</span>
+                </button>
+                <button class="option-card" data-value="1-2L">
+                    <span class="emoji">💧💧</span>
+                    <span>1-2 litros</span>
+                </button>
+                <button class="option-card" data-value="2-3L">
+                    <span class="emoji">💧💧💧</span>
+                    <span>2-3 litros</span>
+                </button>
+                <button class="option-card" data-value="mais-3L">
+                    <span class="emoji">🌊</span>
+                    <span>Mais de 3 litros</span>
+                </button>
+            </div>
+            <img src="https://i.ibb.co/ZrkfFQL/Captura-de-tela-2025-07-23-004143.png" alt="Água" class="step-img-large">
+        </section>
+
+        <!-- Etapa 29: Problemas físicos -->
+        <section class="quiz-step" data-step="29" data-multiple="true">
+            <h1 class="quiz-title">Você tem algum desses problemas?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="joelhos">
+                    <img src="https://i.ibb.co/sdCv4nSp/1.webp" alt="Joelhos" class="option-outcome-img">
+                    <span>Problemas nos joelhos</span>
+                </button>
+                <button class="option-card" data-value="costas">
+                    <img src="https://i.ibb.co/Xr9V2Qvj/2.webp" alt="Costas" class="option-outcome-img">
+                    <span>Dores nas costas</span>
+                </button>
+                <button class="option-card" data-value="nenhum">
+                    <img src="https://i.ibb.co/nsKWRNbW/3.webp" alt="Nenhum" class="option-outcome-img">
+                    <span>Nenhum dos acima</span>
+                </button>
+            </div>
+            <button class="continue-btn" disabled>Continuar</button>
+        </section>
+
+        <!-- Etapa 30: Vícios alimentares -->
+        <section class="quiz-step" data-step="30" data-multiple="true">
+            <h1 class="quiz-title">Algum desses hábitos pode estar atrapalhando sua vida?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="comer-tarde">
+                    <span class="emoji">🌙</span>
+                    <span>Comer tarde da noite</span>
+                </button>
+                <button class="option-card" data-value="doces">
+                    <span class="emoji">🍬</span>
+                    <span>Comer muitos doces</span>
+                </button>
+                <button class="option-card" data-value="refrigerantes">
+                    <span class="emoji">🥤</span>
+                    <span>Tomar refrigerantes</span>
+                </button>
+                <button class="option-card" data-value="gordurosos">
+                    <span class="emoji">🍟</span>
+                    <span>Alimentos gordurosos</span>
+                </button>
+                <button class="option-card" data-value="nenhum">
+                    <span class="emoji">✅</span>
+                    <span>Nenhum dos acima</span>
+                </button>
+            </div>
+            <button class="continue-btn" disabled>Continuar</button>
+        </section>
+
+        <!-- Etapa 31: Causa do ganho de peso -->
+        <section class="quiz-step" data-step="31" data-multiple="true">
+            <h1 class="quiz-title">Algum desses acontecimentos fez você ganhar peso nos últimos anos?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="casamento"><span>Casamento</span></button>
+                <button class="option-card" data-value="rotina"><span>Rotina corrida</span></button>
+                <button class="option-card" data-value="financeiro"><span>Dificuldades financeiras</span></button>
+                <button class="option-card" data-value="lesao"><span>Lesão</span></button>
+                <button class="option-card" data-value="estresse"><span>Estresse</span></button>
+                <button class="option-card" data-value="metabolismo"><span>Metabolismo lento</span></button>
+                <button class="option-card" data-value="tratamentos"><span>Complicações pós-tratamentos</span></button>
+            </div>
+            <button class="continue-btn" disabled>Continuar</button>
+        </section>
+
+        <!-- Etapa 32: Motivação -->
+        <section class="quiz-step" data-step="32">
+            <h1 class="quiz-title">Quão motivado você está para perder peso?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="curiosidade">
+                    <span class="emoji">🤷‍♀️</span>
+                    <span>Estou tentando apenas por curiosidade</span>
+                </button>
+                <button class="option-card" data-value="determinado">
+                    <span class="emoji">💫</span>
+                    <span>Estou determinado a diminuir um ou dois tamanhos</span>
+                </button>
+                <button class="option-card" data-value="total">
+                    <span class="emoji">🔥</span>
+                    <span>Eu não vou parar até atingir meu peso ideal</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 33: Altura -->
+        <section class="quiz-step metric-step" data-step="33">
+            <h1 class="quiz-title">Qual é a sua altura?</h1>
+            <div class="metric-input-container">
+                <input type="number" id="heightInput" class="metric-input" placeholder="Ex: 170" min="100" max="250">
+                <span class="metric-unit">cm</span>
+            </div>
+            <button class="continue-btn" id="heightContinue">Continuar</button>
+        </section>
+
+        <!-- Etapa 34: Peso atual -->
+        <section class="quiz-step metric-step" data-step="34">
+            <h1 class="quiz-title">Qual é o seu peso atual?</h1>
+            <div class="metric-input-container">
+                <input type="number" id="currentWeightInput" class="metric-input" placeholder="Ex: 70" min="30"
+                    max="300">
+                <span class="metric-unit">kg</span>
+            </div>
+            <button class="continue-btn" id="weightContinue">Continuar</button>
+        </section>
+
+        <!-- Etapa 35: Peso desejado -->
+        <section class="quiz-step metric-step" data-step="35">
+            <h1 class="quiz-title">Qual é o seu peso desejado?</h1>
+            <div class="metric-input-container">
+                <input type="number" id="targetWeightInput" class="metric-input" placeholder="Ex: 60" min="30"
+                    max="200">
+                <span class="metric-unit">kg</span>
+            </div>
+            <div class="bmi-result" id="bmiResult"></div>
+            <button class="continue-btn" id="targetContinue">Continuar</button>
+        </section>
+
+        <!-- Etapa 36: Idade -->
+        <section class="quiz-step metric-step" data-step="36">
+            <h1 class="quiz-title">Qual é a sua idade?</h1>
+            <div class="metric-input-container">
+                <input type="number" id="ageInput" class="metric-input" placeholder="Ex: 35" min="18" max="100">
+                <span class="metric-unit">anos</span>
+            </div>
+            <button class="continue-btn" id="ageContinue">Continuar</button>
+        </section>
+
+        <!-- Etapa 37: Evento importante -->
+        <section class="quiz-step" data-step="37">
+            <h1 class="quiz-title">Você tem algum evento importante chegando?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="ferias">
+                    <span class="emoji">🏖️</span>
+                    <span>Férias</span>
+                </button>
+                <button class="option-card" data-value="casamento">
+                    <span class="emoji">💒</span>
+                    <span>Casamento</span>
+                </button>
+                <button class="option-card" data-value="feriado">
+                    <span class="emoji">🎄</span>
+                    <span>Feriado</span>
+                </button>
+                <button class="option-card" data-value="esportivo">
+                    <span class="emoji">🏃‍♀️</span>
+                    <span>Evento esportivo</span>
+                </button>
+                <button class="option-card" data-value="amigos">
+                    <span class="emoji">👯‍♀️</span>
+                    <span>Encontro de amigos</span>
+                </button>
+                <button class="option-card" data-value="aniversario">
+                    <span class="emoji">🎂</span>
+                    <span>Aniversário</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Etapa 38: Resumo de Condicionamento -->
+        <section class="quiz-step summary-page" data-step="38">
+            <div class="summary-header">
+                <h1 class="summary-title">Resumo do seu nível de condicionamento físico</h1>
+            </div>
+
+            <!-- BMI Gauge Section -->
+            <div class="bmi-gauge-section">
+                <h2 class="bmi-label">Índice de massa corporal (IMC)</h2>
+                <p class="bmi-range">Normal - entre 18,5 e 25</p>
+
+                <!-- Gradient Bar + Dynamic Arrow -->
+                <div class="bmi-scale-container">
+                    <!-- Dynamic Arrow -->
+                    <div class="bmi-arrow" id="bmiArrowNew">
+                        <div class="arrow-label" id="bmiArrowLabel">Você está aqui</div>
+                        <div class="arrow-pointer">▼</div>
+                    </div>
+
+                    <!-- Gradient Bar -->
+                    <div class="bmi-gradient-bar"></div>
+
+                    <!-- Scale Labels -->
+                    <div class="bmi-scale-labels">
+                        <span class="scale-mark" style="left: 20%">18.5</span>
+                        <span class="scale-mark" style="left: 40%">25</span>
+                        <span class="scale-mark" style="left: 60%">30</span>
+                        <span class="scale-mark" style="left: 80%">35</span>
+                    </div>
+                </div>
+
+                <!-- Silhouettes Display -->
+                <div class="bmi-silhouettes">
+                    <img src="bmi-silhouettes.png" alt="Classificação IMC - Silhuetas femininas"
+                        class="silhouettes-img">
+                </div>
+
+                <p class="bmi-caption">Índice de massa corporal (IMC) baseado nos dados fornecidos</p>
+            </div>
+
+            <!-- Attributes List -->
+            <div class="attributes-list">
+                <div class="attribute-item">
+                    <span class="attribute-icon">🏠</span>
+                    <span class="attribute-text"><strong>Estilo de vida:</strong> Busca Mudanças</span>
+                </div>
+                <div class="attribute-item">
+                    <span class="attribute-icon">🏋️</span>
+                    <span class="attribute-text"><strong>Nível de Exercício:</strong> Exercício leve</span>
+                </div>
+                <div class="attribute-item">
+                    <span class="attribute-icon">⚡</span>
+                    <span class="attribute-text"><strong>Nível de atividade:</strong> Intermediário</span>
+                </div>
+            </div>
+
+            <!-- Continue Button -->
+            <button class="continue-btn summary-cta">Continuar</button>
+
+            <!-- Warning Box -->
+            <div class="warning-box-urgent">
+                <h3 class="warning-title">⚠️ Sua situação é preocupante!</h3>
+                <p class="warning-text">Parabéns por dar o primeiro passo. Vamos criar um plano personalizado para
+                    acelerar seu metabolismo, aumentar sua força e melhorar sua saúde.</p>
+            </div>
+        </section>
+
+        <!-- Etapa 39: Gráfico de Progresso -->
+        <section class="quiz-step progress-chart-page" data-step="39">
+            <div class="progress-chart-header">
+                <h1 class="quiz-title">O único plano que você precisa para entrar em forma</h1>
+                <p class="progress-chart-subtitle">De acordo com as informações que você nos forneceu, você pode atingir
+                    o seu peso ideal:</p>
+            </div>
+
+            <div class="weight-chart-wrapper animated-chart">
+                <div class="chart-reveal-mask"></div>
+                <svg viewBox="0 0 480 300" class="weight-chart-svg">
+                    <defs>
+                        <linearGradient id="premiumFillPreview" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#f72a2a" stop-opacity="0.4"></stop>
+                            <stop offset="50%" stop-color="#ffd900" stop-opacity="0.2"></stop>
+                            <stop offset="100%" stop-color="#20ec31" stop-opacity="0.1"></stop>
+                        </linearGradient>
+                        <linearGradient id="premiumStrokePreview" x1="0" y1="0" x2="1" y2="0">
+                            <stop offset="0%" stop-color="#f72a2a"></stop>
+                            <stop offset="50%" stop-color="#ffd900"></stop>
+                            <stop offset="100%" stop-color="#20ec31"></stop>
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Title -->
+                    <text x="30" y="25" fill="#1e293b" font-size="18" font-weight="800"
+                        font-family="Montserrat, sans-serif">KG em 4 semanas</text>
+
+                    <!-- Area fill -->
+                    <path fill="url(#premiumFillPreview)"
+                        d="M40,60 C80,110 130,135 170,135 S250,145 310,155 S380,240 440,255 L440,270 L40,270 Z" />
+
+                    <!-- Line stroke -->
+                    <path stroke="url(#premiumStrokePreview)" stroke-width="6" fill="none" stroke-linecap="round"
+                        d="M40,60 C80,110 130,135 170,135 S250,145 310,155 S380,240 440,255" />
+
+                    <!-- Dots -->
+                    <circle cx="40" cy="60" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+                    <circle cx="170" cy="135" r="8" fill="white" stroke="#00a36a" stroke-width="4"></circle>
+                    <circle cx="310" cy="155" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+                    <circle cx="440" cy="255" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+
+                    <!-- Labels -->
+                    <g font-family="Montserrat, sans-serif">
+                        <!-- Badge "Você" -->
+                        <rect x="25" y="25" rx="10" ry="10" width="40" height="20" fill="#F4F4F4"></rect>
+                        <text x="45" y="39" fill="#666" font-size="11" font-weight="bold"
+                            text-anchor="middle">Você</text>
+
+                        <!-- "Perdendo peso" -->
+                        <rect x="120" y="95" rx="10" ry="10" width="100" height="22" fill="#00a36a"></rect>
+                        <text x="170" y="110" fill="#FFFFFF" font-size="11" font-weight="bold"
+                            text-anchor="middle">Perdendo peso</text>
+
+                        <!-- "Evolução" -->
+                        <rect x="275" y="115" rx="10" ry="10" width="70" height="20" fill="#F4F4F4"></rect>
+                        <text x="310" y="129" fill="#666" font-size="11" font-weight="bold"
+                            text-anchor="middle">Evolução</text>
+
+                        <!-- "Objetivo" -->
+                        <rect x="405" y="215" rx="10" ry="10" width="70" height="20" fill="#F4F4F4"></rect>
+                        <text x="440" y="229" fill="#666" font-size="11" font-weight="bold"
+                            text-anchor="middle">Objetivo</text>
+                    </g>
+
+                    <!-- Timeline -->
+                    <line x1="40" y1="270" x2="440" y2="270" stroke="#E2E2E2" stroke-width="2" />
+                    <g font-size="12" fill="#94a3b8" font-weight="600" font-family="Montserrat, sans-serif">
+                        <text x="40" y="285" text-anchor="middle">Hoje</text>
+                        <text x="170" y="285" text-anchor="middle">1ª semana</text>
+                        <text x="310" y="285" text-anchor="middle">2ª semana</text>
+                        <text x="440" y="285" text-anchor="middle">4ª semana</text>
+                    </g>
+                </svg>
+            </div>
+
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 40: Tela de Carregamento -->
+        <section class="quiz-step loading-screen" data-step="40">
+            <div class="loading-container">
+                <h2 class="loading-title">Preparando seu plano personalizado...</h2>
+
+                <div class="loading-progress-wrapper">
+                    <div class="loading-progress-bar">
+                        <div class="loading-progress-fill" id="loadingProgressBar"></div>
+                    </div>
+                    <span class="loading-percentage" id="loadingPercentage">0%</span>
+                </div>
+
+                <p class="loading-status" id="loadingStatus">Analisando seu perfil metabólico...</p>
+            </div>
+
+            <!-- Prova Social -->
+            <div class="loading-social-proof">
+                <h3 class="social-proof-title">+45 mil pessoas nos escolheram, veja o que eles falaram sobre nós...</h3>
+
+                <div class="testimonial-card-loading">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <img src="https://i.ibb.co/v6CNPFgX/01-A3-C2-B7-3-B1-C-416-F-A61-F-B2-E7-E245-B73-A.webp"
+                                alt="Rogéria Cardoso" class="avatar-img">
+                        </div>
+                        <div class="testimonial-info">
+                            <span class="testimonial-name">Rogéria Cardoso</span>
+                            <div class="testimonial-stars">
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                                <span class="star">★</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="testimonial-content">"Fiquei realmente surpresa com esse plano, não imaginei que iria
+                        fazer tanta diferença! Finalmente consegui sair dos 68kg e voltar para os meus 60kg... O
+                        planejamento das refeições me ajudou demais. gratidão!!"</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Etapa 41: Plano Pronto com Gráfico -->
+        <section class="quiz-step plan-ready-page" data-step="41">
+            <h1 class="quiz-title">O seu Plano Personalizado de Jejum está pronto!</h1>
+
+            <div class="weight-loss-chart">
+                <div class="chart-title">KG em 4 semanas</div>
+                <div class="chart-container-svg">
+                    <svg viewBox="0 0 400 280" class="weight-chart-final">
+                        <defs>
+                            <linearGradient id="weightGradient" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#f44336"></stop>
+                                <stop offset="35%" stop-color="#ff9800"></stop>
+                                <stop offset="65%" stop-color="#ffeb3b"></stop>
+                                <stop offset="100%" stop-color="#4CAF50"></stop>
+                            </linearGradient>
+                            <linearGradient id="weightFill" x1="0" y1="0" x2="1" y2="0">
+                                <stop offset="0%" stop-color="#f44336" stop-opacity="0.3"></stop>
+                                <stop offset="35%" stop-color="#ff9800" stop-opacity="0.2"></stop>
+                                <stop offset="65%" stop-color="#ffeb3b" stop-opacity="0.15"></stop>
+                                <stop offset="100%" stop-color="#4CAF50" stop-opacity="0.1"></stop>
+                            </linearGradient>
+                        </defs>
+
+                        <!-- "Você" label -->
+                        <g transform="translate(15, 20)">
+                            <rect x="0" y="0" rx="10" ry="10" width="60" height="28" fill="#f5f5f5" stroke="#e0e0e0"
+                                stroke-width="1"></rect>
+                            <text x="30" y="19" fill="#666" font-size="14" font-weight="600" text-anchor="middle"
+                                font-family="Montserrat, sans-serif">Você</text>
+                        </g>
+
+                        <!-- Start point -->
+                        <circle cx="30" cy="55" r="8" fill="#ff9800" stroke="white" stroke-width="3"></circle>
+
+                        <!-- Area fill -->
+                        <path fill="url(#weightFill)" d="M30,55 L370,180 L370,220 L30,220 Z"></path>
+
+                        <!-- Line -->
+                        <line x1="30" y1="55" x2="370" y2="180" stroke="url(#weightGradient)" stroke-width="4"
+                            stroke-linecap="round"></line>
+
+                        <!-- "4 semanas depois" label -->
+                        <g transform="translate(240, 135)">
+                            <rect x="0" y="0" rx="12" ry="12" width="150" height="30" fill="#f5f5f5" stroke="#e0e0e0"
+                                stroke-width="1"></rect>
+                            <text x="75" y="20" fill="#666" font-size="13" font-weight="600" text-anchor="middle"
+                                font-family="Montserrat, sans-serif">4 semanas depois</text>
+                        </g>
+
+                        <!-- End point -->
+                        <circle class="pulse-point" cx="370" cy="180" r="8" fill="#4CAF50" stroke="white"
+                            stroke-width="3"></circle>
+
+                        <!-- X-axis labels -->
+                        <text x="20" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="start"
+                            font-family="Montserrat, sans-serif">Seu peso</text>
+                        <text x="380" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="end"
+                            font-family="Montserrat, sans-serif">Objetivo</text>
+                    </svg>
+                </div>
+            </div>
+
+            <button class="continue-btn">Continuar</button>
+        </section>
+
+        <!-- Etapa 42: Página de Resultados e Oferta -->
+        <section class="quiz-step results-page" data-step="42">
+            <!-- Chamada Principal -->
+            <div class="results-cta-section">
+                <h2 class="results-main-title">Você está pronta para <span class="highlight-word">transformar</span> seu
+                    <span class="highlight-word">corpo</span> e sua <span class="highlight-word">saúde?</span>
+                </h2>
+                <p class="results-subtitle">Baseado em suas respostas, montamos um <span
+                        class="highlight-underline">plano personalizado</span> para você atingir
+                    o seu peso ideal em até <strong>4 semanas</strong>.</p>
+            </div>
+
+            <!-- Seção Comparativa de Metabolismo -->
+            <div class="metabolism-comparison" style="display: block; text-align: center;">
+                <a href="https://ibb.co/zWbnvwCW">
+                    <img src="https://i.ibb.co/cKtgndRK/unnamed-46.jpg" alt="unnamed (46)" border="0"
+                        style="width: 100%; max-width: 600px; height: auto;">
+                </a>
+            </div>
+
+            <!-- Box de Escassez e Urgência -->
+            <div class="urgency-box">
+                <p>⚠️ Se você deixar para depois... <strong>Não terá essa oportunidade novamente!</strong></p>
+            </div>
+
+            <!-- Pricing Section -->
+            <div class="pricing-section">
+                <div class="pricing-card">
+                    <div class="price-badge">OFERTA ESPECIAL</div>
+                    <div class="price-options">
+                        <p class="full-price">Pagamento único <strong>US$ 9,90</strong></p>
+                        <p class="currency-notice">*O preço será convertido para sua moeda local na página de pagamento
+                        </p>
+                    </div>
+                    <button class="cta-btn pulse-btn">RECEBER MEU PLANO</button>
+                    <div class="security-badge-container">
+                        <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp"
+                            alt="Compra Segura" class="security-badge-img">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Seção de Introdução do Plano (Sem borda) -->
+            <div class="plan-intro">
+                <h2 class="plan-intro-title">Como funciona o Plano?</h2>
+                <p class="plan-intro-text">Com base nas suas informações pessoais e objetivos, criamos um plano de jejum
+                    100% personalizado para você. Nossa abordagem estratégica foi feita para que você consiga
+                    potencializar sua perda de peso em 4 semanas, respeitando seu estilo de vida, sua rotina e o que
+                    você gosta de comer.</p>
+                <p class="plan-intro-subtitle"><strong>Seu plano inclui:</strong></p>
+            </div>
+
+            <!-- Benefícios do Plano (Com borda e texto menor) -->
+            <div class="benefits-section small-text">
+
+                <!-- Item removido pois agora faz parte da intro conceitual ou renomeado -->
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Como fazer o Jejum do Jeito Certo:</h4>
+                        <p>Baseado nas pesquisas mais recentes de universidades famosas como Harvard, desenvolvemos o
+                            Protocolo Seca Jejum, a forma mais eficaz e segura de fazer o Jejum intermitente para perder
+                            peso sem que você perca músculos ou sinta muita fome.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Potencialize a Queima de Gordura:</h4>
+                        <p>Saiba exatamente o que comer quando acabar de fazer o jejum, para acelerar a queima de
+                            gordura e te manter com saciedade por mais tempo.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Como Parecer outra Pessoa na Frente do Espelho em 7 Dias:</h4>
+                        <p>Aprenda o jeito mais fácil de desinchar e ver grandes resultados no espelho em menos de 7
+                            dias.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Protocolo Anti-Efeito Sanfona:</h4>
+                        <p>Descubra como manter o peso perdido e nunca mais voltar a engordar, mesmo depois de atingir
+                            seu objetivo.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Descubra como acelerar o seu metabolismo e perder peso sem fazer nada:</h4>
+                        <p>Aprenda as principais estratégias para acelerar o seu metabolismo e queimar gordura mesmo que
+                            você não faça nada.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Definição de metas diárias:</h4>
+                        <p>Para você se manter no caminho certo.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Protocolo Anti-procrastinação:</h4>
+                        <p>Descubra o segredo dos maiores líderes para se manter sempre motivado.</p>
+                    </div>
+                </div>
+
+                <div class="benefit-item">
+                    <div class="benefit-icon">✅</div>
+                    <div class="benefit-content">
+                        <h4>Planilha de acompanhamento:</h4>
+                        <p>Saiba exatamente quanto você está evoluindo.</p>
+                    </div>
+                </div>
+
+                <button class="cta-btn pulse-btn large">RECEBER O MEU PLANO</button>
+                <div class="security-badge-container">
+                    <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp" alt="Compra Segura"
+                        class="security-badge-img">
+                </div>
+            </div>
+
+            <!-- Prova Social - Histórias de Sucesso -->
+            <div class="success-stories-section">
+                <h2 class="section-title">Veja as histórias de sucesso das nossas alunas</h2>
+
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <a href="https://ibb.co/hF0V9r7M"><img src="https://i.ibb.co/pjqdwN0P/unnamed-49.webp"
+                                alt="História de Sucesso 1" border="0"></a>
+                    </div>
+                    <div class="story-card">
+                        <a href="https://ibb.co/Y4DLwL2Y"><img src="https://i.ibb.co/hxXmwmsh/unnamed-50.webp"
+                                alt="História de Sucesso 2" border="0"></a>
+                    </div>
+                    <div class="story-card">
+                        <a href="https://ibb.co/j9KVdb9X"><img src="https://i.ibb.co/GfwsXnfS/unnamed-48.webp"
+                                alt="História de Sucesso 3" border="0"></a>
+                    </div>
+                    <div class="story-card">
+                        <a href="https://ibb.co/BKC5nQV3"><img src="https://i.ibb.co/gFRL4fM9/unnamed-51.webp"
+                                alt="História de Sucesso 4" border="0"></a>
+                    </div>
+                </div>
+
+                <div class="results-badge">
+                    <h3>Quem Usa <br><strong>TEM RESULTADO</strong> 😉👇</h3>
+                </div>
+
+                <div class="results-gallery">
+                    <div class="result-item">
+                        <a href="https://ibb.co/BHFNSwx3"><img src="https://i.ibb.co/Ps0Qftnj/unnamed-52.webp"
+                                alt="Resultado 1" border="0"></a>
+                    </div>
+                    <div class="result-item">
+                        <a href="https://ibb.co/JR0tjCbn"><img src="https://i.ibb.co/qMXjYx4B/unnamed-53.webp"
+                                alt="Resultado 2" border="0"></a>
+                    </div>
+                    <div class="result-item">
+                        <a href="https://ibb.co/fzQ9Rtcp"><img src="https://i.ibb.co/q3xCG9Zs/unnamed-55.webp"
+                                alt="Resultado 3" border="0"></a>
+                    </div>
+                    <div class="result-item">
+                        <a href="https://ibb.co/zTXNkG4f"><img src="https://i.ibb.co/rRxvW4wy/unnamed-54.webp"
+                                alt="Resultado 4" border="0"></a>
+                    </div>
+                    <div class="result-item">
+                        <a href="https://ibb.co/BKTshsR0"><img src="https://i.ibb.co/bRNd4dnc/unnamed-56.webp"
+                                alt="Resultado 5" border="0"></a>
+                    </div>
+                </div>
+
+                <button class="cta-btn pulse-btn large">RECEBER O MEU PLANO</button>
+                <div class="security-badge-container">
+                    <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp" alt="Compra Segura"
+                        class="security-badge-img">
+                </div>
+            </div>
+
+            <!-- Garantia -->
+            <div class="guarantee-section">
+                <div class="guarantee-card">
+                    <div class="guarantee-icon">
+                        <img src="https://i.ibb.co/Lz6MSrLj/unnamed-1-2.png" alt="Selo de Garantia" border="0"
+                            style="max-width: 150px; height: auto; border-radius: 50%;">
+                    </div>
+                    <h3 class="guarantee-title">Garantia de reembolso</h3>
+                    <p class="guarantee-text">A compra deste material é totalmente <strong>sem risco</strong> para você.
+                    </p>
+                    <p class="guarantee-text">Se ele não atender às suas expectativas nos primeiros <strong>30
+                            dias</strong> após a compra, nós reembolsaremos todo o valor que você pagou, <strong>sem
+                            fazer perguntas</strong>.</p>
+                </div>
+            </div>
+
+            <!-- FAQ Section -->
+            <div class="faq-section">
+                <h2 class="faq-title">Perguntas Frequentes</h2>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Como funciona o plano?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Nosso plano é 100% personalizado de acordo com suas respostas. Você receberá um guia completo
+                            de jejum intermitente adaptado ao seu estilo de vida, com horários ideais para suas
+                            refeições e dicas práticas para acelerar seu metabolismo.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>O plano tem garantia?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Sim! Oferecemos garantia incondicional de 7 dias. Se você não ficar satisfeita com o plano,
+                            devolvemos 100% do seu dinheiro, sem perguntas.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Preciso fazer exercícios?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Não é obrigatório! O jejum intermitente funciona mesmo sem exercícios intensos. Porém,
+                            caminhadas leves podem potencializar seus resultados.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Vou passar fome?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Não! O plano é feito para que você se alimente bem nos horários certos. Com as dicas que
+                            fornecemos, seu corpo vai se adaptar naturalmente e você não sentirá fome excessiva.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Quando recebo o plano?</span>
+                        <span class="faq-icon">+</span>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Imediatamente após a confirmação do pagamento! Você receberá acesso instantâneo ao seu plano
+                            personalizado por e-mail.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="final-cta">
+                <button class="cta-btn large pulse-btn">RECEBER MEU PLANO AGORA</button>
+                <div class="security-badge-container">
+                    <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp" alt="Compra Segura"
+                        class="security-badge-img">
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Sticky Warning Footer (só aparece na primeira etapa) -->
+    <footer class="sticky-warning" id="stickyWarning">
+        <div class="warning-content">
+            <span class="emoji">⚠️</span>
+            <p><strong>Atenção:</strong> Este teste é único e exclusivo para o seu perfil. Você só pode gerar 1 plano
+                personalizado. Se sair agora, perderá o acesso.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
