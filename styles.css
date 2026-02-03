@@ -172,8 +172,6 @@ input {
 .quiz-step {
     display: none;
     animation: fadeIn var(--transition-base);
-    position: relative;
-    z-index: 1;
 }
 
 .quiz-step.active {
@@ -230,9 +228,6 @@ input {
     text-align: left;
     transition: var(--transition-fast);
     width: 100%;
-    cursor: pointer;
-    touch-action: manipulation;
-    -webkit-tap-highlight-color: transparent;
 }
 
 .option-card:hover {

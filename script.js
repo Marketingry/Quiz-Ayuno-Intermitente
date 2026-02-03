@@ -23,40 +23,35 @@ const quizState = {
 // DOM ELEMENTS
 // ============================================
 
-let elements = {};
+const elements = {
+    progressBar: document.getElementById('progressBar'),
+    backBtn: document.getElementById('backBtn'),
+    stickyWarning: document.getElementById('stickyWarning'),
+    steps: document.querySelectorAll('.quiz-step'),
+    optionCards: document.querySelectorAll('.option-card'),
+    foodBtns: document.querySelectorAll('.food-btn'),
+    continueBtns: document.querySelectorAll('.continue-btn'),
+    faqItems: document.querySelectorAll('.faq-item'),
 
-function setupDOM() {
-    elements = {
-        progressBar: document.getElementById('progressBar'),
-        backBtn: document.getElementById('backBtn'),
-        stickyWarning: document.getElementById('stickyWarning'),
-        steps: document.querySelectorAll('.quiz-step'),
-        optionCards: document.querySelectorAll('.option-card'),
-        foodBtns: document.querySelectorAll('.food-btn'),
-        continueBtns: document.querySelectorAll('.continue-btn'),
-        faqItems: document.querySelectorAll('.faq-item'),
+    // Metric inputs
+    heightInput: document.getElementById('heightInput'),
+    currentWeightInput: document.getElementById('currentWeightInput'),
+    targetWeightInput: document.getElementById('targetWeightInput'),
+    ageInput: document.getElementById('ageInput'),
+    bmiResult: document.getElementById('bmiResult'),
 
-        // Metric inputs
-        heightInput: document.getElementById('heightInput'),
-        currentWeightInput: document.getElementById('currentWeightInput'),
-        targetWeightInput: document.getElementById('targetWeightInput'),
-        ageInput: document.getElementById('ageInput'),
-        bmiResult: document.getElementById('bmiResult'),
-
-        // Continue buttons for metrics
-        heightContinue: document.getElementById('heightContinue'),
-        weightContinue: document.getElementById('weightContinue'),
-        targetContinue: document.getElementById('targetContinue'),
-        ageContinue: document.getElementById('ageContinue')
-    };
-}
+    // Continue buttons for metrics
+    heightContinue: document.getElementById('heightContinue'),
+    weightContinue: document.getElementById('weightContinue'),
+    targetContinue: document.getElementById('targetContinue'),
+    ageContinue: document.getElementById('ageContinue')
+};
 
 // ============================================
 // INITIALIZATION
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
-    setupDOM();
     initQuiz();
     setupEventListeners();
 });
@@ -73,48 +68,30 @@ function initQuiz() {
 
 function setupEventListeners() {
     // Back button
-    if (elements.backBtn) {
-        elements.backBtn.addEventListener('click', goToPreviousStep);
-    }
+    elements.backBtn.addEventListener('click', goToPreviousStep);
 
-    // Event Delegation for Quiz Container (Handles Option Cards & Food Buttons)
-    const quizContainer = document.querySelector('.quiz-container');
-    if (quizContainer) {
-        quizContainer.addEventListener('click', (e) => {
-            // Handle Option Card Clicks
-            const card = e.target.closest('.option-card');
-            if (card) {
-                handleOptionSelectDelegated(card);
-                return;
-            }
+    // Option cards (single select - auto advance)
+    elements.optionCards.forEach(card => {
+        card.addEventListener('click', handleOptionSelect);
+    });
 
-            // Handle Food Button Clicks
-            const foodBtn = e.target.closest('.food-btn');
-            if (foodBtn) {
-                handleFoodSelectDelegated(foodBtn);
-                return;
-            }
-        });
-    }
+    // Food buttons (multi-select)
+    elements.foodBtns.forEach(btn => {
+        btn.addEventListener('click', handleFoodSelect);
+    });
 
-    // Continue buttons (handled separately as they are distinct actions)
-    if (elements.continueBtns) {
-        elements.continueBtns.forEach(btn => {
-            btn.addEventListener('click', handleContinue);
-        });
-    }
+    // Continue buttons
+    elements.continueBtns.forEach(btn => {
+        btn.addEventListener('click', handleContinue);
+    });
 
     // FAQ accordion
-    if (elements.faqItems) {
-        elements.faqItems.forEach(item => {
-            const question = item.querySelector('.faq-question');
-            if (question) {
-                question.addEventListener('click', () => toggleFaq(item));
-            }
-        });
-    }
+    elements.faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => toggleFaq(item));
+    });
 
-    // Metric inputs logic remains the same...
+    // Metric inputs
     if (elements.heightContinue) {
         elements.heightContinue.addEventListener('click', () => {
             const value = elements.heightInput.value;
@@ -165,8 +142,7 @@ function setupEventListeners() {
     }
 
     // Enter key for metric inputs
-    const inputs = [elements.heightInput, elements.currentWeightInput, elements.targetWeightInput, elements.ageInput];
-    inputs.forEach(input => {
+    [elements.heightInput, elements.currentWeightInput, elements.targetWeightInput, elements.ageInput].forEach(input => {
         if (input) {
             input.addEventListener('keypress', (e) => {
                 if (e.key === 'Enter') {
@@ -348,7 +324,8 @@ function updateStickyWarning() {
 // OPTION HANDLING
 // ============================================
 
-function handleOptionSelectDelegated(card) {
+function handleOptionSelect(e) {
+    const card = e.currentTarget;
     const step = card.closest('.quiz-step');
     const stepNumber = parseInt(step.dataset.step);
     const value = card.dataset.value;
@@ -401,14 +378,16 @@ function handleOptionSelectDelegated(card) {
     }
 }
 
-function handleFoodSelectDelegated(btn) {
+function handleFoodSelect(e) {
+    const btn = e.currentTarget;
     btn.classList.toggle('selected');
 
     // Save all selected foods
     const selectedFoods = [];
-    const step = btn.closest('.quiz-step');
-    step.querySelectorAll('.food-btn.selected').forEach(foodBtn => {
-        selectedFoods.push(foodBtn.dataset.value);
+    elements.foodBtns.forEach(foodBtn => {
+        if (foodBtn.classList.contains('selected')) {
+            selectedFoods.push(foodBtn.dataset.value);
+        }
     });
     quizState.answers['step_17_foods'] = selectedFoods;
 }
@@ -558,17 +537,16 @@ function initWeightChart() {
     // Update SVG labels with actual weights
     const chart = document.querySelector('.weight-chart-final');
     if (chart && currentWeight && targetWeight) {
-        // Get all text elements in the SVG
-        const textElements = chart.querySelectorAll('text');
-
-        // Update "Seu peso" label (3rd text element, index 2)
-        if (textElements[2]) {
-            textElements[2].textContent = `Seu peso: ${currentWeight}kg`;
+        // Update "Seu peso" label
+        const startWeightLabel = chart.querySelector('#chart-start-weight');
+        if (startWeightLabel) {
+            startWeightLabel.textContent = `Seu peso: ${currentWeight}kg`;
         }
 
-        // Update "Objetivo" label (4th text element, index 3)
-        if (textElements[3]) {
-            textElements[3].textContent = `Objetivo: ${targetWeight}kg`;
+        // Update "Objetivo" label
+        const goalWeightLabel = chart.querySelector('#chart-goal-weight');
+        if (goalWeightLabel) {
+            goalWeightLabel.textContent = `Objetivo: ${targetWeight}kg`;
         }
     }
 

@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
 <body>
@@ -976,8 +976,8 @@
                     <g font-family="Montserrat, sans-serif">
                         <!-- Badge "Você" -->
                         <rect x="25" y="25" rx="10" ry="10" width="40" height="20" fill="#F4F4F4"></rect>
-                        <text x="45" y="39" fill="#666" font-size="11" font-weight="bold"
-                            text-anchor="middle">Você</text>
+                        <text x="45" y="39" fill="#666" font-size="11" font-weight="bold" text-anchor="middle"
+                            id="chart-label-you-preview">Você</text>
 
                         <!-- "Perdendo peso" -->
                         <rect x="120" y="95" rx="10" ry="10" width="100" height="22" fill="#00a36a"></rect>
@@ -991,8 +991,8 @@
 
                         <!-- "Objetivo" -->
                         <rect x="405" y="215" rx="10" ry="10" width="70" height="20" fill="#F4F4F4"></rect>
-                        <text x="440" y="229" fill="#666" font-size="11" font-weight="bold"
-                            text-anchor="middle">Objetivo</text>
+                        <text x="440" y="229" fill="#666" font-size="11" font-weight="bold" text-anchor="middle"
+                            id="chart-label-goal-preview">Objetivo</text>
                     </g>
 
                     <!-- Timeline -->
@@ -1107,9 +1107,9 @@
 
                         <!-- X-axis labels -->
                         <text x="20" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="start"
-                            font-family="Montserrat, sans-serif">Seu peso</text>
+                            font-family="Montserrat, sans-serif" id="chart-start-weight">Seu peso</text>
                         <text x="380" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="end"
-                            font-family="Montserrat, sans-serif">Objetivo</text>
+                            font-family="Montserrat, sans-serif" id="chart-goal-weight">Objetivo</text>
                     </svg>
                 </div>
             </div>
@@ -1257,19 +1257,19 @@
                 <div class="stories-grid">
                     <div class="story-card">
                         <a href="https://ibb.co/hF0V9r7M"><img src="https://i.ibb.co/pjqdwN0P/unnamed-49.webp"
-                                alt="História de Sucesso 1" border="0"></a>
+                                alt="Transformação antes e depois - História de Sucesso" border="0"></a>
                     </div>
                     <div class="story-card">
                         <a href="https://ibb.co/Y4DLwL2Y"><img src="https://i.ibb.co/hxXmwmsh/unnamed-50.webp"
-                                alt="História de Sucesso 2" border="0"></a>
+                                alt="Resultado de aluna - Antes e depois" border="0"></a>
                     </div>
                     <div class="story-card">
                         <a href="https://ibb.co/j9KVdb9X"><img src="https://i.ibb.co/GfwsXnfS/unnamed-48.webp"
-                                alt="História de Sucesso 3" border="0"></a>
+                                alt="Evolução de peso - História de Sucesso" border="0"></a>
                     </div>
                     <div class="story-card">
                         <a href="https://ibb.co/BKC5nQV3"><img src="https://i.ibb.co/gFRL4fM9/unnamed-51.webp"
-                                alt="História de Sucesso 4" border="0"></a>
+                                alt="Mudança corporal - Antes e depois" border="0"></a>
                     </div>
                 </div>
 
@@ -1280,23 +1280,23 @@
                 <div class="results-gallery">
                     <div class="result-item">
                         <a href="https://ibb.co/BHFNSwx3"><img src="https://i.ibb.co/Ps0Qftnj/unnamed-52.webp"
-                                alt="Resultado 1" border="0"></a>
+                                alt="Resultado comprovado de aluna Seca Jejum" border="0"></a>
                     </div>
                     <div class="result-item">
                         <a href="https://ibb.co/JR0tjCbn"><img src="https://i.ibb.co/qMXjYx4B/unnamed-53.webp"
-                                alt="Resultado 2" border="0"></a>
+                                alt="Evolução real de aluna com o plano" border="0"></a>
                     </div>
                     <div class="result-item">
                         <a href="https://ibb.co/fzQ9Rtcp"><img src="https://i.ibb.co/q3xCG9Zs/unnamed-55.webp"
-                                alt="Resultado 3" border="0"></a>
+                                alt="Antes e depois do jejum intermitente" border="0"></a>
                     </div>
                     <div class="result-item">
                         <a href="https://ibb.co/zTXNkG4f"><img src="https://i.ibb.co/rRxvW4wy/unnamed-54.webp"
-                                alt="Resultado 4" border="0"></a>
+                                alt="Perda de peso visível com o método" border="0"></a>
                     </div>
                     <div class="result-item">
                         <a href="https://ibb.co/BKTshsR0"><img src="https://i.ibb.co/bRNd4dnc/unnamed-56.webp"
-                                alt="Resultado 5" border="0"></a>
+                                alt="Resultados alcançados por nossas alunas" border="0"></a>
                     </div>
                 </div>
 
@@ -1404,7 +1404,7 @@
         </div>
     </footer>
 
-    <script src="script.js" defer></script>
+    <script src="script.js"></script>
 </body>
 
 </html>
