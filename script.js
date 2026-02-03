@@ -23,35 +23,40 @@ const quizState = {
 // DOM ELEMENTS
 // ============================================
 
-const elements = {
-    progressBar: document.getElementById('progressBar'),
-    backBtn: document.getElementById('backBtn'),
-    stickyWarning: document.getElementById('stickyWarning'),
-    steps: document.querySelectorAll('.quiz-step'),
-    optionCards: document.querySelectorAll('.option-card'),
-    foodBtns: document.querySelectorAll('.food-btn'),
-    continueBtns: document.querySelectorAll('.continue-btn'),
-    faqItems: document.querySelectorAll('.faq-item'),
+let elements = {};
 
-    // Metric inputs
-    heightInput: document.getElementById('heightInput'),
-    currentWeightInput: document.getElementById('currentWeightInput'),
-    targetWeightInput: document.getElementById('targetWeightInput'),
-    ageInput: document.getElementById('ageInput'),
-    bmiResult: document.getElementById('bmiResult'),
+function setupDOM() {
+    elements = {
+        progressBar: document.getElementById('progressBar'),
+        backBtn: document.getElementById('backBtn'),
+        stickyWarning: document.getElementById('stickyWarning'),
+        steps: document.querySelectorAll('.quiz-step'),
+        optionCards: document.querySelectorAll('.option-card'),
+        foodBtns: document.querySelectorAll('.food-btn'),
+        continueBtns: document.querySelectorAll('.continue-btn'),
+        faqItems: document.querySelectorAll('.faq-item'),
 
-    // Continue buttons for metrics
-    heightContinue: document.getElementById('heightContinue'),
-    weightContinue: document.getElementById('weightContinue'),
-    targetContinue: document.getElementById('targetContinue'),
-    ageContinue: document.getElementById('ageContinue')
-};
+        // Metric inputs
+        heightInput: document.getElementById('heightInput'),
+        currentWeightInput: document.getElementById('currentWeightInput'),
+        targetWeightInput: document.getElementById('targetWeightInput'),
+        ageInput: document.getElementById('ageInput'),
+        bmiResult: document.getElementById('bmiResult'),
+
+        // Continue buttons for metrics
+        heightContinue: document.getElementById('heightContinue'),
+        weightContinue: document.getElementById('weightContinue'),
+        targetContinue: document.getElementById('targetContinue'),
+        ageContinue: document.getElementById('ageContinue')
+    };
+}
 
 // ============================================
 // INITIALIZATION
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    setupDOM();
     initQuiz();
     setupEventListeners();
 });
