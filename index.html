@@ -1404,6 +1404,48 @@
         </div>
     </footer>
 
+    <!-- DEBUG CONSOLE (Temporary) -->
+    <div id="debug-console" style="
+        position: fixed; 
+        top: 0; 
+        left: 0; 
+        width: 100%; 
+        height: 150px; 
+        background: rgba(0,0,0,0.85); 
+        color: lime; 
+        font-family: monospace; 
+        font-size: 12px; 
+        z-index: 9999; 
+        overflow-y: scroll; 
+        padding: 10px;
+        pointer-events: none;
+        border-bottom: 2px solid lime;
+    ">
+        <strong>DEBUG CONSOLE ACTIVATED</strong><br>
+    </div>
+
+    <script>
+        // Global Error Trap
+        window.onerror = function (msg, url, line, col, error) {
+            logToConsole(`ERROR: ${msg} \nLine: ${line} Col: ${col}`, 'red');
+            return false;
+        };
+
+        function logToConsole(msg, color = 'lime') {
+            const consoleEl = document.getElementById('debug-console');
+            if (consoleEl) {
+                const entry = document.createElement('div');
+                entry.textContent = `> ${msg}`;
+                entry.style.color = color;
+                consoleEl.appendChild(entry);
+                consoleEl.scrollTop = consoleEl.scrollHeight;
+            }
+        }
+
+        logToConsole(`User Agent: ${navigator.userAgent}`);
+        logToConsole('Inline script loaded. Waiting for main script...');
+    </script>
+
     <script src="script.js"></script>
 </body>
 

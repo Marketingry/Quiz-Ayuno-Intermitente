@@ -30,12 +30,14 @@ let elements = {};
 // ============================================
 
 document.addEventListener('DOMContentLoaded', () => {
+    if (window.logToConsole) logToConsole('DOM Content Loaded (Script.js)');
     initElements();
     initQuiz();
     setupEventListeners();
 });
 
 function initElements() {
+    if (window.logToConsole) logToConsole('Initializing Elements...');
     elements = {
         progressBar: document.getElementById('progressBar'),
         backBtn: document.getElementById('backBtn'),
@@ -59,6 +61,7 @@ function initElements() {
         targetContinue: document.getElementById('targetContinue'),
         ageContinue: document.getElementById('ageContinue')
     };
+    if (window.logToConsole) logToConsole(`Elements initialized. Steps found: ${elements.steps ? elements.steps.length : 0}`);
 }
 
 function initQuiz() {
@@ -75,10 +78,12 @@ function setupEventListeners() {
     // Event Delegation for dynamic elements and reliability
     document.addEventListener('click', (e) => {
         const target = e.target;
+        if (window.logToConsole) logToConsole(`Click detected on: ${target.tagName} (Class: ${target.className})`);
 
         // Option cards
         const optionCard = target.closest('.option-card');
         if (optionCard) {
+            if (window.logToConsole) logToConsole('Target is Option Card');
             handleOptionSelect(optionCard);
             return;
         }
@@ -93,6 +98,7 @@ function setupEventListeners() {
         // Continue buttons
         const continueBtn = target.closest('.continue-btn');
         if (continueBtn) {
+            if (window.logToConsole) logToConsole('Target is Continue Button');
             // Ignore metric buttons handled separately
             if (['heightContinue', 'weightContinue', 'targetContinue', 'ageContinue'].includes(continueBtn.id)) {
                 return;
@@ -302,7 +308,9 @@ function goToStep(stepNumber) {
 
 function updateUI() {
     // Hide all steps
-    elements.steps.forEach(step => {
+    // Defensive coding: query fresh
+    const allSteps = document.querySelectorAll('.quiz-step');
+    allSteps.forEach(step => {
         step.classList.remove('active');
     });
 
@@ -310,6 +318,9 @@ function updateUI() {
     const currentStepEl = document.querySelector(`[data-step="${quizState.currentStep}"]`);
     if (currentStepEl) {
         currentStepEl.classList.add('active');
+        if (window.logToConsole) logToConsole(`UI Updated. Showing step ${quizState.currentStep}`);
+    } else {
+        if (window.logToConsole) logToConsole(`ERROR: Step ${quizState.currentStep} not found in DOM!`, 'red');
     }
 
     updateProgressBar();
@@ -325,23 +336,32 @@ function updateUI() {
 // ============================================
 
 function updateProgressBar() {
-    const progress = ((quizState.currentStep - 1) / (quizState.totalSteps - 1)) * 100;
-    elements.progressBar.style.width = `${progress}%`;
+    const progressBar = document.getElementById('progressBar');
+    if (progressBar) {
+        const progress = ((quizState.currentStep - 1) / (quizState.totalSteps - 1)) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
 }
 
 function updateBackButton() {
-    if (quizState.currentStep > 1 && quizState.currentStep < 38) {
-        elements.backBtn.classList.add('visible');
-    } else {
-        elements.backBtn.classList.remove('visible');
+    const backBtn = document.getElementById('backBtn');
+    if (backBtn) {
+        if (quizState.currentStep > 1 && quizState.currentStep < 38) {
+            backBtn.classList.add('visible');
+        } else {
+            backBtn.classList.remove('visible');
+        }
     }
 }
 
 function updateStickyWarning() {
-    if (quizState.currentStep > 1) {
-        elements.stickyWarning.classList.add('hidden');
-    } else {
-        elements.stickyWarning.classList.remove('hidden');
+    const stickyWarning = document.getElementById('stickyWarning');
+    if (stickyWarning) {
+        if (quizState.currentStep > 1) {
+            stickyWarning.classList.add('hidden');
+        } else {
+            stickyWarning.classList.remove('hidden');
+        }
     }
 }
 
