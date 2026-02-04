@@ -32,7 +32,11 @@ const quizState = {
 // ============================================
 
 async function initSession() {
-    if (!supabase) return;
+    if (!supabase) {
+        console.error('SUPABASE CLIENT NOT INITIALIZED');
+        return;
+    }
+    console.log('Attempting to init session...');
 
     try {
         const { data, error } = await supabase
@@ -46,19 +50,26 @@ async function initSession() {
 
         if (data) {
             quizState.sessionId = data.id;
-            console.log('Session started:', data.id);
+            console.log('✅ Session started successfully:', data.id);
         } else if (error) {
-            console.error('Error starting session:', error);
+            console.error('❌ Error starting session (Supabase):', error);
         }
     } catch (err) {
-        console.error('Tracking init error:', err);
+        console.error('❌ Tracking init CRITICAL error:', err);
     }
 }
 
 async function updateSession() {
-    if (!supabase || !quizState.sessionId) return;
+    if (!supabase) return;
+    if (!quizState.sessionId) {
+        console.warn('⚠️ Cannot update session: No Session ID found. Retrying init...');
+        // Fallback: try to init if missing
+        await initSession();
+        if (!quizState.sessionId) return;
+    }
 
     try {
+        console.log(`Updating session ${quizState.sessionId} to step ${quizState.currentStep}...`);
         const updateData = {
             current_step: quizState.currentStep,
             updated_at: new Date().toISOString(),
@@ -66,7 +77,7 @@ async function updateSession() {
             answers: quizState.answers
         };
 
-        // Mark completed if we're at the end (assuming step 42 is the end or result)
+        // Mark completed if we're at the end
         if (quizState.currentStep >= quizState.totalSteps) {
             updateData.completed = true;
         }
@@ -76,9 +87,13 @@ async function updateSession() {
             .update(updateData)
             .eq('id', quizState.sessionId);
 
-        if (error) console.error('Error updating session:', error);
+        if (error) {
+            console.error('❌ Error updating session:', error);
+        } else {
+            console.log('✅ Session updated.');
+        }
     } catch (err) {
-        console.error('Tracking update error:', err);
+        console.error('❌ Tracking update error:', err);
     }
 }
 
