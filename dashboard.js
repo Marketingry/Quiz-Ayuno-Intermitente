@@ -59,8 +59,6 @@ function applyQuickDate(mode) {
     const endInput = document.getElementById('dateEnd');
 
     const now = new Date();
-    // Set End Date to Today (end of day roughly, or just logic handles it)
-    // Input date value format YYYY-MM-DD
     const todayStr = now.toISOString().split('T')[0];
     endInput.value = todayStr;
 
@@ -75,10 +73,9 @@ function applyQuickDate(mode) {
         d.setDate(d.getDate() - 7);
         startInput.value = d.toISOString().split('T')[0];
     } else {
-        return; // Custom mode, do nothing
+        return;
     }
 
-    // Auto-fetch
     fetchData();
 }
 
@@ -96,18 +93,15 @@ async function fetchData() {
             .order('created_at', { ascending: false });
 
         if (start) {
-            // Start of day
             const startDate = new Date(start);
             query = query.gte('created_at', startDate.toISOString());
         }
         if (end) {
-            // End of day (23:59:59)
             const endDate = new Date(end);
             endDate.setHours(23, 59, 59, 999);
             query = query.lte('created_at', endDate.toISOString());
         }
 
-        // Limit default view to avoid freezing if huge
         if (!start && !end) query = query.limit(1000);
 
         const { data, error } = await query;
@@ -159,46 +153,29 @@ function renderFunnelList(sessions, totalSessions) {
 
     let html = '';
 
-    // We want to track:
-    // 1. Visitante (Step 1)
-    // 2. Steps...
-    // 3. Lead (Step 42)
-    // 4. Checkout Click
-
-    // Define Key Milestones to show (to avoid 42 items list if not needed, but user asked for "Quiz Passo X")
-    // Let's grouping some or showing ranges? 
-    // The user image shows "Quiz Passo 1", "Quiz Passo 2"... "Quiz Passo 16".
-    // So we should try to render relevant steps.
-
-    // Logic: calculate counts for each step 1 to 42
     const stepCounts = [];
     for (let i = 1; i <= 42; i++) {
         const count = sessions.filter(s => s.current_step >= i).length;
         stepCounts.push({ step: i, count: count });
     }
 
-    // Add Checkout as "Step 43" effectively
     const checkoutCount = sessions.filter(s => s.clicked_checkout).length;
+    let previousCount = totalSessions;
 
-    // Render loop
-    let previousCount = totalSessions; // Start base
-
-    // 1. Total Visitors (Step 1 is basically this, but let's be explicit "Iniciaram Quiz")
-    // Actually sessions.length IS visitors who landed and tracking init.
-    // Step 1 count = Sessions.
-
-    // We will render Step 1 to 42
     stepCounts.forEach((item, index) => {
-        // Skip if count is 0 and it's deep in the funnel to reduce noise? 
-        // No, show all or up to where data drops to 0.
         if (item.count === 0 && index > 5) return;
 
-        // Calculation vs Previous Step
         const conversion = previousCount > 0 ? ((item.count / previousCount) * 100).toFixed(1) : 0;
         const drop = (100 - conversion).toFixed(1);
-
-        // Progress bar relative to TOTAL sessions (for visual scaling)
         const globalPercent = totalSessions > 0 ? (item.count / totalSessions) * 100 : 0;
+
+        // Hide stats for Step 1
+        const statsHtml = item.step === 1
+            ? `<div class="funnel-stats" style="visibility:hidden; height:10px;">.</div>`
+            : `<div class="funnel-stats">
+                <span class="stat-green">Conversão: ${conversion}%</span>
+                <span class="stat-red">📉 Perca: ${drop}%</span>
+               </div>`;
 
         html += `
         <div class="funnel-item">
@@ -213,10 +190,7 @@ function renderFunnelList(sessions, totalSessions) {
             <div class="progress-bg">
                 <div class="progress-fill" style="width: ${globalPercent}%"></div>
             </div>
-            <div class="funnel-stats">
-                <span class="stat-green">Conversão: ${conversion}%</span>
-                <span class="stat-red">📉 Perca: ${drop}%</span>
-            </div>
+            ${statsHtml}
         </div>
         `;
 
@@ -266,12 +240,7 @@ function renderTable(sessions) {
             ? '<span style="background:#e8f5e9; color:green; padding:2px 6px; border-radius:4px; font-weight:bold; font-size:11px;">SIM</span>'
             : '<span style="color:#ccc; font-size:11px;">-</span>';
 
-        // Compact ID
         const shortId = s.id.split('-')[0];
-
-        // Safe JSON string for button
-        // We use a global store to avoid huge HTML attributes? No, let's just find by ID.
-        // It's cleaner.
 
         const row = document.createElement('tr');
         row.innerHTML = `
@@ -287,7 +256,6 @@ function renderTable(sessions) {
         tbody.appendChild(row);
     });
 
-    // Listeners
     document.querySelectorAll('.view-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
             const id = e.target.getAttribute('data-id');
@@ -300,16 +268,6 @@ function renderTable(sessions) {
 function showModal(data) {
     const content = document.getElementById('modalContent');
     const modal = document.getElementById('answersModal');
-
-    // Allow closing
-    if (!modal.querySelector('.close-bound')) {
-        const closeBtn = document.createElement('button');
-        closeBtn.innerText = 'X Fechar';
-        closeBtn.style = 'float:right; background:#f44336; margin-bottom:10px;';
-        closeBtn.onclick = () => modal.style.display = 'none';
-        closeBtn.className = 'close-bound';
-        // logic to prepend... easier to just rebuild content
-    }
 
     let html = `
         <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:15px;">
