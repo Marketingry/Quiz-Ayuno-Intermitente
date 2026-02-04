@@ -124,7 +124,14 @@
     <div class="container">
         <div class="header">
             <h1>📊 Quiz Analytics</h1>
-            <button id="refreshBtn">Atualizar Dados</button>
+            <div style="display:flex; gap:10px;">
+                <button id="refreshBtn">Atualizar Dados</button>
+            </div>
+        </div>
+
+        <!-- Debug Log Area -->
+        <div id="debugLog"
+            style="background:#333; color:#0f0; padding:10px; margin-bottom:20px; border-radius:8px; font-family:monospace; font-size:12px; display:none;">
         </div>
 
         <div class="stats-grid">
@@ -160,7 +167,7 @@
                 </thead>
                 <tbody id="sessionsBody">
                     <tr>
-                        <td colspan="5" style="text-align:center">Carregando dados...</td>
+                        <td colspan="5" style="text-align:center">Iniciando...</td>
                     </tr>
                 </tbody>
             </table>
@@ -171,51 +178,99 @@
         // --- CONFIG ---
         const SUPABASE_URL = 'https://bwpjmowuqkwogbtnheyp.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3cGptb3d1cWt3b2didG5oZXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTc5MjEsImV4cCI6MjA4NTczMzkyMX0.RFSrtexhbic7fTn51gTFuJlmSuo5-9Ciyp367f8I_8A';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        let supabase;
+        try {
+            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        } catch (e) {
+            logError('Falha ao inicializar Supabase: ' + e.message);
+        }
 
         let myChart = null;
 
+        function log(msg) {
+            console.log(msg);
+            const dbg = document.getElementById('debugLog');
+            dbg.style.display = 'block';
+            dbg.innerHTML += `<div>[INFO] ${msg}</div>`;
+        }
+
+        function logError(msg) {
+            console.error(msg);
+            const dbg = document.getElementById('debugLog');
+            dbg.style.display = 'block';
+            dbg.innerHTML += `<div style="color:red">[ERROR] ${msg}</div>`;
+
+            // Also show in table
+            document.getElementById('sessionsBody').innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center; color:red; font-weight:bold;">
+                        ${msg}
+                    </td>
+                </tr>
+            `;
+        }
+
         async function fetchData() {
-            const { data, error } = await supabase
-                .from('quiz_sessions')
-                .select('*')
-                .order('created_at', { ascending: false })
-                .limit(1000); // Analyze last 1000 sessions
+            log('Iniciando busca de dados...');
+            document.getElementById('sessionsBody').innerHTML = '<tr><td colspan="5" style="text-align:center">Carregando dados do Supabase...</td></tr>';
 
-            if (error) {
-                console.error('Error fetching:', error);
-                alert('Erro ao carregar dados');
-                return;
+            try {
+                if (!supabase) throw new Error('Cliente Supabase não definido');
+
+                const { data, error } = await supabase
+                    .from('quiz_sessions')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(100);
+
+                if (error) {
+                    logError('Erro Supabase: ' + JSON.stringify(error));
+                    return;
+                }
+
+                if (!data || data.length === 0) {
+                    log('Nenhum dado retornado (Tabela vazia ou bloqueada por RLS).');
+                    document.getElementById('sessionsBody').innerHTML = '<tr><td colspan="5" style="text-align:center">Nenhum registro encontrado.</td></tr>';
+                    // Reset stats
+                    document.getElementById('totalSessions').innerText = '0';
+                    return;
+                }
+
+                log(`Recebido ${data.length} registros.`);
+                processData(data);
+
+            } catch (err) {
+                logError('Exceção no fetch: ' + err.message);
             }
-
-            processData(data);
         }
 
         function processData(sessions) {
-            // 1. KPI Stats
-            const total = sessions.length;
-            const completed = sessions.filter(s => s.current_step >= 42 || s.completed).length;
-            const rate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
+            try {
+                // 1. KPI Stats
+                const total = sessions.length;
+                const completed = sessions.filter(s => s.current_step >= 42 || s.completed).length;
+                const rate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
 
-            document.getElementById('totalSessions').innerText = total;
-            document.getElementById('totalCompleted').innerText = completed;
-            document.getElementById('conversionRate').innerText = rate + '%';
+                document.getElementById('totalSessions').innerText = total;
+                document.getElementById('totalCompleted').innerText = completed;
+                document.getElementById('conversionRate').innerText = rate + '%';
 
-            // 2. Funnel Chart Data
-            // Count users at each step "milestone" (e.g., Step 1, 10, 20, 30, 42)
-            // Or simpler: Users who reached at least Step X
-            const steps = Array.from({ length: 42 }, (_, i) => i + 1);
-            const funnelCounts = steps.map(step => {
-                return sessions.filter(s => s.current_step >= step).length;
-            });
+                // 2. Funnel Chart Data
+                const steps = Array.from({ length: 42 }, (_, i) => i + 1);
+                const funnelCounts = steps.map(step => {
+                    return sessions.filter(s => s.current_step >= step).length;
+                });
 
-            renderChart(steps, funnelCounts);
-            renderTable(sessions.slice(0, 50)); // Show last 50 rows
+                renderChart(steps, funnelCounts);
+                renderTable(sessions.slice(0, 50));
+            } catch (e) {
+                logError('Erro processando dados: ' + e.message);
+            }
         }
 
         function renderChart(labels, data) {
             const ctx = document.getElementById('funnelChart').getContext('2d');
-
             if (myChart) myChart.destroy();
 
             myChart = new Chart(ctx, {
@@ -232,17 +287,6 @@
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: 'Funil de Retenção (Usuários que atingiram cada etapa)'
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
                 }
             });
         }
@@ -262,13 +306,15 @@
                     metrics = `${s.user_data.height}cm / ${s.user_data.currentWeight || '?'}kg`;
                 }
 
+                const shortId = s.id ? s.id.split('-')[0] : '???';
+
                 const row = `
                     <tr>
                         <td>${date}</td>
-                        <td>Passo ${s.current_step}</td>
+                        <td>Passo ${s.current_step || '?'}</td>
                         <td>${status}</td>
                         <td>${metrics}</td>
-                        <td style="font-family:monospace; font-size:12px; color:#999">${s.id.split('-')[0]}...</td>
+                        <td style="font-family:monospace; font-size:12px; color:#999">${shortId}...</td>
                     </tr>
                 `;
                 tbody.innerHTML += row;
