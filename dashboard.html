@@ -262,13 +262,34 @@
 
         <div class="header">
             <h2 style="margin:0;">Quiz Analytics</h2>
-            <div class="controls">
-                <input type="date" id="dateStart">
-                <input type="date" id="dateEnd">
-                <button id="filterBtn">Filtrar</button>
-                <button id="refreshBtn">Atualizar</button>
-                <button id="exportBtn">Exportar</button>
-                <button id="resetBtn">Reset</button>
+            <div class="controls" style="align-items: flex-end;">
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <label style="font-size:11px; font-weight:600; color:#666;">Período Rápido</label>
+                    <select id="quickDate"
+                        style="padding: 6px; border-radius: 6px; border: 1px solid #ddd; height:31px;">
+                        <option value="">Personalizado</option>
+                        <option value="today">Hoje</option>
+                        <option value="3days">Últimos 3 dias</option>
+                        <option value="7days">Últimos 7 dias</option>
+                    </select>
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <label style="font-size:11px; font-weight:600; color:#666;" for="dateStart">Início</label>
+                    <input type="date" id="dateStart">
+                </div>
+
+                <div style="display:flex; flex-direction:column; gap:2px;">
+                    <label style="font-size:11px; font-weight:600; color:#666;" for="dateEnd">Fim</label>
+                    <input type="date" id="dateEnd">
+                </div>
+
+                <div style="display:flex; gap:5px; margin-bottom:1px;">
+                    <button id="filterBtn">Filtrar</button>
+                    <button id="refreshBtn">Atualizar</button>
+                    <button id="exportBtn">Exportar</button>
+                    <button id="resetBtn">Reset</button>
+                </div>
             </div>
         </div>
 

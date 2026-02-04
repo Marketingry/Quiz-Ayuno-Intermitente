@@ -44,11 +44,42 @@ async function init() {
             }
         }
 
+        const quickDate = document.getElementById('quickDate');
+        if (quickDate) quickDate.addEventListener('change', (e) => applyQuickDate(e.target.value));
+
         await fetchData();
 
     } catch (e) {
         logError('Falha de inicialização: ' + e.message);
     }
+}
+
+function applyQuickDate(mode) {
+    const startInput = document.getElementById('dateStart');
+    const endInput = document.getElementById('dateEnd');
+
+    const now = new Date();
+    // Set End Date to Today (end of day roughly, or just logic handles it)
+    // Input date value format YYYY-MM-DD
+    const todayStr = now.toISOString().split('T')[0];
+    endInput.value = todayStr;
+
+    if (mode === 'today') {
+        startInput.value = todayStr;
+    } else if (mode === '3days') {
+        const d = new Date();
+        d.setDate(d.getDate() - 3);
+        startInput.value = d.toISOString().split('T')[0];
+    } else if (mode === '7days') {
+        const d = new Date();
+        d.setDate(d.getDate() - 7);
+        startInput.value = d.toISOString().split('T')[0];
+    } else {
+        return; // Custom mode, do nothing
+    }
+
+    // Auto-fetch
+    fetchData();
 }
 
 async function fetchData() {
@@ -64,8 +95,17 @@ async function fetchData() {
             .select('*')
             .order('created_at', { ascending: false });
 
-        if (start) query = query.gte('created_at', new Date(start).toISOString());
-        if (end) query = query.lte('created_at', new Date(end).toISOString());
+        if (start) {
+            // Start of day
+            const startDate = new Date(start);
+            query = query.gte('created_at', startDate.toISOString());
+        }
+        if (end) {
+            // End of day (23:59:59)
+            const endDate = new Date(end);
+            endDate.setHours(23, 59, 59, 999);
+            query = query.lte('created_at', endDate.toISOString());
+        }
 
         // Limit default view to avoid freezing if huge
         if (!start && !end) query = query.limit(1000);
@@ -164,7 +204,7 @@ function renderFunnelList(sessions, totalSessions) {
         <div class="funnel-item">
             <div class="funnel-header">
                 <div class="funnel-label">
-                    <span>🗨️</span> Quiz Passo ${item.step}
+                    Quiz Passo ${item.step}
                 </div>
                 <div class="funnel-count">
                     ${item.count} <small>sessões</small>
