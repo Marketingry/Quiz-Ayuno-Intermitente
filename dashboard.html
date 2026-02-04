@@ -241,12 +241,13 @@
                         <th>Step</th>
                         <th>Status</th>
                         <th>Infos</th>
+                        <th>Checkout?</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
                 <tbody id="sessionsBody">
                     <tr>
-                        <td colspan="5" style="text-align:center">Aguardando script...</td>
+                        <td colspan="6" style="text-align:center">Aguardando script...</td>
                     </tr>
                 </tbody>
             </table>
@@ -261,8 +262,8 @@
                 <button onclick="document.getElementById('answersModal').style.display='none'"
                     style="border:none; background:none; font-size:24px; color:#333; padding:0;">&times;</button>
             </div>
-            <pre id="modalContent"
-                style="background:#f5f5f5; padding:15px; border-radius:8px; overflow-x:auto; white-space: pre-wrap; font-size:12px;"></pre>
+            <!-- Div container for HTML formatted content -->
+            <div id="modalContent"></div>
         </div>
     </div>
 

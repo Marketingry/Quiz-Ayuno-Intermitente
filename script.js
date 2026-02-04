@@ -647,6 +647,33 @@ function startLoadingAnimation() {
 }
 
 // ============================================
+// CHECKOUT TRACKING
+// ============================================
+async function trackCheckoutClick() {
+    if (!supabase || !quizState.sessionId) return;
+    try {
+        console.log('Tracking checkout click...');
+        await supabase
+            .from('quiz_sessions')
+            .update({ clicked_checkout: true })
+            .eq('id', quizState.sessionId);
+    } catch (e) {
+        console.error('Error tracking checkout:', e);
+    }
+}
+
+// Attach listener when DOM is ready (or call this in your main init)
+document.addEventListener('DOMContentLoaded', () => {
+    // Find the checkout button (it's in the final step)
+    // Using a delegate or direct find if it exists.
+    // It's inside .final-cta button
+    const checkoutBtn = document.querySelector('.final-cta button');
+    if (checkoutBtn) {
+        checkoutBtn.addEventListener('click', trackCheckoutClick);
+    }
+});
+
+// ============================================
 // CHART REVEAL ANIMATION (Step 39)
 // ============================================
 
