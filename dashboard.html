@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quiz Dashboard - Analytics</title>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Quiz Dashboard v2</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -117,49 +115,53 @@
         button#refreshBtn:hover {
             opacity: 0.9;
         }
+
+        #debugLog {
+            display: none;
+            background: #222;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <!-- ERROR TRAP SCRIPT -->
+        <!-- Error Safety Net -->
         <script>
-            window.onerror = function (msg, url, line, col, error) {
-                const div = document.createElement('div');
-                div.style.background = 'red';
-                div.style.color = 'white';
-                div.style.padding = '20px';
-                div.style.margin = '20px';
-                div.style.fontWeight = 'bold';
-                div.innerText = `CRITICAL JS ERROR: ${msg}\nLine: ${line}`;
-                document.body.prepend(div);
-                return false;
+            window.onerror = function (msg, url, line) {
+                const box = document.getElementById('debugLog');
+                if (box) {
+                    box.style.display = 'block';
+                    box.innerText += `\n[FATAL WINDOW ERROR]: ${msg} at line ${line}`;
+                }
             };
         </script>
 
         <div class="header">
-            <h1>📊 Quiz Analytics</h1>
-            <div style="display:flex; gap:10px;">
-                <button id="refreshBtn">Obter Dados</button>
-            </div>
+            <h1>📊 Quiz Analytics V2</h1>
+            <button id="refreshBtn">Atualizar</button>
         </div>
 
-        <!-- Debug Log Area -->
-        <div id="debugLog"
-            style="background:#333; color:#0f0; padding:10px; margin-bottom:20px; border-radius:8px; font-family:monospace; font-size:12px; display:none;">
-        </div>
+        <div id="debugLog">Logs do sistema...</div>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <h3>Total Sessões</h3>
+                <h3>Total</h3>
                 <div class="stat-value" id="totalSessions">-</div>
             </div>
             <div class="stat-card">
-                <h3>Concluídos (Step 42)</h3>
+                <h3>Completos</h3>
                 <div class="stat-value" id="totalCompleted">-</div>
             </div>
             <div class="stat-card">
-                <h3>Taxa de Conversão</h3>
+                <h3>Conversão</h3>
                 <div class="stat-value" id="conversionRate">-%</div>
             </div>
         </div>
@@ -174,173 +176,23 @@
                 <thead>
                     <tr>
                         <th>Data</th>
-                        <th>Step Atual</th>
+                        <th>Step</th>
                         <th>Status</th>
-                        <th>Altura/Peso</th>
-                        <th>ID da Sessão</th>
+                        <th>Infos</th>
+                        <th>ID</th>
                     </tr>
                 </thead>
                 <tbody id="sessionsBody">
                     <tr>
-                        <td colspan="5" style="text-align:center">Iniciando...</td>
+                        <td colspan="5" style="text-align:center">Aguardando script...</td>
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <script>
-        // --- CONFIG ---
-        const SUPABASE_URL = 'https://bwpjmowuqkwogbtnheyp.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3cGptb3d1cWt3b2didG5oZXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTc5MjEsImV4cCI6MjA4NTczMzkyMX0.RFSrtexhbic7fTn51gTFuJlmSuo5-9Ciyp367f8I_8A';
-
-        let supabase;
-        try {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-        } catch (e) {
-            logError('Falha ao inicializar Supabase: ' + e.message);
-        }
-
-        let myChart = null;
-
-        function log(msg) {
-            console.log(msg);
-            const dbg = document.getElementById('debugLog');
-            dbg.style.display = 'block';
-            dbg.innerHTML += `<div>[INFO] ${msg}</div>`;
-        }
-
-        function logError(msg) {
-            console.error(msg);
-            const dbg = document.getElementById('debugLog');
-            dbg.style.display = 'block';
-            dbg.innerHTML += `<div style="color:red">[ERROR] ${msg}</div>`;
-
-            // Also show in table
-            document.getElementById('sessionsBody').innerHTML = `
-                <tr>
-                    <td colspan="5" style="text-align:center; color:red; font-weight:bold;">
-                        ${msg}
-                    </td>
-                </tr>
-            `;
-        }
-
-        async function fetchData() {
-            log('Iniciando busca de dados...');
-            document.getElementById('sessionsBody').innerHTML = '<tr><td colspan="5" style="text-align:center">Carregando dados do Supabase...</td></tr>';
-
-            try {
-                if (!supabase) throw new Error('Cliente Supabase não definido');
-
-                const { data, error } = await supabase
-                    .from('quiz_sessions')
-                    .select('*')
-                    .order('created_at', { ascending: false })
-                    .limit(100);
-
-                if (error) {
-                    logError('Erro Supabase: ' + JSON.stringify(error));
-                    return;
-                }
-
-                if (!data || data.length === 0) {
-                    log('Nenhum dado retornado (Tabela vazia ou bloqueada por RLS).');
-                    document.getElementById('sessionsBody').innerHTML = '<tr><td colspan="5" style="text-align:center">Nenhum registro encontrado.</td></tr>';
-                    // Reset stats
-                    document.getElementById('totalSessions').innerText = '0';
-                    return;
-                }
-
-                log(`Recebido ${data.length} registros.`);
-                processData(data);
-
-            } catch (err) {
-                logError('Exceção no fetch: ' + err.message);
-            }
-        }
-
-        function processData(sessions) {
-            try {
-                // 1. KPI Stats
-                const total = sessions.length;
-                const completed = sessions.filter(s => s.current_step >= 42 || s.completed).length;
-                const rate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
-
-                document.getElementById('totalSessions').innerText = total;
-                document.getElementById('totalCompleted').innerText = completed;
-                document.getElementById('conversionRate').innerText = rate + '%';
-
-                // 2. Funnel Chart Data
-                const steps = Array.from({ length: 42 }, (_, i) => i + 1);
-                const funnelCounts = steps.map(step => {
-                    return sessions.filter(s => s.current_step >= step).length;
-                });
-
-                renderChart(steps, funnelCounts);
-                renderTable(sessions.slice(0, 50));
-            } catch (e) {
-                logError('Erro processando dados: ' + e.message);
-            }
-        }
-
-        function renderChart(labels, data) {
-            const ctx = document.getElementById('funnelChart').getContext('2d');
-            if (myChart) myChart.destroy();
-
-            myChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Usuários Ativos por Etapa',
-                        data: data,
-                        backgroundColor: '#4CAF50',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                }
-            });
-        }
-
-        function renderTable(sessions) {
-            const tbody = document.getElementById('sessionsBody');
-            tbody.innerHTML = '';
-
-            sessions.forEach(s => {
-                const date = new Date(s.created_at).toLocaleString();
-                const status = s.completed || s.current_step >= 42
-                    ? '<span class="status-badge status-complete">Completo</span>'
-                    : '<span class="status-badge status-progress">Em progresso</span>';
-
-                let metrics = '-';
-                if (s.user_data && s.user_data.height) {
-                    metrics = `${s.user_data.height}cm / ${s.user_data.currentWeight || '?'}kg`;
-                }
-
-                const shortId = s.id ? s.id.split('-')[0] : '???';
-
-                const row = `
-                    <tr>
-                        <td>${date}</td>
-                        <td>Passo ${s.current_step || '?'}</td>
-                        <td>${status}</td>
-                        <td>${metrics}</td>
-                        <td style="font-family:monospace; font-size:12px; color:#999">${shortId}...</td>
-                    </tr>
-                `;
-                tbody.innerHTML += row;
-            });
-        }
-
-        document.getElementById('refreshBtn').addEventListener('click', fetchData);
-
-        // Auto Load
-        fetchData();
-    </script>
+    <!-- MAIN MODULE SCRIPT -->
+    <script type="module" src="./dashboard.js"></script>
 </body>
 
 </html>
