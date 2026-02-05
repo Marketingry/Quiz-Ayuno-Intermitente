@@ -650,16 +650,25 @@ function startLoadingAnimation() {
 // CHECKOUT TRACKING
 // ============================================
 async function trackCheckoutClick() {
-    if (!supabase || !quizState.sessionId) return;
-    try {
-        console.log('Tracking checkout click...');
-        await supabase
-            .from('quiz_sessions')
-            .update({ clicked_checkout: true })
-            .eq('id', quizState.sessionId);
-    } catch (e) {
-        console.error('Error tracking checkout:', e);
+    const CHECKOUT_URL = "https://pay.hotmart.com/L104272039N?checkoutMode=10";
+
+    if (supabase && quizState.sessionId) {
+        try {
+            console.log('Tracking checkout click...');
+            // Attempt to track, but don't block indefinitely
+            await supabase
+                .from('quiz_sessions')
+                .update({ clicked_checkout: true })
+                .eq('id', quizState.sessionId)
+                .then(() => console.log('Tracked successfully'))
+                .catch(err => console.error('Tracking failed', err));
+        } catch (e) {
+            console.error('Error tracking checkout:', e);
+        }
     }
+
+    // Redirect to checkout
+    window.location.href = CHECKOUT_URL;
 }
 
 // Attach listener when DOM is ready (or call this in your main init)
