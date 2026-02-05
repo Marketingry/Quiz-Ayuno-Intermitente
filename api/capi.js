@@ -22,8 +22,10 @@ export default async function handler(req, res) {
     }
 
     const { event_name, event_source_url, user_data, custom_data } = req.body;
-    const ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN;
-    const PIXEL_ID = '1232580981668009'; // Storing Pixel ID directly or use env var
+
+    // Use Environment Variable OR User-provided Fallback
+    const ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN || "EAAGGWiYzZCJYBQpgP5yGBfDwRG5JvIZARMZAfzobMhqHJ0cqjqcZBVp06Tk1Yj9Go1DYs9y5O0pspDJbBNz7Qjw6tIHIiycmhEJ3hzNBoRjOGYoh4bZAZCxzZAMlVhI6jHjj5NnlOfrw8qBWbc6lwZB022HRcYB6yg01Rd8a9AKNS13DK7XTjOd4vQkeFrpCygZDZD";
+    const PIXEL_ID = '1232580981668009';
 
     if (!ACCESS_TOKEN) {
         return res.status(500).json({ error: 'Missing Server Configuration (Token)' });
