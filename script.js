@@ -506,7 +506,7 @@ function handleOptionSelect(card) {
         if (!step.classList.contains('interlude')) {
             setTimeout(() => {
                 goToNextStep();
-            }, 70);
+            }, 300);
         }
     }
 }

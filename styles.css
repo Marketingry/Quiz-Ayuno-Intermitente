@@ -280,7 +280,7 @@ input {
 }
 
 .grid-card span {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-base);
     font-weight: 600;
 }
 
