@@ -51,6 +51,7 @@ async function initSession() {
         if (data) {
             quizState.sessionId = data.id;
             console.log('✅ Session started successfully:', data.id);
+            trackMetaEvent('ViewContent', { content_name: 'Quiz Start' });
         } else if (error) {
             console.error('❌ Error starting session (Supabase):', error);
         }
@@ -80,6 +81,7 @@ async function updateSession() {
         // Mark completed if we're at the end
         if (quizState.currentStep >= quizState.totalSteps) {
             updateData.completed = true;
+            trackMetaEvent('Lead', { content_name: 'Quiz Completed' });
         }
 
         const { error } = await supabase
@@ -96,6 +98,43 @@ async function updateSession() {
         console.error('❌ Tracking update error:', err);
     }
 }
+
+// ============================================
+// META CAPI / PIXEL TRACKING
+// ============================================
+
+async function trackMetaEvent(eventName, customData = {}) {
+    // 1. Browser Pixel (Standard)
+    if (window.fbq) {
+        window.fbq('track', eventName, customData);
+    }
+
+    // 2. Server CAPI (Vercel Function)
+    try {
+        const body = {
+            event_name: eventName,
+            event_source_url: window.location.href,
+            user_data: {
+                // Sent to server to be enriched/forwarded
+            },
+            custom_data: {
+                ...customData,
+                session_id: quizState.sessionId
+            }
+        };
+
+        // Fire and forget (don't await critical blocking)
+        fetch('/api/capi', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+        }).catch(err => console.warn('CAPI warning:', err));
+
+    } catch (e) {
+        console.warn('CAPI dispatch failed', e);
+    }
+}
+
 
 // ============================================
 // DOM ELEMENTS
