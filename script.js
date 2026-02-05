@@ -701,9 +701,13 @@ async function trackCheckoutClick() {
                 .eq('id', quizState.sessionId)
                 .then(() => console.log('Tracked successfully'))
                 .catch(err => console.error('Tracking failed', err));
+
+            trackMetaEvent('InitiateCheckout', { content_name: 'Hotmart Checkout' });
         } catch (e) {
             console.error('Error tracking checkout:', e);
         }
+    } else {
+        trackMetaEvent('InitiateCheckout', { content_name: 'Hotmart Checkout (No Session)' });
     }
 
     // Redirect to checkout
