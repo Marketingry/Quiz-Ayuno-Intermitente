@@ -2,6 +2,7 @@
   "name": "seca-jejum-quiz",
   "version": "1.0.0",
   "description": "Quiz funnel de jejum intermitente",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
