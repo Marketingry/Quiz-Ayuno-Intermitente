@@ -810,6 +810,46 @@ function toggleFaq(item) {
 }
 
 // ============================================
+// CHECKOUT LOGIC
+// ============================================
+
+function initCheckout() {
+    const checkoutUrl = 'https://pay.hotmart.com/L104272039N?checkoutMode=10';
+    const buttons = document.querySelectorAll('.cta-btn');
+
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Track InitiateCheckout
+            trackMetaEvent('InitiateCheckout', {
+                content_name: 'Plano Personalizado',
+                currency: 'USD',
+                value: 9.90
+            });
+
+            // Update session status if needed
+            if (supabase && quizState.sessionId) {
+                supabase
+                    .from('quiz_sessions')
+                    .update({ clicked_checkout: true })
+                    .eq('id', quizState.sessionId)
+                    .then(() => {
+                        window.location.href = checkoutUrl;
+                    })
+                    .catch(() => {
+                        window.location.href = checkoutUrl;
+                    });
+            } else {
+                window.location.href = checkoutUrl;
+            }
+        });
+    });
+}
+
+// Initialize checkout on load (and re-init on step changes if needed)
+document.addEventListener('DOMContentLoaded', initCheckout);
+
+
+// ============================================
 // UTILITIES
 // ============================================
 
