@@ -281,7 +281,7 @@ input {
 }
 
 .option-card.grid-card span {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-sm) !important;
     font-weight: 500;
 }
 
