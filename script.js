@@ -14,6 +14,15 @@ const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SU
 // STATE MANAGEMENT
 // ============================================
 
+function getVisitorId() {
+    let id = localStorage.getItem('seca_visitor_id');
+    if (!id) {
+        id = crypto.randomUUID ? crypto.randomUUID() : 'v_' + Math.random().toString(36).substr(2, 9);
+        localStorage.setItem('seca_visitor_id', id);
+    }
+    return id;
+}
+
 const quizState = {
     currentStep: 1,
     totalSteps: 42,
@@ -23,7 +32,8 @@ const quizState = {
         height: null,
         currentWeight: null,
         targetWeight: null,
-        age: null
+        age: null,
+        visitorId: getVisitorId()
     }
 };
 
@@ -43,7 +53,8 @@ async function initSession() {
             .from('quiz_sessions')
             .insert([{
                 device_info: navigator.userAgent,
-                current_step: 1
+                current_step: 1,
+                user_data: { visitorId: quizState.userData.visitorId }
             }])
             .select()
             .single();

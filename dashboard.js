@@ -131,7 +131,32 @@ function processData(sessions) {
 
         const conversionRate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
 
-        updateUIStats(total, completed, conversionRate, sales);
+        // Unique Metrics Calculation
+        const uniqueVisitors = new Set();
+        const uniqueLeads = new Set();
+        const uniqueSales = new Set();
+
+        sessions.forEach(s => {
+            const vid = s.user_data?.visitorId || 'unknown_' + s.id; // Fallback if no ID
+            uniqueVisitors.add(vid);
+
+            if (s.current_step >= 42 || s.completed) {
+                uniqueLeads.add(vid);
+            }
+            if (s.clicked_checkout) {
+                uniqueSales.add(vid);
+            }
+        });
+
+        const uVisitors = uniqueVisitors.size;
+        const uLeads = uniqueLeads.size;
+        const uSales = uniqueSales.size;
+        const uConversion = uVisitors > 0 ? ((uLeads / uVisitors) * 100).toFixed(1) : 0;
+
+        updateUIStats(
+            total, completed, conversionRate, sales,
+            uVisitors, uLeads, uConversion, uSales
+        );
         renderFunnelList(sessions, total);
         renderTable(sessions.slice(0, 50));
 
@@ -140,11 +165,18 @@ function processData(sessions) {
     }
 }
 
-function updateUIStats(total, completed, rate, sales) {
+function updateUIStats(total, completed, rate, sales, uTotal, uCompleted, uRate, uSales) {
+    // Total Stats
     document.getElementById('totalVisitors').innerText = total;
     document.getElementById('leadsCaptured').innerText = completed;
     document.getElementById('overallConversion').innerText = rate + '%';
     document.getElementById('salesClicks').innerText = sales;
+
+    // Unique Stats
+    document.getElementById('uTotalVisitors').innerText = uTotal;
+    document.getElementById('uLeadsCaptured').innerText = uCompleted;
+    document.getElementById('uOverallConversion').innerText = uRate + '%';
+    document.getElementById('uSalesClicks').innerText = uSales;
 }
 
 function renderFunnelList(sessions, totalSessions) {
