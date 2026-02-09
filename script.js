@@ -4,11 +4,129 @@
  */
 
 // ============================================
+// DEBUG SYSTEM
+// ============================================
+const DEBUG_MODE = window.location.hostname === 'localhost' || window.location.search.includes('debug=true');
+
+function debugLog(message, type = 'info') {
+    const timestamp = new Date().toLocaleTimeString();
+    const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
+    console.log(`${prefix} [${timestamp}] ${message}`);
+
+    if (DEBUG_MODE) {
+        const debugDiv = document.getElementById('debug-console') || createDebugConsole();
+        const entry = document.createElement('div');
+        entry.style.cssText = `
+            padding: 6px 10px;
+            margin: 2px 0;
+            background: ${type === 'error' ? '#ffebee' : type === 'warn' ? '#fff3e0' : type === 'success' ? '#e8f5e9' : '#f5f5f5'};
+            border-left: 4px solid ${type === 'error' ? '#f44336' : type === 'warn' ? '#ff9800' : type === 'success' ? '#4CAF50' : '#2196F3'};
+            font-size: 11px;
+            font-family: 'Courier New', monospace;
+            color: #333;
+            word-wrap: break-word;
+        `;
+        entry.textContent = `${prefix} [${timestamp}] ${message}`;
+        debugDiv.appendChild(entry);
+        debugDiv.scrollTop = debugDiv.scrollHeight;
+
+        // Limit to 50 entries
+        if (debugDiv.children.length > 50) {
+            debugDiv.removeChild(debugDiv.firstChild);
+        }
+    }
+}
+
+function createDebugConsole() {
+    const div = document.createElement('div');
+    div.id = 'debug-console';
+    div.style.cssText = `
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        max-height: 250px;
+        overflow-y: auto;
+        background: white;
+        border-top: 3px solid #333;
+        z-index: 99999;
+        padding: 10px;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        font-family: monospace;
+    `;
+
+    const header = document.createElement('div');
+    header.style.cssText = `
+        font-weight: bold;
+        margin-bottom: 8px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    `;
+    header.innerHTML = `
+        <span>🔍 DEBUG CONSOLE (Tracking Diagnostics)</span>
+        <button onclick="document.getElementById('debug-console').remove()" style="
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 4px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+        ">Fechar</button>
+    `;
+    div.appendChild(header);
+    document.body.appendChild(div);
+
+    debugLog('Debug console initialized', 'success');
+    return div;
+}
+
+// ============================================
 // SUPABASE CONFIGURATION
 // ============================================
 const SUPABASE_URL = 'https://bwpjmowuqkwogbtnheyp.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3cGptb3d1cWt3b2didG5oZXlwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAxNTc5MjEsImV4cCI6MjA4NTczMzkyMX0.RFSrtexhbic7fTn51gTFuJlmSuo5-9Ciyp367f8I_8A';
-const supabase = window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+let supabase = null;
+let supabaseRetryCount = 0;
+const MAX_SUPABASE_RETRIES = 3;
+
+async function initSupabase() {
+    if (supabase) {
+        debugLog('Supabase already initialized', 'success');
+        return supabase;
+    }
+
+    debugLog('Attempting to initialize Supabase...');
+
+    if (!window.supabase) {
+        debugLog('⚠️ window.supabase not found! CDN may not have loaded.', 'error');
+
+        if (supabaseRetryCount < MAX_SUPABASE_RETRIES) {
+            supabaseRetryCount++;
+            debugLog(`Retry ${supabaseRetryCount}/${MAX_SUPABASE_RETRIES} in ${supabaseRetryCount}s...`, 'warn');
+            await new Promise(resolve => setTimeout(resolve, 1000 * supabaseRetryCount));
+            return initSupabase();
+        } else {
+            debugLog('❌ CRITICAL: Supabase library failed to load after 3 retries!', 'error');
+            debugLog('Tracking will NOT work. Check your internet connection.', 'error');
+            return null;
+        }
+    }
+
+    try {
+        supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        debugLog('✅ Supabase client created successfully!', 'success');
+        debugLog(`URL: ${SUPABASE_URL}`, 'info');
+        return supabase;
+    } catch (err) {
+        debugLog(`❌ Error creating Supabase client: ${err.message}`, 'error');
+        return null;
+    }
+}
 
 // ============================================
 // STATE MANAGEMENT
@@ -42,46 +160,78 @@ const quizState = {
 // ============================================
 
 async function initSession() {
-    if (!supabase) {
-        console.error('SUPABASE CLIENT NOT INITIALIZED');
+    debugLog('=== INIT SESSION STARTED ===');
+    debugLog(`Visitor ID: ${quizState.userData.visitorId}`);
+
+    const client = await initSupabase();
+
+    if (!client) {
+        debugLog('❌ Cannot init session: Supabase client is NULL', 'error');
+        debugLog('Session will NOT be tracked in database!', 'error');
         return;
     }
-    console.log('Attempting to init session...');
+
+    debugLog('Supabase client ready, creating session record...');
 
     try {
-        const { data, error } = await supabase
+        const sessionData = {
+            device_info: navigator.userAgent,
+            current_step: 1,
+            user_data: { visitorId: quizState.userData.visitorId }
+        };
+
+        debugLog(`Inserting session: ${JSON.stringify(sessionData)}`);
+
+        const { data, error } = await client
             .from('quiz_sessions')
-            .insert([{
-                device_info: navigator.userAgent,
-                current_step: 1,
-                user_data: { visitorId: quizState.userData.visitorId }
-            }])
+            .insert([sessionData])
             .select()
             .single();
 
+        if (error) {
+            debugLog(`❌ Supabase INSERT error: ${error.message}`, 'error');
+            debugLog(`Error code: ${error.code}`, 'error');
+            debugLog(`Error details: ${JSON.stringify(error)}`, 'error');
+            return;
+        }
+
         if (data) {
             quizState.sessionId = data.id;
-            console.log('✅ Session started successfully:', data.id);
+            debugLog(`✅ Session created successfully! ID: ${data.id}`, 'success');
+            debugLog(`Session data: ${JSON.stringify(data)}`, 'success');
             trackMetaEvent('ViewContent', { content_name: 'Quiz Start' });
-        } else if (error) {
-            console.error('❌ Error starting session (Supabase):', error);
+        } else {
+            debugLog('⚠️ No data returned from insert (unexpected)', 'warn');
         }
     } catch (err) {
-        console.error('❌ Tracking init CRITICAL error:', err);
+        debugLog(`❌ CRITICAL ERROR in initSession: ${err.message}`, 'error');
+        debugLog(`Stack: ${err.stack}`, 'error');
     }
+
+    debugLog('=== INIT SESSION COMPLETED ===');
 }
 
 async function updateSession() {
-    if (!supabase) return;
+    debugLog(`=== UPDATE SESSION (Step ${quizState.currentStep}) ===`);
+
+    const client = await initSupabase();
+    if (!client) {
+        debugLog('❌ Cannot update: Supabase not available', 'error');
+        return;
+    }
+
     if (!quizState.sessionId) {
-        console.warn('⚠️ Cannot update session: No Session ID found. Retrying init...');
-        // Fallback: try to init if missing
+        debugLog('⚠️ No Session ID found. Attempting to init session...', 'warn');
         await initSession();
-        if (!quizState.sessionId) return;
+        if (!quizState.sessionId) {
+            debugLog('❌ Still no Session ID after init attempt', 'error');
+            return;
+        }
     }
 
     try {
-        console.log(`Updating session ${quizState.sessionId} to step ${quizState.currentStep}...`);
+        debugLog(`Updating session ${quizState.sessionId} to step ${quizState.currentStep}`);
+
         const updateData = {
             current_step: quizState.currentStep,
             updated_at: new Date().toISOString(),
@@ -92,21 +242,23 @@ async function updateSession() {
         // Mark completed if we're at the end
         if (quizState.currentStep >= quizState.totalSteps) {
             updateData.completed = true;
+            debugLog('🎉 Quiz completed! Marking as complete...', 'success');
             trackMetaEvent('Lead', { content_name: 'Quiz Completed' });
         }
 
-        const { error } = await supabase
+        const { error } = await client
             .from('quiz_sessions')
             .update(updateData)
             .eq('id', quizState.sessionId);
 
         if (error) {
-            console.error('❌ Error updating session:', error);
+            debugLog(`❌ Update error: ${error.message}`, 'error');
+            debugLog(`Error details: ${JSON.stringify(error)}`, 'error');
         } else {
-            console.log('✅ Session updated.');
+            debugLog(`✅ Session updated to step ${quizState.currentStep}`, 'success');
         }
     } catch (err) {
-        console.error('❌ Tracking update error:', err);
+        debugLog(`❌ Update exception: ${err.message}`, 'error');
     }
 }
 
@@ -193,7 +345,52 @@ function initQuiz() {
     updateProgressBar();
     updateBackButton();
     updateStickyWarning();
-    initSession(); // Start tracking
+
+    // Add visual status indicator
+    createStatusIndicator();
+
+    // Start tracking
+    debugLog('🚀 Initializing quiz and starting session tracking...');
+    initSession();
+}
+
+// ============================================
+// VISUAL STATUS INDICATOR
+// ============================================
+
+function createStatusIndicator() {
+    const indicator = document.createElement('div');
+    indicator.id = 'tracking-status';
+    indicator.style.cssText = `
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 8px 16px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        z-index: 9998;
+        background: #ff9800;
+        color: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    `;
+    indicator.textContent = '⏳ Conectando...';
+    document.body.appendChild(indicator);
+
+    // Update status after Supabase init
+    setTimeout(async () => {
+        const client = await initSupabase();
+        if (client && quizState.sessionId) {
+            indicator.style.background = '#4CAF50';
+            indicator.textContent = '✅ Tracking Ativo';
+            debugLog('Status indicator: Tracking active', 'success');
+        } else {
+            indicator.style.background = '#f44336';
+            indicator.textContent = '❌ Tracking Offline';
+            debugLog('Status indicator: Tracking FAILED', 'error');
+        }
+    }, 2000);
 }
 
 // ============================================
