@@ -359,6 +359,9 @@ function initQuiz() {
 // ============================================
 
 function createStatusIndicator() {
+    // Only show status indicator in debug mode
+    if (!DEBUG_MODE) return;
+
     const indicator = document.createElement('div');
     indicator.id = 'tracking-status';
     indicator.style.cssText = `
