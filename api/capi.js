@@ -21,7 +21,7 @@ export default async function handler(req, res) {
         return res.status(405).json({ error: 'Method Not Allowed' });
     }
 
-    const { event_name, event_source_url, user_data, custom_data } = req.body;
+    const { event_name, event_id, event_source_url, user_data, custom_data } = req.body;
 
     // Use Environment Variable OR User-provided Fallback
     const ACCESS_TOKEN = process.env.FB_ACCESS_TOKEN || "EAAGGWiYzZCJYBQpgP5yGBfDwRG5JvIZARMZAfzobMhqHJ0cqjqcZBVp06Tk1Yj9Go1DYs9y5O0pspDJbBNz7Qjw6tIHIiycmhEJ3hzNBoRjOGYoh4bZAZCxzZAMlVhI6jHjj5NnlOfrw8qBWbc6lwZB022HRcYB6yg01Rd8a9AKNS13DK7XTjOd4vQkeFrpCygZDZD";
@@ -31,27 +31,26 @@ export default async function handler(req, res) {
         return res.status(500).json({ error: 'Missing Server Configuration (Token)' });
     }
 
-    // Hash user data if needed (Meta requires hashed PII options, but if we send raw, 
-    // we should really hash it on client or here. Meta CAPI usually expects hashed unless safe.)
-    // For simplicity, we assume generic data or user-provided hashing, OR we hash here.
-    // Minimally: client_ip and user_agent are key.
-
-    // Construct Meta CAPI Payload
+    // Construct Meta CAPI Payload with proper deduplication
     const payload = {
         data: [
             {
                 event_name: event_name,
+                event_id: event_id,  // CRITICAL - Same as Pixel for deduplication
                 event_time: Math.floor(Date.now() / 1000),
                 action_source: "website",
                 event_source_url: event_source_url,
                 user_data: {
                     client_ip_address: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
                     client_user_agent: req.headers['user-agent'],
-                    ...user_data
+                    fbc: user_data?.fbc,  // Meta click ID cookie
+                    fbp: user_data?.fbp,  // Meta browser ID cookie
+                    external_id: user_data?.external_id  // Visitor ID for matching
                 },
                 custom_data: custom_data
             }
-        ]
+        ],
+        test_event_code: process.env.FB_TEST_CODE || undefined  // Optional for testing
     };
 
     try {

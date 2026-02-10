@@ -85,6 +85,32 @@ function createDebugConsole() {
 }
 
 // ============================================
+// META EVENT HELPERS
+// ============================================
+
+function generateEventId() {
+    // Generate unique event ID for deduplication
+    // Format: timestamp + random string
+    return `${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+}
+
+function getMetaCookies() {
+    // Read Meta's tracking cookies for enhanced matching
+    const cookies = document.cookie.split(';');
+    let fbc = null;
+    let fbp = null;
+
+    cookies.forEach(cookie => {
+        const [name, value] = cookie.trim().split('=');
+        if (name === '_fbc') fbc = value;
+        if (name === '_fbp') fbp = value;
+    });
+
+    debugLog(`Meta cookies: fbc=${fbc ? 'present' : 'null'}, fbp=${fbp ? 'present' : 'null'}`);
+    return { fbc, fbp };
+}
+
+// ============================================
 // SUPABASE CONFIGURATION
 // ============================================
 const SUPABASE_URL = 'https://bwpjmowuqkwogbtnheyp.supabase.co';
@@ -267,18 +293,37 @@ async function updateSession() {
 // ============================================
 
 async function trackMetaEvent(eventName, customData = {}) {
-    // 1. Browser Pixel (Standard)
+    // Generate unique event_id for deduplication between Pixel and CAPI
+    const eventId = generateEventId();
+
+    debugLog(`📊 Tracking ${eventName} with event_id: ${eventId}`);
+
+    // 1. Browser Pixel (Standard) - WITH event_id
     if (window.fbq) {
-        window.fbq('track', eventName, customData);
+        try {
+            window.fbq('track', eventName, customData, {
+                eventID: eventId  // CRITICAL for deduplication
+            });
+            debugLog(`✅ Pixel event sent: ${eventName}`, 'success');
+        } catch (err) {
+            debugLog(`❌ Pixel error: ${err.message}`, 'error');
+        }
+    } else {
+        debugLog('⚠️ Meta Pixel not loaded', 'warn');
     }
 
-    // 2. Server CAPI (Vercel Function)
+    // 2. Server CAPI (Vercel Function) - WITH same event_id
     try {
+        const { fbc, fbp } = getMetaCookies();
+
         const body = {
             event_name: eventName,
+            event_id: eventId,  // SAME ID as Pixel for deduplication
             event_source_url: window.location.href,
             user_data: {
-                // Sent to server to be enriched/forwarded
+                fbc: fbc,  // Meta click ID cookie
+                fbp: fbp,  // Meta browser ID cookie
+                external_id: quizState.userData.visitorId  // Consistent visitor ID
             },
             custom_data: {
                 ...customData,
@@ -286,15 +331,28 @@ async function trackMetaEvent(eventName, customData = {}) {
             }
         };
 
-        // Fire and forget (don't await critical blocking)
+        debugLog(`📡 Sending CAPI: ${JSON.stringify({ event_name: eventName, event_id: eventId })}`);
+
+        // Fire and forget (don't block UX)
         fetch('/api/capi', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
-        }).catch(err => console.warn('CAPI warning:', err));
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    debugLog(`✅ CAPI event sent: ${eventName}`, 'success');
+                } else {
+                    debugLog(`❌ CAPI error: ${JSON.stringify(data)}`, 'error');
+                }
+            })
+            .catch(err => {
+                debugLog(`⚠️ CAPI warning: ${err.message}`, 'warn');
+            });
 
     } catch (e) {
-        console.warn('CAPI dispatch failed', e);
+        debugLog(`❌ CAPI dispatch failed: ${e.message}`, 'error');
     }
 }
 
