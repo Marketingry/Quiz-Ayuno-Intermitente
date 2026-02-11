@@ -125,24 +125,24 @@
     width: 100%;
     background: linear-gradient(to bottom, #66BB6A 0%, #4CAF50 50%, #2E7D32 100%);
     color: white;
-    font-size: 20px;
+    font-size: var(--font-size-xl);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
-    padding: 20px 32px;
+    padding: var(--space-lg) var(--space-xl);
     border: none;
     border-radius: var(--radius-full);
     cursor: pointer;
-    transition: var(--transition-fast);
     box-shadow:
         0 8px 0 #1b5e20,
         0 12px 20px rgba(0, 0, 0, 0.3),
         inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    transition: var(--transition-fast);
+    animation: pulseShadow 1.4s ease-out infinite;
     border-top: 2px solid rgba(255, 255, 255, 0.3);
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     position: relative;
     top: 0;
-    animation: pulseShadow 1.4s ease-out infinite;
 }
 
 .landing-cta-btn:hover {
@@ -2290,19 +2290,7 @@ input {
     letter-spacing: 1px;
     transition: var(--transition-fast);
     box-shadow: var(--shadow-lg);
-    animation: pulse 2s infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
-    }
-
-    50% {
-        box-shadow: 0 4px 30px rgba(76, 175, 80, 0.6);
-    }
+    animation: pulseShadow 1.4s ease-out infinite;
 }
 
 .cta-btn:hover {
