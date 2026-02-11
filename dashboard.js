@@ -93,13 +93,12 @@ async function fetchData() {
             .order('created_at', { ascending: false });
 
         if (start) {
-            // Use local timezone start of day
-            const startDate = new Date(start + 'T00:00:00');
+            const startDate = new Date(start);
             query = query.gte('created_at', startDate.toISOString());
         }
         if (end) {
-            // Use local timezone end of day
-            const endDate = new Date(end + 'T23:59:59');
+            const endDate = new Date(end);
+            endDate.setHours(23, 59, 59, 999);
             query = query.lte('created_at', endDate.toISOString());
         }
 

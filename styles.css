@@ -54,179 +54,6 @@
 }
 
 /* ============================================
-   LANDING PAGE (Step 0) STYLES
-   ============================================ */
-
-/* Urgent Banner */
-.urgent-banner {
-    background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
-    color: white;
-    font-size: 18px;
-    font-weight: 800;
-    text-align: center;
-    padding: 16px 20px;
-    margin: -32px -24px 24px -24px;
-    letter-spacing: 0.5px;
-    text-transform: uppercase;
-    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
-}
-
-/* Landing Title */
-.landing-title {
-    font-size: 26px;
-    font-weight: 800;
-    line-height: 1.3;
-    color: var(--text-black);
-    text-align: center;
-    margin: 0 0 24px 0;
-}
-
-.landing-title .highlight-green {
-    background-color: var(--primary-green);
-    color: white;
-    padding: 2px 8px;
-    display: inline-block;
-    line-height: 1.4;
-}
-
-/* Nutritionist Image Container */
-.landing-image-container {
-    width: 100%;
-    max-width: 500px;
-    margin: 0 auto 24px auto;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    box-shadow: var(--shadow-lg);
-}
-
-.landing-nutritionist-img {
-    width: 100%;
-    height: auto;
-    display: block;
-}
-
-/* CTA Text */
-.landing-cta-text {
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1.5;
-    text-align: center;
-    color: var(--text-black);
-    margin: 0 0 24px 0;
-}
-
-.landing-cta-text .highlight-green {
-    color: var(--primary-green);
-    font-weight: 800;
-}
-
-/* CTA Button */
-.landing-cta-btn {
-    width: 100%;
-    background: linear-gradient(to bottom, #66BB6A 0%, #4CAF50 50%, #2E7D32 100%);
-    color: white;
-    font-size: var(--font-size-xl);
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: var(--space-lg) var(--space-xl);
-    border: none;
-    border-radius: var(--radius-full);
-    cursor: pointer;
-    box-shadow:
-        0 8px 0 #1b5e20,
-        0 12px 20px rgba(0, 0, 0, 0.3),
-        inset 0 2px 0 rgba(255, 255, 255, 0.5);
-    transition: var(--transition-fast);
-    animation: pulseShadow 1.4s ease-out infinite;
-    border-top: 2px solid rgba(255, 255, 255, 0.3);
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-    position: relative;
-    top: 0;
-}
-
-.landing-cta-btn:hover {
-    filter: brightness(1.1);
-    box-shadow:
-        0 10px 0 #1b5e20,
-        0 14px 24px rgba(0, 0, 0, 0.35);
-}
-
-.landing-cta-btn:active {
-    top: 6px;
-    transform: translateY(2px);
-    box-shadow:
-        0 2px 0 #1b5e20,
-        0 4px 8px rgba(0, 0, 0, 0.2);
-    filter: brightness(0.95);
-}
-
-/* Mobile Responsive */
-@media (max-width: 480px) {
-    .urgent-banner {
-        font-size: 14px;
-        padding: 12px 16px;
-        margin: -16px -16px 16px -16px;
-    }
-
-    .landing-title {
-        font-size: 22px;
-        margin: 0 0 20px 0;
-    }
-
-    .landing-cta-text {
-        font-size: 16px;
-        margin: 0 0 20px 0;
-    }
-
-    .landing-cta-btn {
-        font-size: 18px;
-        padding: 18px 28px;
-    }
-}
-
-/* Hide header and warning on Step 0 */
-[data-step="0"].active~.header,
-.quiz-step[data-step="0"].active~* .header {
-    display: none !important;
-}
-
-body:has(.quiz-step[data-step="0"].active) .header {
-    display: none !important;
-}
-
-body:has(.quiz-step[data-step="0"].active) .sticky-warning {
-    display: none !important;
-}
-
-/* Pulsing shadow animation for CTA button */
-@keyframes pulseShadow {
-    0% {
-        box-shadow:
-            0 8px 0 #1b5e20,
-            0 12px 20px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5),
-            0 0 0 0 rgba(76, 175, 80, 0.7);
-    }
-
-    70% {
-        box-shadow:
-            0 8px 0 #1b5e20,
-            0 12px 20px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5),
-            0 0 0 20px rgba(76, 175, 80, 0);
-    }
-
-    100% {
-        box-shadow:
-            0 8px 0 #1b5e20,
-            0 12px 20px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5),
-            0 0 0 0 rgba(76, 175, 80, 0);
-    }
-}
-
-/* ============================================
    RESET & BASE STYLES
    ============================================ */
 
@@ -2290,7 +2117,19 @@ input {
     letter-spacing: 1px;
     transition: var(--transition-fast);
     box-shadow: var(--shadow-lg);
-    animation: pulseShadow 1.4s ease-out infinite;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 4px 30px rgba(76, 175, 80, 0.6);
+    }
 }
 
 .cta-btn:hover {

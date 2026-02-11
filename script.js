@@ -6,12 +6,17 @@
 // ============================================
 // DEBUG SYSTEM
 // ============================================
-const DEBUG_MODE = window.location.hostname === 'localhost' || window.location.search.includes('debug=true');
+const DEBUG_MODE = window.location.search.includes('debug=true');
+const IS_LOCALHOST = window.location.hostname === 'localhost';
 
 function debugLog(message, type = 'info') {
     const timestamp = new Date().toLocaleTimeString();
     const prefix = type === 'error' ? '❌' : type === 'warn' ? '⚠️' : type === 'success' ? '✅' : 'ℹ️';
-    console.log(`${prefix} [${timestamp}] ${message}`);
+
+    // Always log to console on localhost or if debug is active
+    if (IS_LOCALHOST || DEBUG_MODE) {
+        console.log(`${prefix} [${timestamp}] ${message}`);
+    }
 
     if (DEBUG_MODE) {
         const debugDiv = document.getElementById('debug-console') || createDebugConsole();
@@ -168,8 +173,8 @@ function getVisitorId() {
 }
 
 const quizState = {
-    currentStep: 0,  // Start at landing page
-    totalSteps: 43,  // 1 landing page + 42 quiz steps
+    currentStep: 0,
+    totalSteps: 42,
     sessionId: null, // Tracks database ID
     answers: {},
     userData: {
@@ -573,6 +578,12 @@ function setupEventListeners() {
 function goToNextStep() {
     if (quizState.currentStep < quizState.totalSteps) {
         quizState.currentStep++;
+
+        // SKIP STEP 1 (Age Range) - Requested removal
+        if (quizState.currentStep === 1) {
+            quizState.currentStep = 2;
+        }
+
         updateUI();
         updateSession(); // Track progress
 
@@ -680,8 +691,14 @@ function initLibidoChart() {
 
 
 function goToPreviousStep() {
-    if (quizState.currentStep > 1) {
+    if (quizState.currentStep > 0) {
         quizState.currentStep--;
+
+        // SKIP STEP 1 (Age Range) - Requested removal
+        if (quizState.currentStep === 1) {
+            quizState.currentStep = 0;
+        }
+
         updateUI();
     }
 }
@@ -734,7 +751,10 @@ function updateUI() {
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
     if (progressBar) {
-        const progress = ((quizState.currentStep - 1) / (quizState.totalSteps - 1)) * 100;
+        let progress = 0;
+        if (quizState.currentStep > 0) {
+            progress = ((quizState.currentStep - 1) / (quizState.totalSteps - 1)) * 100;
+        }
         progressBar.style.width = `${progress}%`;
     }
 }
@@ -742,7 +762,7 @@ function updateProgressBar() {
 function updateBackButton() {
     const backBtn = document.getElementById('backBtn');
     if (backBtn) {
-        if (quizState.currentStep > 1 && quizState.currentStep < 38) {
+        if (quizState.currentStep > 0 && quizState.currentStep < 38) {
             backBtn.classList.add('visible');
         } else {
             backBtn.classList.remove('visible');
@@ -753,10 +773,11 @@ function updateBackButton() {
 function updateStickyWarning() {
     const stickyWarning = document.getElementById('stickyWarning');
     if (stickyWarning) {
-        if (quizState.currentStep > 1) {
-            stickyWarning.classList.add('hidden');
-        } else {
+        // Show only on Step 2 (Goal) as requested
+        if (quizState.currentStep === 2) {
             stickyWarning.classList.remove('hidden');
+        } else {
+            stickyWarning.classList.add('hidden');
         }
     }
 }

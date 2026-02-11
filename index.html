@@ -58,63 +58,27 @@
     <!-- Main Quiz Container -->
     <main class="quiz-container">
 
-        <!-- Etapa 0: Landing Page / Pre-Quiz -->
+        <!-- Etapa 0: Diagnóstico Hook -->
+        <!-- Etapa 0: Diagnóstico Hook -->
         <section class="quiz-step active" data-step="0">
-            <!-- Urgent Banner -->
-            <div class="urgent-banner">
-                URGENTE, NUTRICIONISTA REVELA:
-            </div>
-
-            <!-- Main Headline -->
-            <h1 class="landing-title">
-                ¡PIERDE HASTA <span class="highlight-green">10 KG EN 1 MES</span> CON ESTA RUTINA DE <span
-                    class="highlight-green">AYUNO PERSONALIZADO!</span>
-            </h1>
-
-            <!-- Nutritionist Image -->
-            <div class="landing-image-container">
-                <img src="https://i.ibb.co/7Jrw1LmK/13f14563-8e78-4a07-870e-f1a67325c170.jpg" alt="Nutricionista"
-                    class="landing-nutritionist-img">
-            </div>
-
-            <!-- CTA Text -->
-            <p class="landing-cta-text">
-                HAZ LA EVALUACIÓN DE 1 MINUTO Y OBTÉN TU PROTOCOLO DE <span class="highlight-green">AYUNO
-                    PERSONALIZADO</span> 👇
-            </p>
-
-            <!-- CTA Button -->
-            <button class="landing-cta-btn continue-btn" data-next-step="1">
-                ¡CREAR MI PROTOCOLO!
-            </button>
-        </section>
-
-        <!-- Etapa 1: Edad -->
-        <section class="quiz-step" data-step="1">
-            <h1 class="quiz-title">Ayuno Intermitente</h1>
-            <p class="quiz-subtitle">Según tu edad</p>
-            <div class="options-list">
-                <button class="option-card" data-value="18-25">
-                    <img src="https://i.ibb.co/jvy7XmSL/1.webp" alt="18-25 años" class="option-outcome-img">
-                    <span>18 a 25 años</span>
+            <h1 class="quiz-title">DIAGNÓSTICO GRATUITO DE AYUNO</h1>
+            <p class="quiz-subtitle" style="font-size: 1.2rem; margin-bottom: 20px;">¿Comes después de las 21h?</p>
+            <div class="options-grid">
+                <button class="option-card" data-value="si"
+                    style="justify-content: center; font-weight: 600; font-size: 1.1rem;">
+                    <span class="emoji">✅</span>
+                    <span style="flex: 0 auto;">SÍ</span>
                 </button>
-                <button class="option-card" data-value="26-35">
-                    <img src="https://i.ibb.co/8DXkg6N7/faca618d-5574-44ea-a30c-045460638fdf.webp" alt="26-35 años"
-                        class="option-outcome-img">
-                    <span>26 a 35 años</span>
-                </button>
-                <button class="option-card" data-value="36-45">
-                    <img src="https://i.ibb.co/0Pq8FK4/c2f506ba-599f-449c-b87b-a651a70ad591.webp" alt="36-45 años"
-                        class="option-outcome-img">
-                    <span>36 a 45 años</span>
-                </button>
-                <button class="option-card" data-value="46+">
-                    <img src="https://i.ibb.co/jPQnZgpZ/8334d8e8-5f6a-42b8-9cbb-5462ff2a49eb.webp" alt="+46 años"
-                        class="option-outcome-img">
-                    <span>+46 años</span>
+                <button class="option-card" data-value="no"
+                    style="justify-content: center; font-weight: 600; font-size: 1.1rem;">
+                    <span class="emoji">❌</span>
+                    <span style="flex: 0 auto;">NO</span>
                 </button>
             </div>
         </section>
+
+        <!-- Etapa 1: REMOVIDA (Age Range) -->
+        <!-- <section class="quiz-step" data-step="1"> ... </section> -->
 
         <!-- Etapa 2: Objetivo -->
         <section class="quiz-step" data-step="2">
