@@ -142,11 +142,11 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     position: relative;
     top: 0;
+    animation: pulse 2s ease-in-out infinite;
 }
 
 .landing-cta-btn:hover {
     filter: brightness(1.1);
-    transform: translateY(-2px);
     box-shadow:
         0 10px 0 #1b5e20,
         0 14px 24px rgba(0, 0, 0, 0.35);
@@ -218,10 +218,6 @@ body:has(.quiz-step[data-step="0"].active) .sticky-warning {
             0 16px 28px rgba(76, 175, 80, 0.4),
             inset 0 2px 0 rgba(255, 255, 255, 0.6);
     }
-}
-
-.landing-cta-btn {
-    animation: pulse 2s ease-in-out infinite;
 }
 
 /* ============================================
