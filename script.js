@@ -168,8 +168,8 @@ function getVisitorId() {
 }
 
 const quizState = {
-    currentStep: 1,
-    totalSteps: 42,
+    currentStep: 0,  // Start at landing page
+    totalSteps: 43,  // 1 landing page + 42 quiz steps
     sessionId: null, // Tracks database ID
     answers: {},
     userData: {
