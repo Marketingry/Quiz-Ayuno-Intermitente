@@ -94,21 +94,13 @@ async function fetchData() {
 
         if (start) {
             // Use local timezone start of day
-            const startDate = new Date(start);
-            startDate.setHours(0, 0, 0, 0);
-            // Convert to ISO but preserve local time
-            const offset = startDate.getTimezoneOffset() * 60000;
-            const localStart = new Date(startDate.getTime() - offset);
-            query = query.gte('created_at', localStart.toISOString());
+            const startDate = new Date(start + 'T00:00:00');
+            query = query.gte('created_at', startDate.toISOString());
         }
         if (end) {
             // Use local timezone end of day
-            const endDate = new Date(end);
-            endDate.setHours(23, 59, 59, 999);
-            // Convert to ISO but preserve local time
-            const offset = endDate.getTimezoneOffset() * 60000;
-            const localEnd = new Date(endDate.getTime() - offset);
-            query = query.lte('created_at', localEnd.toISOString());
+            const endDate = new Date(end + 'T23:59:59');
+            query = query.lte('created_at', endDate.toISOString());
         }
 
         if (!start && !end) query = query.limit(1000);
