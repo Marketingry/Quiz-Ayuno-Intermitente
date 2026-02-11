@@ -142,7 +142,7 @@
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
     position: relative;
     top: 0;
-    animation: pulse 2s ease-in-out infinite;
+    animation: pulseShadow 1.4s ease-out infinite;
 }
 
 .landing-cta-btn:hover {
@@ -199,24 +199,30 @@ body:has(.quiz-step[data-step="0"].active) .sticky-warning {
     display: none !important;
 }
 
-/* Pulsing animation for CTA button */
-@keyframes pulse {
-
-    0%,
-    100% {
-        transform: scale(1);
+/* Pulsing shadow animation for CTA button */
+@keyframes pulseShadow {
+    0% {
         box-shadow:
             0 8px 0 #1b5e20,
             0 12px 20px rgba(0, 0, 0, 0.3),
-            inset 0 2px 0 rgba(255, 255, 255, 0.5);
+            inset 0 2px 0 rgba(255, 255, 255, 0.5),
+            0 0 0 0 rgba(76, 175, 80, 0.7);
     }
 
-    50% {
-        transform: scale(1.05);
+    70% {
         box-shadow:
             0 8px 0 #1b5e20,
-            0 16px 28px rgba(76, 175, 80, 0.4),
-            inset 0 2px 0 rgba(255, 255, 255, 0.6);
+            0 12px 20px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 0.5),
+            0 0 0 20px rgba(76, 175, 80, 0);
+    }
+
+    100% {
+        box-shadow:
+            0 8px 0 #1b5e20,
+            0 12px 20px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 0.5),
+            0 0 0 0 rgba(76, 175, 80, 0);
     }
 }
 
