@@ -231,8 +231,8 @@ input {
     align-items: center;
     gap: var(--space-md);
     padding: var(--space-md);
-    background: var(--bg-white);
-    border: 2px solid var(--border-gray);
+    background: #f1f8e9;
+    border: 2px solid #c5e1a5;
     border-radius: var(--radius-md);
     text-align: left;
     transition: var(--transition-fast);

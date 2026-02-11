@@ -59,7 +59,9 @@ function applyQuickDate(mode) {
     const endInput = document.getElementById('dateEnd');
 
     const now = new Date();
-    const todayStr = now.toISOString().split('T')[0];
+    // Use Local Time for "Today"
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
     endInput.value = todayStr;
 
     if (mode === 'today') {
@@ -67,11 +69,13 @@ function applyQuickDate(mode) {
     } else if (mode === '3days') {
         const d = new Date();
         d.setDate(d.getDate() - 3);
-        startInput.value = d.toISOString().split('T')[0];
+        const dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        startInput.value = dStr;
     } else if (mode === '7days') {
         const d = new Date();
         d.setDate(d.getDate() - 7);
-        startInput.value = d.toISOString().split('T')[0];
+        const dStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        startInput.value = dStr;
     } else {
         return;
     }
@@ -93,12 +97,16 @@ async function fetchData() {
             .order('created_at', { ascending: false });
 
         if (start) {
-            const startDate = new Date(start);
+            // Parse YYYY-MM-DD in Local Time
+            const [y, m, d] = start.split('-').map(Number);
+            const startDate = new Date(y, m - 1, d); // Local Midnight
             query = query.gte('created_at', startDate.toISOString());
         }
         if (end) {
-            const endDate = new Date(end);
-            endDate.setHours(23, 59, 59, 999);
+            // Parse YYYY-MM-DD in Local Time
+            const [y, m, d] = end.split('-').map(Number);
+            const endDate = new Date(y, m - 1, d);
+            endDate.setHours(23, 59, 59, 999); // Local End of Day
             query = query.lte('created_at', endDate.toISOString());
         }
 
