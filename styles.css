@@ -185,6 +185,45 @@
     }
 }
 
+/* Hide header and warning on Step 0 */
+[data-step="0"].active~.header,
+.quiz-step[data-step="0"].active~* .header {
+    display: none !important;
+}
+
+body:has(.quiz-step[data-step="0"].active) .header {
+    display: none !important;
+}
+
+body:has(.quiz-step[data-step="0"].active) .sticky-warning {
+    display: none !important;
+}
+
+/* Pulsing animation for CTA button */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        box-shadow:
+            0 8px 0 #1b5e20,
+            0 12px 20px rgba(0, 0, 0, 0.3),
+            inset 0 2px 0 rgba(255, 255, 255, 0.5);
+    }
+
+    50% {
+        transform: scale(1.05);
+        box-shadow:
+            0 8px 0 #1b5e20,
+            0 16px 28px rgba(76, 175, 80, 0.4),
+            inset 0 2px 0 rgba(255, 255, 255, 0.6);
+    }
+}
+
+.landing-cta-btn {
+    animation: pulse 2s ease-in-out infinite;
+}
+
 /* ============================================
    RESET & BASE STYLES
    ============================================ */
