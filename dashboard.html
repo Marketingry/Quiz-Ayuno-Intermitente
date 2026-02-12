@@ -347,7 +347,12 @@
         </div>
 
         <div class="card-container">
-            <h3 class="section-title">Últimas Sessões</h3>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+                <h3 class="section-title" style="margin:0;">Últimas Sessões</h3>
+                <div style="font-size:12px; color:#666; font-weight:600;">
+                    Total: <span id="totalRecords">0</span> registros
+                </div>
+            </div>
             <div style="overflow-x: auto;">
                 <table class="recent-table">
                     <thead>
@@ -365,7 +370,18 @@
                     </tbody>
                 </table>
             </div>
+
+            <!-- Pagination Controls -->
+            <div
+                style="display:flex; justify-content:space-between; align-items:center; margin-top:15px; padding-top:10px; border-top:1px solid #eee;">
+                <button id="prevPageBtn" disabled style="background:#eee; color:#666;">&laquo; Anterior</button>
+                <div style="font-size:12px; font-weight:600; color:#555;">
+                    Página <span id="currentPageSpan">1</span> de <span id="totalPagesSpan">1</span>
+                </div>
+                <button id="nextPageBtn" disabled style="background:#eee; color:#666;">Próximo &raquo;</button>
+            </div>
         </div>
+    </div>
     </div>
 
     <!-- Modal for Answers -->

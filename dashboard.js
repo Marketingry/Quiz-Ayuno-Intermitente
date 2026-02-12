@@ -7,6 +7,8 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 
 let supabase;
 let currentData = [];
+let currentPage = 1;
+const itemsPerPage = 50;
 
 // Logger helpers
 const debugLog = document.getElementById('debugLog');
@@ -35,6 +37,12 @@ async function init() {
 
         const exportBtn = document.getElementById('exportBtn');
         if (exportBtn) exportBtn.addEventListener('click', exportCSV);
+
+        const prevBtn = document.getElementById('prevPageBtn');
+        if (prevBtn) prevBtn.addEventListener('click', () => changePage(-1));
+
+        const nextBtn = document.getElementById('nextPageBtn');
+        if (nextBtn) nextBtn.addEventListener('click', () => changePage(1));
 
         // Bind global modal close
         window.onclick = function (event) {
@@ -110,7 +118,9 @@ async function fetchData() {
             query = query.lte('created_at', endDate.toISOString());
         }
 
-        if (!start && !end) query = query.limit(1000);
+        // REMOVED LIMIT for authenticated users or just increased to high number
+        // if (!start && !end) query = query.limit(1000); 
+        // User requested NO LIMIT. 
 
         const { data, error } = await query;
 
@@ -139,6 +149,10 @@ function processData(sessions) {
 
         const conversionRate = total > 0 ? ((completed / total) * 100).toFixed(1) : 0;
 
+        // Update Total Records UI
+        const totalEl = document.getElementById('totalRecords');
+        if (totalEl) totalEl.innerText = total;
+
         // Unique Metrics Calculation
         const uniqueVisitors = new Set();
         const uniqueLeads = new Set();
@@ -166,7 +180,12 @@ function processData(sessions) {
             uVisitors, uLeads, uConversion, uSales
         );
         renderFunnelList(sessions, total);
-        renderTable(sessions.slice(0, 50));
+
+        // Reset to page 1 on new data
+        if (currentPage === 1 || sessions.length < (currentPage - 1) * itemsPerPage) {
+            currentPage = 1;
+        }
+        updatePagination();
 
     } catch (e) {
         logError('Erro processando dados: ' + e.message);
@@ -342,6 +361,50 @@ function showModal(data) {
     modal.style.display = 'block';
 }
 
+function changePage(delta) {
+    const totalPages = Math.ceil(currentData.length / itemsPerPage);
+    const newPage = currentPage + delta;
+    if (newPage >= 1 && newPage <= totalPages) {
+        currentPage = newPage;
+        updatePagination();
+    }
+}
+
+function updatePagination() {
+    const totalPages = Math.ceil(currentData.length / itemsPerPage) || 1;
+
+    // Update UI
+    const currentSpan = document.getElementById('currentPageSpan');
+    const totalSpan = document.getElementById('totalPagesSpan');
+    const prevBtn = document.getElementById('prevPageBtn');
+    const nextBtn = document.getElementById('nextPageBtn');
+
+    if (currentSpan) currentSpan.innerText = currentPage;
+    if (totalSpan) totalSpan.innerText = totalPages;
+
+    if (prevBtn) {
+        prevBtn.disabled = currentPage === 1;
+        prevBtn.style.background = currentPage === 1 ? '#eee' : '#fff';
+        prevBtn.style.color = currentPage === 1 ? '#888' : '#333';
+        prevBtn.style.border = '1px solid #ddd';
+        prevBtn.style.cursor = currentPage === 1 ? 'default' : 'pointer';
+    }
+
+    if (nextBtn) {
+        nextBtn.disabled = currentPage === totalPages;
+        nextBtn.style.background = currentPage === totalPages ? '#eee' : '#fff';
+        nextBtn.style.color = currentPage === totalPages ? '#888' : '#333';
+        nextBtn.style.border = '1px solid #ddd';
+        nextBtn.style.cursor = currentPage === totalPages ? 'default' : 'pointer';
+    }
+
+    // Slice data
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const slice = currentData.slice(start, end);
+    renderTable(slice);
+}
+
 async function resetMetrics() {
     if (!confirm('⚠️ TEM CERTEZA? ISSO APAGARÁ TODAS AS SESSÕES!')) return;
     try {
@@ -356,6 +419,10 @@ async function resetMetrics() {
 
 function exportCSV() {
     if (!currentData.length) return alert('Sem dados.');
+
+    const start = document.getElementById('dateStart').value || 'inicio';
+    const end = document.getElementById('dateEnd').value || 'fim';
+
     const rows = [['ID', 'Data', 'Step', 'Checkout', 'Respostas']];
     currentData.forEach(s => {
         rows.push([
@@ -363,10 +430,13 @@ function exportCSV() {
             JSON.stringify(s.answers || {}).replace(/"/g, '""')
         ]);
     });
-    const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+
+    const csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.map(field => {
+        return `"${String(field).replace(/"/g, '""')}"`; // Wrap all fields in quotes and escape internal quotes
+    }).join(",")).join("\n");
     const link = document.createElement("a");
     link.setAttribute("href", encodeURI(csvContent));
-    link.setAttribute("download", "quiz_data.csv");
+    link.setAttribute("download", `quiz_leads_${start}_ate_${end}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
