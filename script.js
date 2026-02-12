@@ -191,6 +191,13 @@ const quizState = {
 // ============================================
 
 async function initSession() {
+    // PREVENT DEBUG/LOCALHOST SESSIONS FROM POLLUTING METRICS
+    if (IS_LOCALHOST || DEBUG_MODE) {
+        debugLog('⚠️ Tracking DISABLED (localhost or debug mode)', 'warn');
+        debugLog('Session will NOT be saved to database', 'warn');
+        return;
+    }
+
     debugLog('=== INIT SESSION STARTED ===');
     debugLog(`Visitor ID: ${quizState.userData.visitorId}`);
 
@@ -243,6 +250,12 @@ async function initSession() {
 }
 
 async function updateSession() {
+    // PREVENT DEBUG/LOCALHOST SESSIONS FROM POLLUTING METRICS
+    if (IS_LOCALHOST || DEBUG_MODE) {
+        debugLog('⚠️ Update tracking DISABLED (localhost or debug mode)', 'warn');
+        return;
+    }
+
     debugLog(`=== UPDATE SESSION (Step ${quizState.currentStep}) ===`);
 
     const client = await initSupabase();
@@ -584,6 +597,11 @@ function goToNextStep() {
             quizState.currentStep = 2;
         }
 
+        // SKIP STEP 41 (Weight Loss Chart) - Requested removal
+        if (quizState.currentStep === 41) {
+            quizState.currentStep = 42;
+        }
+
         updateUI();
         updateSession(); // Track progress
 
@@ -600,11 +618,10 @@ function goToNextStep() {
         if (quizState.currentStep === 40) {
             setTimeout(startLoadingAnimation, 300);
         }
-        if (quizState.currentStep === 41) {
-            setTimeout(initWeightChart, 300);
-        }
+        // Step 41 skipped
         if (quizState.currentStep === 42) {
             setTimeout(initCarousel, 300);
+            setTimeout(initVSL, 500); // Initialize VSL with smart delay
         }
     }
 }
@@ -688,6 +705,141 @@ function initLibidoChart() {
         }, 100);
     }
 }
+
+// ============================================
+// VSL SMART DELAY (Step 42)
+// ============================================
+
+let vslState = {
+    revealed: false,
+    timer: null,
+    countdownTimer: null,
+    countdownInterval: null
+};
+
+function initVSL() {
+    const delayedOffer = document.getElementById('delayed-offer');
+    const countdownEl = document.getElementById('countdown-timer');
+    const vslCtaBtn = document.getElementById('vsl-cta-btn');
+
+    if (!delayedOffer || vslState.revealed) return;
+
+    debugLog('VSL initialized - Starting 135s delay');
+
+    // Start 135-second (2:15) timer
+    vslState.timer = setTimeout(() => {
+        revealOffer('Timer completed (2:15)');
+    }, 135000); // 135 seconds = 2:15
+
+    // Start 10-minute countdown
+    startCountdown(countdownEl);
+
+    // CTA Button Click Handler
+    if (vslCtaBtn) {
+        vslCtaBtn.addEventListener('click', () => {
+            revealOffer('CTA Button clicked');
+            // Scroll to offer content
+            setTimeout(() => {
+                delayedOffer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 300);
+        });
+    }
+
+    // Listen for page visibility change (user leaves tab)
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    // Try to detect video pause via VTurb smartplayer events
+    // VTurb fires custom events when video is paused
+    const player = document.getElementById('vid-698cf6811e643e3dce3a5abc');
+    if (player) {
+        // Listen for smartplayer pause event
+        player.addEventListener('pause', () => {
+            revealOffer('Video paused');
+        });
+
+        player.addEventListener('ended', () => {
+            revealOffer('Video ended');
+        });
+    }
+}
+
+function handleVisibilityChange() {
+    if (document.hidden && !vslState.revealed) {
+        revealOffer('User left page');
+    }
+}
+
+function revealOffer(reason) {
+    if (vslState.revealed) return;
+
+    vslState.revealed = true;
+    debugLog(`Revealing offer: ${reason}`);
+
+    // Clear timers
+    if (vslState.timer) clearTimeout(vslState.timer);
+    if (vslState.countdownInterval) clearInterval(vslState.countdownInterval);
+
+    // Show offer with fade-in
+    const delayedOffer = document.getElementById('delayed-offer');
+    if (delayedOffer) {
+        delayedOffer.style.display = 'block';
+        delayedOffer.style.opacity = '0';
+        setTimeout(() => {
+            delayedOffer.style.transition = 'opacity 0.8s ease-in';
+            delayedOffer.style.opacity = '1';
+        }, 50);
+    }
+
+    // Remove countdown
+    const countdownEl = document.getElementById('countdown-timer');
+    if (countdownEl) countdownEl.style.display = 'none';
+}
+
+function startCountdown(element) {
+    if (!element) return;
+
+    let timeRemaining = 600; // 10 minutes in seconds
+    const totalTime = 600;
+    const totalSpots = 20;
+
+    // Elements
+    const spotsFill = document.getElementById('spots-fill');
+    const spotsTaken = document.getElementById('spots-taken');
+    const vslCtaBtn = document.getElementById('vsl-cta-btn');
+
+    function updateDisplay() {
+        const minutes = Math.floor(timeRemaining / 60);
+        const seconds = timeRemaining % 60;
+        element.textContent = `⏰ Esta oferta expira em: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+        // Calculate spots filled (increases as time decreases)
+        const elapsed = totalTime - timeRemaining;
+        const spotsToShow = Math.min(Math.floor((elapsed / totalTime) * totalSpots), totalSpots);
+        const progressPercent = (spotsToShow / totalSpots) * 100;
+
+        if (spotsFill) spotsFill.style.width = `${progressPercent}%`;
+        if (spotsTaken) spotsTaken.textContent = spotsToShow;
+
+        // Show CTA button after 2:15 (135 seconds elapsed)
+        if (elapsed >= 135 && vslCtaBtn && vslCtaBtn.style.display === 'none') {
+            vslCtaBtn.style.display = 'flex';
+            vslCtaBtn.style.animation = 'fadeInUp 0.6s ease-out';
+        }
+
+        if (timeRemaining === 0) {
+            clearInterval(vslState.countdownInterval);
+            element.textContent = '⚠️ Oferta expirada!';
+            if (spotsFill) spotsFill.style.width = '100%';
+            if (spotsTaken) spotsTaken.textContent = totalSpots;
+        }
+
+        timeRemaining--;
+    }
+
+    updateDisplay();
+    vslState.countdownInterval = setInterval(updateDisplay, 1000);
+}
+
 
 
 function goToPreviousStep() {
@@ -981,7 +1133,7 @@ function startLoadingAnimation() {
 async function trackCheckoutClick() {
     const CHECKOUT_URL = "https://pay.hotmart.com/L104272039N?checkoutMode=10";
 
-    if (supabase && quizState.sessionId) {
+    if (supabase && quizState.sessionId && !IS_LOCALHOST && !DEBUG_MODE) {
         try {
             console.log('Tracking checkout click...');
             // Attempt to track, but don't block indefinitely
@@ -1117,7 +1269,7 @@ function initCheckout() {
             });
 
             // Update session status if needed
-            if (supabase && quizState.sessionId) {
+            if (supabase && quizState.sessionId && !IS_LOCALHOST && !DEBUG_MODE) {
                 supabase
                     .from('quiz_sessions')
                     .update({ clicked_checkout: true })

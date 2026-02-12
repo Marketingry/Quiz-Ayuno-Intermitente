@@ -1,0 +1,13 @@
+
+--- Funnel Analysis ---
+Step 0 (Diagnosis): 836 (100.0%)
+Step 2 (Goal): 255 (Conv: 30.5%)
+Step 10: 183 (Conv: 71.8%)
+Step 20: 171 (Conv: 93.4%)
+Step 30: 162 (Conv: 94.7%)
+Step 40: 149 (Conv: 92.0%)
+Step 42 (End): 148 (Conv: 99.3%)
+
+Checkout Clicks: 128 (Conv from End: 86.5%)
+Actual Rate (Checkout/Total): 15.3%
+    

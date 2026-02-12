@@ -30,7 +30,23 @@
         fbq('track', 'PageView');
     </script>
 
+
     <!-- End Meta Pixel Code -->
+
+    <!-- VTurb Performance Optimization -->
+    <script>!function (i, n) { i._plt = i._plt || (n && n.timeOrigin ? n.timeOrigin + n.now() : Date.now()) }(window, performance);</script>
+    <link rel="preload"
+        href="https://scripts.converteai.net/bab2dd94-8c26-4f3c-b7d9-bbb72bb2b5ec/players/698cf6811e643e3dce3a5abc/v4/player.js"
+        as="script">
+    <link rel="preload" href="https://scripts.converteai.net/lib/js/smartplayer-wc/v4/smartplayer.js" as="script">
+    <link rel="preload"
+        href="https://cdn.converteai.net/bab2dd94-8c26-4f3c-b7d9-bbb72bb2b5ec/698cf6549a130410492e4e8d/main.m3u8"
+        as="fetch">
+    <link rel="dns-prefetch" href="https://cdn.converteai.net">
+    <link rel="dns-prefetch" href="https://scripts.converteai.net">
+    <link rel="dns-prefetch" href="https://images.converteai.net">
+    <link rel="dns-prefetch" href="https://api.vturb.com.br">
+
 
 </head>
 
@@ -1071,362 +1087,334 @@
             </div>
         </section>
 
-        <!-- Etapa 41: Plan Listo con Gráfico -->
-        <section class="quiz-step plan-ready-page" data-step="41">
-            <h1 class="quiz-title">¡Tu Plan Personalizado de Ayuno está listo!</h1>
 
-            <div class="weight-loss-chart">
-                <div class="chart-title">KG en 4 semanas</div>
-                <div class="chart-container-svg">
-                    <svg viewBox="0 0 400 280" class="weight-chart-final">
-                        <defs>
-                            <linearGradient id="weightGradient" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stop-color="#f44336"></stop>
-                                <stop offset="35%" stop-color="#ff9800"></stop>
-                                <stop offset="65%" stop-color="#ffeb3b"></stop>
-                                <stop offset="100%" stop-color="#4CAF50"></stop>
-                            </linearGradient>
-                            <linearGradient id="weightFill" x1="0" y1="0" x2="1" y2="0">
-                                <stop offset="0%" stop-color="#f44336" stop-opacity="0.3"></stop>
-                                <stop offset="35%" stop-color="#ff9800" stop-opacity="0.2"></stop>
-                                <stop offset="65%" stop-color="#ffeb3b" stop-opacity="0.15"></stop>
-                                <stop offset="100%" stop-color="#4CAF50" stop-opacity="0.1"></stop>
-                            </linearGradient>
-                        </defs>
-
-                        <!-- "Tú" label -->
-                        <g transform="translate(15, 20)">
-                            <rect x="0" y="0" rx="10" ry="10" width="60" height="28" fill="#f5f5f5" stroke="#e0e0e0"
-                                stroke-width="1"></rect>
-                            <text x="30" y="19" fill="#666" font-size="14" font-weight="600" text-anchor="middle"
-                                font-family="Montserrat, sans-serif">Tú</text>
-                        </g>
-
-                        <!-- Start point -->
-                        <circle cx="30" cy="55" r="8" fill="#ff9800" stroke="white" stroke-width="3"></circle>
-
-                        <!-- Area fill -->
-                        <path fill="url(#weightFill)" d="M30,55 L370,180 L370,220 L30,220 Z"></path>
-
-                        <!-- Line -->
-                        <line x1="30" y1="55" x2="370" y2="180" stroke="url(#weightGradient)" stroke-width="4"
-                            stroke-linecap="round"></line>
-
-                        <!-- "4 semanas después" label -->
-                        <g transform="translate(240, 135)">
-                            <rect x="0" y="0" rx="12" ry="12" width="150" height="30" fill="#f5f5f5" stroke="#e0e0e0"
-                                stroke-width="1"></rect>
-                            <text x="75" y="20" fill="#666" font-size="13" font-weight="600" text-anchor="middle"
-                                font-family="Montserrat, sans-serif">4 semanas después</text>
-                        </g>
-
-                        <!-- End point -->
-                        <circle class="pulse-point" cx="370" cy="180" r="8" fill="#4CAF50" stroke="white"
-                            stroke-width="3"></circle>
-
-                        <!-- X-axis labels -->
-                        <text x="20" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="start"
-                            font-family="Montserrat, sans-serif" id="chart-start-weight">Tu peso</text>
-                        <text x="380" y="260" fill="#666" font-size="16" font-weight="500" text-anchor="end"
-                            font-family="Montserrat, sans-serif" id="chart-goal-weight">Objetivo</text>
-                    </svg>
-                </div>
-            </div>
-
-            <button class="continue-btn">Continuar</button>
-        </section>
 
         <!-- Etapa 42: Página de Resultados y Oferta -->
         <section class="quiz-step results-page" data-step="42">
-            <!-- Llamada Principal -->
-            <div class="results-cta-section">
-                <h2 class="results-main-title">¿Estás lista para <span class="highlight-word">transformar</span> tu
-                    <span class="highlight-word">cuerpo</span> y tu <span class="highlight-word">salud?</span>
-                </h2>
-                <p class="results-subtitle">Basado en tus respuestas, hemos creado un <span
-                        class="highlight-underline">plan personalizado</span> para que alcances
-                    tu peso ideal en hasta <strong>4 semanas</strong>.</p>
+
+            <!-- VSL Container with Compelling Title -->
+            <div class="vsl-section">
+                <h2 class="vsl-title">¡Tu Plan Personalizado de Ayuno está listo!</h2>
+                <p class="vsl-subtitle">Por favor, mira el video abajo para desbloquear</p>
+
+                <vturb-smartplayer id="vid-698cf6811e643e3dce3a5abc"
+                    style="display: block; margin: 0 auto; width: 100%; max-width: 500px; margin-top: 1.5rem;"></vturb-smartplayer>
+                <script type="text/javascript">
+                    var s = document.createElement("script");
+                    s.src = "https://scripts.converteai.net/bab2dd94-8c26-4f3c-b7d9-bbb72bb2b5ec/players/698cf6811e643e3dce3a5abc/v4/player.js";
+                    s.async = !0;
+                    document.head.appendChild(s);
+                </script>
+
+                <!-- Green 3D CTA Button -->
+                <button class="vsl-cta-btn btn-pulse-shadow" id="vsl-cta-btn" style="display: none;">
+                    <span class="btn-text">RECIBIR MI PLAN</span>
+                </button>
             </div>
 
-            <!-- Sección Comparativa de Metabolismo -->
-            <div class="metabolism-comparison" style="display: block; text-align: center;">
-                <a href="https://ibb.co/xKck25NZ"><img
-                        src="https://i.ibb.co/mrYjRz3p/quality-restoration-20260203150654276.webp"
-                        alt="quality restoration 20260203150654276" border="0"
-                        style="width: 100%; max-width: 600px; height: auto;"></a>
-            </div>
+            <!-- Delayed Offer Content (Hidden initially) -->
+            <div id="delayed-offer" style="display: none;">
 
-
-
-            <!-- Sección de Introducción del Plan -->
-            <div class="plan-intro">
-                <h2 class="plan-intro-title">¿Cómo funciona el Plan?</h2>
-                <p class="plan-intro-text">Con base en tu información personal y objetivos, creamos un plan de ayuno
-                    100% personalizado para ti. Nuestro enfoque estratégico está diseñado para que logres
-                    potenciar tu pérdida de peso en 4 semanas, respetando tu estilo de vida, tu rutina y lo que
-                    te gusta comer.</p>
-                <p class="plan-intro-subtitle"><strong>Tu plan incluye:</strong></p>
-            </div>
-
-            <!-- Beneficios del Plan -->
-            <div class="benefits-section small-text">
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Potencia la Quema de Grasa:</h4>
-                        <p>Sepa exactamente qué comer cuando termines de ayunar, para acelerar la quema de
-                            grasa y mantenerte saciada por más tiempo.</p>
-                    </div>
+                <!-- CTA Button Above Main CTA Section -->
+                <div style="text-align: center; margin: 2rem 0;">
+                    <button class="cta-btn pulse-btn large btn-pulse-shadow">RECIBIR MI PLAN</button>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Cómo Parecer otra Persona frente al Espejo en 7 Días:</h4>
-                        <p>Aprende la manera más fácil de deshincharte y ver grandes resultados en el espejo en menos de
-                            7
-                            días.</p>
-                    </div>
+                <!-- Llamada Principal (MOVED HERE) -->
+                <div class="results-cta-section">
+                    <h2 class="results-main-title">¿Estás lista para <span class="highlight-word">transformar</span> tu
+                        <span class="highlight-word">cuerpo</span> y tu <span class="highlight-word">salud?</span>
+                    </h2>
+                    <p class="results-subtitle">Basado en tus respuestas, hemos creado un <span
+                            class="highlight-underline">plan personalizado</span> para que alcances
+                        tu peso ideal en hasta <strong>4 semanas</strong>.</p>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Protocolo Anti-Efecto Rebote:</h4>
-                        <p>Descubre cómo mantener el peso perdido y nunca más volver a engordar, incluso después de
-                            alcanzar
-                            tu objetivo.</p>
-                    </div>
+                <!-- Sección Comparativa de Metabolismo (MOVED HERE) -->
+                <div class="metabolism-comparison" style="display: block; text-align: center;">
+                    <a href="https://ibb.co/xKck25NZ"><img
+                            src="https://i.ibb.co/mrYjRz3p/quality-restoration-20260203150654276.webp"
+                            alt="quality restoration 20260203150654276" border="0"
+                            style="width: 100%; max-width: 600px; height: auto;"></a>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Descubre cómo acelerar tu metabolismo y perder peso sin hacer nada:</h4>
-                        <p>Aprende las principales estrategias para acelerar tu metabolismo y quemar grasa incluso si
-                            no haces nada.</p>
-                    </div>
+
+                <!-- Sección de Introducción del Plan -->
+                <div class="plan-intro">
+                    <h2 class="plan-intro-title">¿Cómo funciona el Plan?</h2>
+                    <p class="plan-intro-text">Con base en tu información personal y objetivos, creamos un plan de ayuno
+                        100% personalizado para ti. Nuestro enfoque estratégico está diseñado para que logres
+                        potenciar tu pérdida de peso en 4 semanas, respetando tu estilo de vida, tu rutina y lo que
+                        te gusta comer.</p>
+                    <p class="plan-intro-subtitle"><strong>Tu plan incluye:</strong></p>
                 </div>
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Definición de metas diarias:</h4>
-                        <p>Para que te mantengas en el camino correcto.</p>
-                    </div>
-                </div>
+                <!-- Beneficios del Plan -->
+                <div class="benefits-section small-text">
 
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Protocolo Anti-procrastinación:</h4>
-                        <p>Descubre el secreto de los mayores líderes para mantenerte siempre motivada.</p>
-                    </div>
-                </div>
-
-                <div class="benefit-item">
-                    <div class="benefit-icon">✅</div>
-                    <div class="benefit-content">
-                        <h4>Planilla de seguimiento:</h4>
-                        <p>Sepa exactamente cuánto estás evolucionando.</p>
-                    </div>
-                </div>
-
-                <button class="cta-btn pulse-btn large">RECIBIR MI PLAN</button>
-                <div class="security-badge-container">
-                    <img src="https://i.ibb.co/Y4T7Gh55/download-Photoroom.png" alt="Compra Segura"
-                        class="security-badge-img">
-                </div>
-            </div>
-
-            <!-- Prueba Social - Historias de Éxito -->
-            <div class="success-stories-section">
-                <h2 class="section-title">Mira las historias de éxito de nuestras alumnas</h2>
-
-                <div class="carousel-wrapper">
-                    <button class="carousel-nav prev-btn" id="prevSlide">❮</button>
-                    <div class="stories-carousel">
-                        <div class="carousel-track" id="storiesTrack">
-                            <div class="carousel-slide">
-                                <div class="story-card">
-                                    <a href="https://ibb.co/hF0V9r7M"><img
-                                            src="https://i.ibb.co/pjqdwN0P/unnamed-49.webp"
-                                            alt="Transformación antes y después - Historia de Éxito" border="0"></a>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="story-card">
-                                    <a href="https://ibb.co/Y4DLwL2Y"><img
-                                            src="https://i.ibb.co/hxXmwmsh/unnamed-50.webp"
-                                            alt="Resultado de alumna - Antes y después" border="0"></a>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="story-card">
-                                    <a href="https://ibb.co/j9KVdb9X"><img
-                                            src="https://i.ibb.co/GfwsXnfS/unnamed-48.webp"
-                                            alt="Evolución de peso - Historia de Éxito" border="0"></a>
-                                </div>
-                            </div>
-                            <div class="carousel-slide">
-                                <div class="story-card">
-                                    <a href="https://ibb.co/BKC5nQV3"><img
-                                            src="https://i.ibb.co/gFRL4fM9/unnamed-51.webp"
-                                            alt="Cambio corporal - Antes y después" border="0"></a>
-                                </div>
-                            </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Potencia la Quema de Grasa:</h4>
+                            <p>Sepa exactamente qué comer cuando termines de ayunar, para acelerar la quema de
+                                grasa y mantenerte saciada por más tiempo.</p>
                         </div>
                     </div>
-                    <button class="carousel-nav next-btn" id="nextSlide">❯</button>
 
-                    <div class="carousel-dots" id="carouselDots">
-                        <span class="dot active" data-index="0"></span>
-                        <span class="dot" data-index="1"></span>
-                        <span class="dot" data-index="2"></span>
-                        <span class="dot" data-index="3"></span>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Cómo Parecer otra Persona frente al Espejo en 7 Días:</h4>
+                            <p>Aprende la manera más fácil de deshincharte y ver grandes resultados en el espejo en
+                                menos de
+                                7
+                                días.</p>
+                        </div>
                     </div>
-                </div>
 
-                <div class="results-badge">
-                    <h3>Quien lo usa <br><strong>TIENE RESULTADOS</strong> 😉👇</h3>
-                </div>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Protocolo Anti-Efecto Rebote:</h4>
+                            <p>Descubre cómo mantener el peso perdido y nunca más volver a engordar, incluso después de
+                                alcanzar
+                                tu objetivo.</p>
+                        </div>
+                    </div>
 
-                <div class="results-gallery">
-                    <div class="result-item">
-                        <a href="https://ibb.co/BHFNSwx3"><img src="https://i.ibb.co/Ps0Qftnj/unnamed-52.webp"
-                                alt="Resultado comprobado de alumna Seca Ayuno" border="0"></a>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Descubre cómo acelerar tu metabolismo y perder peso sin hacer nada:</h4>
+                            <p>Aprende las principales estrategias para acelerar tu metabolismo y quemar grasa incluso
+                                si
+                                no haces nada.</p>
+                        </div>
                     </div>
-                    <div class="result-item">
-                        <a href="https://ibb.co/JR0tjCbn"><img src="https://i.ibb.co/qMXjYx4B/unnamed-53.webp"
-                                alt="Evolución real de alumna con el plan" border="0"></a>
-                    </div>
-                    <div class="result-item">
-                        <a href="https://ibb.co/fzQ9Rtcp"><img src="https://i.ibb.co/q3xCG9Zs/unnamed-55.webp"
-                                alt="Antes y después del ayuno intermitente" border="0"></a>
-                    </div>
-                    <div class="result-item">
-                        <a href="https://ibb.co/zTXNkG4f"><img src="https://i.ibb.co/rRxvW4wy/unnamed-54.webp"
-                                alt="Pérdida de peso visible con el método" border="0"></a>
-                    </div>
-                    <div class="result-item">
-                        <a href="https://ibb.co/BKTshsR0"><img src="https://i.ibb.co/bRNd4dnc/unnamed-56.webp"
-                                alt="Resultados alcanzados por nuestras alumnas" border="0"></a>
-                    </div>
-                </div>
 
-
-            </div>
-
-            <!-- Box de Escasez y Urgencia -->
-            <div class="urgency-box">
-                <p>⚠️ Si lo dejas para después... <strong>¡No tendrás esta oportunidad nuevamente!</strong></p>
-            </div>
-
-            <!-- Pricing Section -->
-            <div class="pricing-section">
-                <div class="pricing-card">
-                    <div class="price-badge">OFERTA ESPECIAL</div>
-                    <div class="price-options">
-                        <p class="full-price">Pago único <strong>US$ 9,90</strong></p>
-                        <p class="currency-notice">*El precio será convertido a tu moneda local en la página de pago
-                        </p>
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Definición de metas diarias:</h4>
+                            <p>Para que te mantengas en el camino correcto.</p>
+                        </div>
                     </div>
-                    <button class="cta-btn pulse-btn">RECIBIR MI PLAN</button>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Protocolo Anti-procrastinación:</h4>
+                            <p>Descubre el secreto de los mayores líderes para mantenerte siempre motivada.</p>
+                        </div>
+                    </div>
+
+                    <div class="benefit-item">
+                        <div class="benefit-icon">✅</div>
+                        <div class="benefit-content">
+                            <h4>Planilla de seguimiento:</h4>
+                            <p>Sepa exactamente cuánto estás evolucionando.</p>
+                        </div>
+                    </div>
+
+                    <button class="cta-btn pulse-btn large btn-pulse-shadow">RECIBIR MI PLAN</button>
                     <div class="security-badge-container">
                         <img src="https://i.ibb.co/Y4T7Gh55/download-Photoroom.png" alt="Compra Segura"
                             class="security-badge-img">
                     </div>
                 </div>
-            </div>
 
-            <!-- Garantía -->
-            <div class="guarantee-section">
-                <div class="guarantee-card">
-                    <div class="guarantee-icon">
-                        <img src="https://i.ibb.co/Lz6MSrLj/unnamed-1-2.png" alt="Sello de Garantía" border="0"
-                            style="max-width: 150px; height: auto; border-radius: 50%;">
+                <!-- Prueba Social - Historias de Éxito -->
+                <div class="success-stories-section">
+                    <h2 class="section-title">Mira las historias de éxito de nuestras alumnas</h2>
+
+                    <div class="carousel-wrapper">
+                        <button class="carousel-nav prev-btn" id="prevSlide">❮</button>
+                        <div class="stories-carousel">
+                            <div class="carousel-track" id="storiesTrack">
+                                <div class="carousel-slide">
+                                    <div class="story-card">
+                                        <a href="https://ibb.co/hF0V9r7M"><img
+                                                src="https://i.ibb.co/pjqdwN0P/unnamed-49.webp"
+                                                alt="Transformación antes y después - Historia de Éxito" border="0"></a>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="story-card">
+                                        <a href="https://ibb.co/Y4DLwL2Y"><img
+                                                src="https://i.ibb.co/hxXmwmsh/unnamed-50.webp"
+                                                alt="Resultado de alumna - Antes y después" border="0"></a>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="story-card">
+                                        <a href="https://ibb.co/j9KVdb9X"><img
+                                                src="https://i.ibb.co/GfwsXnfS/unnamed-48.webp"
+                                                alt="Evolución de peso - Historia de Éxito" border="0"></a>
+                                    </div>
+                                </div>
+                                <div class="carousel-slide">
+                                    <div class="story-card">
+                                        <a href="https://ibb.co/BKC5nQV3"><img
+                                                src="https://i.ibb.co/gFRL4fM9/unnamed-51.webp"
+                                                alt="Cambio corporal - Antes y después" border="0"></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="carousel-nav next-btn" id="nextSlide">❯</button>
+
+                        <div class="carousel-dots" id="carouselDots">
+                            <span class="dot active" data-index="0"></span>
+                            <span class="dot" data-index="1"></span>
+                            <span class="dot" data-index="2"></span>
+                            <span class="dot" data-index="3"></span>
+                        </div>
                     </div>
-                    <h3 class="guarantee-title">Garantía de reembolso</h3>
-                    <p class="guarantee-text">La compra de este material es totalmente <strong>sin riesgos</strong> para
-                        ti.
-                    </p>
-                    <p class="guarantee-text">Si no cumple con tus expectativas en los primeros <strong>30
-                            días</strong> después de la compra, te reembolsaremos todo el valor que pagaste, <strong>sin
-                            hacer preguntas</strong>.</p>
+
+                    <div class="results-badge">
+                        <h3>Quien lo usa <br><strong>TIENE RESULTADOS</strong> 😉👇</h3>
+                    </div>
+
+                    <div class="results-gallery">
+                        <div class="result-item">
+                            <a href="https://ibb.co/BHFNSwx3"><img src="https://i.ibb.co/Ps0Qftnj/unnamed-52.webp"
+                                    alt="Resultado comprobado de alumna Seca Ayuno" border="0"></a>
+                        </div>
+                        <div class="result-item">
+                            <a href="https://ibb.co/JR0tjCbn"><img src="https://i.ibb.co/qMXjYx4B/unnamed-53.webp"
+                                    alt="Evolución real de alumna con el plan" border="0"></a>
+                        </div>
+                        <div class="result-item">
+                            <a href="https://ibb.co/fzQ9Rtcp"><img src="https://i.ibb.co/q3xCG9Zs/unnamed-55.webp"
+                                    alt="Antes y después del ayuno intermitente" border="0"></a>
+                        </div>
+                        <div class="result-item">
+                            <a href="https://ibb.co/zTXNkG4f"><img src="https://i.ibb.co/rRxvW4wy/unnamed-54.webp"
+                                    alt="Pérdida de peso visible con el método" border="0"></a>
+                        </div>
+                        <div class="result-item">
+                            <a href="https://ibb.co/BKTshsR0"><img src="https://i.ibb.co/bRNd4dnc/unnamed-56.webp"
+                                    alt="Resultados alcanzados por nuestras alumnas" border="0"></a>
+                        </div>
+                    </div>
+
+
                 </div>
-            </div>
 
-            <!-- FAQ Section -->
-            <div class="faq-section">
-                <h2 class="faq-title">Preguntas Frecuentes</h2>
+                <!-- Box de Escasez y Urgencia -->
+                <div class="urgency-box">
+                    <p>⚠️ Si lo dejas para después... <strong>¡No tendrás esta oportunidad nuevamente!</strong></p>
+                </div>
 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>¿Cómo funciona el plan?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>Nuestro plan es 100% personalizado según tus respuestas. Recibirás una guía completa
-                            de ayuno intermitente adaptada a tu estilo de vida, con horarios ideales para tus
-                            comidas y consejos prácticos para acelerar tu metabolismo.</p>
+                <!-- Pricing Section -->
+                <div class="pricing-section">
+                    <div class="pricing-card">
+                        <div class="price-badge">OFERTA ESPECIAL</div>
+                        <div class="price-options">
+                            <p class="full-price">Pago único <strong>US$ 9,90</strong></p>
+                            <p class="currency-notice">*El precio será convertido a tu moneda local en la página de pago
+                            </p>
+                        </div>
+                        <button class="cta-btn pulse-btn btn-pulse-shadow">RECIBIR MI PLAN</button>
+                        <div class="security-badge-container">
+                            <img src="https://i.ibb.co/Y4T7Gh55/download-Photoroom.png" alt="Compra Segura"
+                                class="security-badge-img">
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>¿El plan tiene garantía?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>¡Sí! Ofrecemos garantía incondicional de 7 días. Si no quedas satisfecha con el plan,
-                            devolvemos el 100% de tu dinero, sin preguntas.</p>
+                <!-- Garantía -->
+                <div class="guarantee-section">
+                    <div class="guarantee-card">
+                        <div class="guarantee-icon">
+                            <img src="https://i.ibb.co/Lz6MSrLj/unnamed-1-2.png" alt="Sello de Garantía" border="0"
+                                style="max-width: 150px; height: auto; border-radius: 50%;">
+                        </div>
+                        <h3 class="guarantee-title">Garantía de reembolso</h3>
+                        <p class="guarantee-text">La compra de este material es totalmente <strong>sin riesgos</strong>
+                            para
+                            ti.
+                        </p>
+                        <p class="guarantee-text">Si no cumple con tus expectativas en los primeros <strong>30
+                                días</strong> después de la compra, te reembolsaremos todo el valor que pagaste,
+                            <strong>sin
+                                hacer preguntas</strong>.
+                        </p>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>¿Necesito hacer ejercicio?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>¡No es obligatorio! El ayuno intermitente funciona incluso sin ejercicios intensos. Sin
-                            embargo,
-                            caminatas ligeras pueden potenciar tus resultados.</p>
+                <!-- FAQ Section -->
+                <div class="faq-section">
+                    <h2 class="faq-title">Preguntas Frecuentes</h2>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>¿Cómo funciona el plan?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Nuestro plan es 100% personalizado según tus respuestas. Recibirás una guía completa
+                                de ayuno intermitente adaptada a tu estilo de vida, con horarios ideales para tus
+                                comidas y consejos prácticos para acelerar tu metabolismo.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>¿El plan tiene garantía?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>¡Sí! Ofrecemos garantía incondicional de 7 días. Si no quedas satisfecha con el plan,
+                                devolvemos el 100% de tu dinero, sin preguntas.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>¿Necesito hacer ejercicio?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>¡No es obligatorio! El ayuno intermitente funciona incluso sin ejercicios intensos. Sin
+                                embargo,
+                                caminatas ligeras pueden potenciar tus resultados.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>¿Pasaré hambre?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>¡No! El plan está hecho para que te alimentes bien en los horarios correctos. Con los
+                                consejos que
+                                ofrecemos, tu cuerpo se adaptará naturalmente y no sentirás hambre excesiva.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            <span>¿Cuándo recibo el plan?</span>
+                            <span class="faq-icon">+</span>
+                        </button>
+                        <div class="faq-answer">
+                            <p>¡Inmediatamente después de la confirmación del pago! Recibirás acceso instantáneo a tu
+                                plan
+                                personalizado por correo electrónico.</p>
+                        </div>
                     </div>
                 </div>
 
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>¿Pasaré hambre?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>¡No! El plan está hecho para que te alimentes bien en los horarios correctos. Con los
-                            consejos que
-                            ofrecemos, tu cuerpo se adaptará naturalmente y no sentirás hambre excesiva.</p>
+                <div class="final-cta">
+                    <button class="cta-btn large pulse-btn btn-pulse-shadow">RECIBIR MI PLAN</button>
+                    <div class="security-badge-container">
+                        <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp"
+                            alt="Compra Segura" class="security-badge-img">
                     </div>
                 </div>
-
-                <div class="faq-item">
-                    <button class="faq-question">
-                        <span>¿Cuándo recibo el plan?</span>
-                        <span class="faq-icon">+</span>
-                    </button>
-                    <div class="faq-answer">
-                        <p>¡Inmediatamente después de la confirmación del pago! Recibirás acceso instantáneo a tu plan
-                            personalizado por correo electrónico.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="final-cta">
-                <button class="cta-btn large pulse-btn">RECIBIR MI PLAN AHORA</button>
-                <div class="security-badge-container">
-                    <img src="https://i.ibb.co/99GTLkt9/46609c7e-a86f-4d6c-a0ac-976ec1a532b9.webp" alt="Compra Segura"
-                        class="security-badge-img">
-                </div>
-            </div>
+            </div> <!-- End #delayed-offer -->
         </section>
 
     </main>
