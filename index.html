@@ -9,7 +9,7 @@
     <title>Seca Ayuno - Ayuno Intermitente Personalizado</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
@@ -63,7 +63,7 @@
             </svg>
         </button>
         <div class="logo-container">
-            <img src="https://i.ibb.co/B5w43MMs/file-000000006a1c71f5ac74a4a050224225.png" alt="Seca Jejum Logo"
+            <img src="https://i.ibb.co/2YK6dfqd/file-00000000d26871f5bf990689c8d57fe5-1.png" alt="Seca Jejum Logo"
                 class="header-logo">
         </div>
         <div class="progress-container">
@@ -78,7 +78,8 @@
         <!-- Etapa 0: Diagnóstico Hook -->
         <section class="quiz-step active" data-step="0">
             <h1 class="quiz-title">DIAGNÓSTICO GRATUITO DE AYUNO</h1>
-            <p class="quiz-subtitle" style="font-size: 1.2rem; margin-bottom: 20px;">¿Comes después de las 21h?</p>
+            <p class="quiz-subtitle" style="font-size: 1.2rem; margin-bottom: 20px;">¿Comes <b>después de las 21h</b>?
+            </p>
             <div class="options-grid">
                 <button class="option-card" data-value="si"
                     style="justify-content: center; font-weight: 600; font-size: 1.1rem;">
@@ -91,6 +92,7 @@
                     <span style="flex: 0 auto;">NO</span>
                 </button>
             </div>
+
         </section>
 
         <!-- Etapa 1: REMOVIDA (Age Range) -->
@@ -98,7 +100,7 @@
 
         <!-- Etapa 2: Objetivo -->
         <section class="quiz-step" data-step="2">
-            <h1 class="quiz-title">¿Cuál es tu objetivo principal?</h1>
+            <h1 class="quiz-title">¿Cuál crees que es la <b>causa principal</b> de tu aumento de peso?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="perder-peso">
                     <img src="https://i.ibb.co/nFhNQcD/1.webp" alt="Perder peso" class="option-outcome-img">
@@ -121,7 +123,7 @@
 
         <!-- Etapa 3: Tamanho atual -->
         <section class="quiz-step" data-step="3">
-            <h1 class="quiz-title">Selecciona tu talla de ropa actual</h1>
+            <h1 class="quiz-title">Selecciona tu <b>talla de ropa actual</b></h1>
             <div class="options-grid clothing-size-grid">
                 <button class="option-card grid-card" data-value="PP">
                     <img src="https://i.ibb.co/Tq2ChLzV/2.webp" alt="XS" class="grid-img" loading="lazy">
@@ -152,7 +154,7 @@
 
         <!-- Etapa 4: Tamanho desejado -->
         <section class="quiz-step" data-step="4">
-            <h1 class="quiz-title">Elige la talla que quieres usar</h1>
+            <h1 class="quiz-title">Elige la <b>talla que quieres usar</b></h1>
             <div class="options-grid clothing-size-grid">
                 <button class="option-card grid-card" data-value="PP">
                     <img src="https://i.ibb.co/Tq2ChLzV/2.webp" alt="XS" class="grid-img" loading="lazy">
@@ -183,7 +185,7 @@
 
         <!-- Etapa 5: Dificuldade com roupas -->
         <section class="quiz-step" data-step="5">
-            <h1 class="quiz-title">¿Tienes dificultad para elegir tu ropa con tu peso actual?</h1>
+            <h1 class="quiz-title">¿Tienes dificultad para <b>elegir tu ropa</b> con tu peso actual?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="quase-sempre"><span>Casi siempre</span></button>
                 <button class="option-card" data-value="as-vezes"><span>A veces</span></button>
@@ -210,7 +212,7 @@
 
         <!-- Etapa 7: Áreas do corpo -->
         <section class="quiz-step" data-step="7" data-multiple="true">
-            <h1 class="quiz-title">¿En qué áreas del cuerpo quieres enfocarte?</h1>
+            <h1 class="quiz-title">¿En qué <b>áreas del cuerpo</b> quieres enfocarte?</h1>
             <p class="quiz-subtitle">Selecciona todas las que apliquen</p>
             <div class="options-list">
                 <button class="option-card" data-value="barriga">
@@ -235,7 +237,7 @@
 
         <!-- Etapa 8: Tipo corporal -->
         <section class="quiz-step" data-step="8">
-            <h1 class="quiz-title">¿Qué te describe mejor?</h1>
+            <h1 class="quiz-title">¿Qué te <b>describe mejor</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="dificuldade-musculos">
                     <span class="emoji">🏋️‍♀️</span>
@@ -254,7 +256,7 @@
 
         <!-- Etapa 9: Melhor forma -->
         <section class="quiz-step" data-step="9">
-            <h1 class="quiz-title">¿Hace cuánto tiempo te sentiste en tu mejor forma?</h1>
+            <h1 class="quiz-title">¿Hace cuánto tiempo te sentiste en tu <b>mejor forma</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="0-6-meses"><span>Hace 0 a 6 meses</span></button>
                 <button class="option-card" data-value="7-12-meses"><span>Hace 7 a 12 meses</span></button>
@@ -267,7 +269,7 @@
 
         <!-- Etapa 10: Conhecimento sobre JI -->
         <section class="quiz-step" data-step="10">
-            <h1 class="quiz-title">¿Qué sabes sobre el ayuno intermitente?</h1>
+            <h1 class="quiz-title">¿Qué sabes sobre el <b>ayuno intermitente</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="nada">
                     <span class="emoji">🤔</span>
@@ -286,7 +288,7 @@
 
         <!-- Etapa 11: Sentir desejada -->
         <section class="quiz-step" data-step="11">
-            <h1 class="quiz-title">¿Cuándo fue la última vez que te sentiste deseada?</h1>
+            <h1 class="quiz-title">¿Cuándo fue la última vez que te <b>sentiste deseada</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="sempre"><span>Me siento deseada todo el tiempo</span></button>
                 <button class="option-card" data-value="vez-quando"><span>De vez en cuando me siento
@@ -302,7 +304,8 @@
 
         <!-- Etapa 12: Interlúdio Libido -->
         <section class="quiz-step interlude" data-step="12">
-            <h1 class="quiz-title">Aumenta tu libido: ¡Tu pérdida de peso puede aumentar tu energía y bienestar!</h1>
+            <h1 class="quiz-title"><b>Aumenta tu libido:</b> ¡Tu pérdida de peso puede aumentar tu energía y bienestar!
+            </h1>
 
             <p class="interlude-text">Perder incluso una pequeña cantidad de peso puede aumentar tu energía y
                 libido. Con nuestro plan personalizado, no solo te sentirás más saludable, sino que también notarás una
@@ -380,7 +383,7 @@
 
         <!-- Etapa 13: Café da manhã -->
         <section class="quiz-step" data-step="13">
-            <h1 class="quiz-title">¿A qué hora sueles desayunar?</h1>
+            <h1 class="quiz-title">¿A qué hora sueles <b>desayunar</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="6-8">
                     <img src="https://i.ibb.co/cc5Cybt1/1.webp" alt="6-8h" class="option-outcome-img">
@@ -403,7 +406,7 @@
 
         <!-- Etapa 14: Almoço -->
         <section class="quiz-step" data-step="14">
-            <h1 class="quiz-title">¿A qué hora sueles almorzar?</h1>
+            <h1 class="quiz-title">¿A qué hora sueles <b>almorzar</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="10-12">
                     <img src="https://i.ibb.co/PvqmpgnX/1.webp" alt="10-12h" class="option-outcome-img">
@@ -426,7 +429,7 @@
 
         <!-- Etapa 15: Jantar -->
         <section class="quiz-step" data-step="15">
-            <h1 class="quiz-title">¿A qué hora cenas?</h1>
+            <h1 class="quiz-title">¿A qué hora <b>cenas</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="16-18">
                     <img src="https://i.ibb.co/RkpxbJJ0/1.webp" alt="16-18h" class="option-outcome-img">
@@ -449,7 +452,7 @@
 
         <!-- Etapa 16: Restrições alimentares -->
         <section class="quiz-step" data-step="16" data-multiple="true">
-            <h1 class="quiz-title">¿Tienes alguna restricción alimentaria?</h1>
+            <h1 class="quiz-title">¿Tienes alguna <b>restricción alimentaria</b>?</h1>
             <p class="quiz-subtitle">Selecciona todas las que apliquen</p>
             <div class="options-list">
                 <button class="option-card" data-value="sem-lactose">
@@ -477,7 +480,7 @@
 
         <!-- Etapa 17: Comidas favoritas (Multi-select) -->
         <section class="quiz-step" data-step="17">
-            <h1 class="quiz-title">Elige las comidas que te gustan</h1>
+            <h1 class="quiz-title">Elige las <b>comidas que te gustan</b></h1>
             <p class="quiz-subtitle">Selecciona todas las que apliquen</p>
 
             <div class="food-category">
@@ -545,7 +548,7 @@
 
         <!-- Etapa 18: Preferência de refeição -->
         <section class="quiz-step" data-step="18">
-            <h1 class="quiz-title">¿Prefieres cocinar, comer fuera o pedir comida?</h1>
+            <h1 class="quiz-title">¿Prefieres cocinar, comer fuera o <b>pedir comida</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="cozinhar">
                     <span class="emoji">👩‍🍳</span>
@@ -568,7 +571,7 @@
 
         <!-- Etapa 19: Pausa no fim de semana -->
         <section class="quiz-step" data-step="19">
-            <h1 class="quiz-title">¿Necesitas una pausa en el Ayuno durante el fin de semana?</h1>
+            <h1 class="quiz-title">¿Necesitas una <b>pausa en el Ayuno</b> durante el fin de semana?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="sim">
                     <span class="emoji">🎉</span>
@@ -583,7 +586,7 @@
 
         <!-- Etapa 20: Exercício -->
         <section class="quiz-step" data-step="20">
-            <h1 class="quiz-title">¿Con qué frecuencia haces ejercicio?</h1>
+            <h1 class="quiz-title">¿Con qué frecuencia <b>haces ejercicio</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="nunca"><span>Casi nunca</span></button>
                 <button class="option-card" data-value="1-2"><span>1-2 veces por semana</span></button>
@@ -596,7 +599,7 @@
 
         <!-- Etapa 21: Apoio -->
         <section class="quiz-step" data-step="21">
-            <h1 class="quiz-title">¿Tu familia y amigos te apoyan para mantenerte en forma?</h1>
+            <h1 class="quiz-title">¿Tu familia y amigos <b>te apoyan</b> para mantenerte en forma?</h1>
             <div class="info-box warning">
                 <span class="emoji">⚠️</span>
                 <p>El 68% de las personas que intentan perder peso no tienen el apoyo de familiares y amigos.</p>
@@ -610,7 +613,7 @@
 
         <!-- Etapa 22: Rotina de trabalho -->
         <section class="quiz-step" data-step="22">
-            <h1 class="quiz-title">¿Cómo es tu rutina de trabajo?</h1>
+            <h1 class="quiz-title">¿Cómo es tu <b>rutina de trabajo</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="comercial">
                     <span class="emoji">🏢</span>
@@ -635,7 +638,7 @@
 
         <!-- Etapa 23: Dia a dia -->
         <section class="quiz-step" data-step="23">
-            <h1 class="quiz-title">¿Cómo describes tu día a día?</h1>
+            <h1 class="quiz-title">¿Cómo describes tu <b>día a día</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="sentado">
                     <span class="emoji">🪑</span>
@@ -654,7 +657,7 @@
 
         <!-- Interlúdio 3: Carreira -->
         <section class="quiz-step interlude" data-step="24">
-            <h1 class="quiz-title">Dinero y peso: un impacto inesperado en tu carrera</h1>
+            <h1 class="quiz-title"><b>Dinero y peso</b>: un impacto inesperado en tu carrera</h1>
             <img src="https://i.ibb.co/Z1NDFSgL/980e0f99-2a77-47d0-bab1-e13de8afe2ce.webp" alt="Carrera y peso"
                 class="step-img-xl">
             <p class="interlude-text">Las mujeres con sobrepeso frecuentemente ganan menos que aquellas con peso
@@ -665,7 +668,7 @@
 
         <!-- Etapa 25: Fôlego -->
         <section class="quiz-step" data-step="25">
-            <h1 class="quiz-title">¿Te quedas sin aliento después de subir un tramo de escaleras?</h1>
+            <h1 class="quiz-title">¿Te quedas <b>sin aliento</b> después de subir un tramo de escaleras?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="sempre">
                     <span class="emoji">😮‍💨</span>
@@ -688,7 +691,7 @@
 
         <!-- Etapa 26: Caminhada -->
         <section class="quiz-step" data-step="26">
-            <h1 class="quiz-title">¿Con qué frecuencia sales a caminar?</h1>
+            <h1 class="quiz-title">¿Con qué frecuencia <b>sales a caminar</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="nunca"><span>Casi nunca</span></button>
                 <button class="option-card" data-value="1-2"><span>1-2 veces por semana</span></button>
@@ -699,7 +702,7 @@
 
         <!-- Etapa 27: Sono -->
         <section class="quiz-step" data-step="27">
-            <h1 class="quiz-title">¿Cuántas horas sueles dormir?</h1>
+            <h1 class="quiz-title">¿Cuántas horas <b>sueles dormir</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="menos-5">
                     <span class="emoji">😴</span>
@@ -723,7 +726,7 @@
 
         <!-- Etapa 28: Água -->
         <section class="quiz-step" data-step="28">
-            <h1 class="quiz-title">¿Cuál es tu consumo diario de agua?</h1>
+            <h1 class="quiz-title">¿Cuál es tu consumo diario de <b>agua</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="menos-1L">
                     <span class="emoji">💧</span>
@@ -747,7 +750,7 @@
 
         <!-- Etapa 29: Problemas físicos -->
         <section class="quiz-step" data-step="29" data-multiple="true">
-            <h1 class="quiz-title">¿Tienes alguno de estos problemas?</h1>
+            <h1 class="quiz-title">¿Tienes alguno de estos <b>problemas</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="joelhos">
                     <img src="https://i.ibb.co/sdCv4nSp/1.webp" alt="Rodillas" class="option-outcome-img">
@@ -767,7 +770,7 @@
 
         <!-- Etapa 30: Vícios alimentares -->
         <section class="quiz-step" data-step="30" data-multiple="true">
-            <h1 class="quiz-title">¿Alguno de estos hábitos puede estar afectando tu vida?</h1>
+            <h1 class="quiz-title">¿Alguno de estos hábitos puede estar <b>afectando tu vida</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="comer-tarde">
                     <span class="emoji">🌙</span>
@@ -795,7 +798,7 @@
 
         <!-- Etapa 31: Causa del aumento de peso -->
         <section class="quiz-step" data-step="31" data-multiple="true">
-            <h1 class="quiz-title">¿Alguno de estos eventos te hizo subir de peso en los últimos años?</h1>
+            <h1 class="quiz-title">¿Alguno de estos eventos te hizo <b>subir de peso</b> en los últimos años?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="casamento"><span>Matrimonio</span></button>
                 <button class="option-card" data-value="rotina"><span>Rutina ajetreada</span></button>
@@ -811,7 +814,7 @@
 
         <!-- Etapa 32: Motivación -->
         <section class="quiz-step" data-step="32">
-            <h1 class="quiz-title">¿Qué tan motivada estás para perder peso?</h1>
+            <h1 class="quiz-title">¿Qué tan <b>motivada estás</b> para perder peso?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="curiosidade">
                     <span class="emoji">🤷‍♀️</span>
@@ -830,7 +833,7 @@
 
         <!-- Etapa 33: Altura -->
         <section class="quiz-step metric-step" data-step="33">
-            <h1 class="quiz-title">¿Cuál es tu altura?</h1>
+            <h1 class="quiz-title">¿Cuál es tu <b>altura</b>?</h1>
             <div class="metric-input-container">
                 <input type="number" id="heightInput" class="metric-input" placeholder="Ej: 170" min="100" max="250">
                 <span class="metric-unit">cm</span>
@@ -840,7 +843,7 @@
 
         <!-- Etapa 34: Peso actual -->
         <section class="quiz-step metric-step" data-step="34">
-            <h1 class="quiz-title">¿Cuál es tu peso actual?</h1>
+            <h1 class="quiz-title">¿Cuál es tu <b>peso actual</b>?</h1>
             <div class="metric-input-container">
                 <input type="number" id="currentWeightInput" class="metric-input" placeholder="Ej: 70" min="30"
                     max="300">
@@ -851,7 +854,7 @@
 
         <!-- Etapa 35: Peso deseado -->
         <section class="quiz-step metric-step" data-step="35">
-            <h1 class="quiz-title">¿Cuál es tu peso deseado?</h1>
+            <h1 class="quiz-title">¿Cuál es tu <b>peso deseado</b>?</h1>
             <div class="metric-input-container">
                 <input type="number" id="targetWeightInput" class="metric-input" placeholder="Ej: 60" min="30"
                     max="200">
@@ -863,7 +866,7 @@
 
         <!-- Etapa 36: Edad -->
         <section class="quiz-step metric-step" data-step="36">
-            <h1 class="quiz-title">¿Cuál es tu edad?</h1>
+            <h1 class="quiz-title">¿Cuál es tu <b>edad</b>?</h1>
             <div class="metric-input-container">
                 <input type="number" id="ageInput" class="metric-input" placeholder="Ej: 35" min="18" max="100">
                 <span class="metric-unit">años</span>
@@ -873,7 +876,7 @@
 
         <!-- Etapa 37: Evento importante -->
         <section class="quiz-step" data-step="37">
-            <h1 class="quiz-title">¿Tienes algún evento importante cerca?</h1>
+            <h1 class="quiz-title">¿Tienes algún <b>evento importante</b> cerca?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="ferias">
                     <span class="emoji">🏖️</span>

@@ -1,0 +1,500 @@
+﻿/* ============================================
+   SECA JEJUM QUIZ - DESIGN SYSTEM
+   ============================================ */
+
+/* CSS Custom Properties */
+:root {
+    /* Colors */
+    --bg-white: #FFFFFF;
+    --primary-green: #4CAF50;
+    --primary-green-dark: #43A047;
+    --primary-green-light: #81C784;
+    --warning-yellow: #FFF9C4;
+    --warning-yellow-border: #FFE082;
+    --text-black: #000000;
+    --text-gray: #4F4F4F;
+    --text-light: #757575;
+    --border-gray: #E0E0E0;
+    --border-gray-light: #F5F5F5;
+
+    /* Typography */
+    --font-family: 'Montserrat', sans-serif;
+    --font-size-xs: 12px;
+    --font-size-sm: 14px;
+    --font-size-base: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 20px;
+    --font-size-2xl: 24px;
+    --font-size-3xl: 28px;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 16px;
+    --space-lg: 24px;
+    --space-xl: 32px;
+    --space-2xl: 48px;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 16px;
+    --radius-full: 50px;
+
+    /* Shadows */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+    /* Transitions */
+    --transition-fast: 150ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+}
+
+/* ============================================
+   RESET & BASE STYLES
+   ============================================ */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-white);
+    color: var(--text-black);
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: inherit;
+    cursor: pointer;
+    border: none;
+    background: none;
+}
+
+input {
+    font-family: inherit;
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+
+.header {
+    position: sticky;
+    top: 0;
+    background: var(--bg-white);
+    z-index: 100;
+    padding: var(--space-md);
+    border-bottom: 1px solid var(--border-gray-light);
+}
+
+.back-btn {
+    position: absolute;
+    left: var(--space-md);
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-light);
+    padding: var(--space-sm);
+    border-radius: var(--radius-md);
+    transition: var(--transition-fast);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.back-btn.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.back-btn:hover {
+    background: var(--border-gray-light);
+    color: var(--text-gray);
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: var(--space-md);
+}
+
+.header-logo {
+    max-height: 64px;
+    width: auto;
+    display: inline-block;
+}
+
+.progress-container {
+    width: 100%;
+    height: 6px;
+    background: var(--border-gray);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--primary-green), var(--primary-green-light));
+    border-radius: var(--radius-full);
+    transition: width var(--transition-slow);
+}
+
+/* ============================================
+   QUIZ CONTAINER
+   ============================================ */
+
+.quiz-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: var(--space-lg);
+    padding-bottom: 120px;
+    transition: max-width var(--transition-base);
+}
+
+.quiz-container.wide-view {
+    max-width: 1200px !important;
+    width: 95vw !important;
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+}
+
+/* ============================================
+   QUIZ STEPS
+   ============================================ */
+
+.quiz-step {
+    display: none;
+    opacity: 0;
+    animation: fadeSlideUp 0.5s ease-out forwards;
+}
+
+.quiz-step.active {
+    display: block;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.quiz-title {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-black);
+    text-align: center;
+    margin-bottom: var(--space-sm);
+    line-height: 1.3;
+}
+
+.quiz-subtitle {
+    font-size: var(--font-size-base);
+    color: var(--text-gray);
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+/* ============================================
+   OPTION CARDS
+   ============================================ */
+
+.options-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.option-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: #f1f8e9;
+    border: 2px solid #c5e1a5;
+    border-radius: var(--radius-md);
+    text-align: left;
+    transition: var(--transition-fast);
+    width: 100%;
+}
+
+.option-card:hover {
+    border-color: var(--primary-green-light);
+    box-shadow: var(--shadow-sm);
+}
+
+.option-card.selected {
+    border-color: var(--primary-green);
+    background: var(--primary-green);
+}
+
+.option-card.selected span:not(.emoji) {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.option-card span:not(.emoji) {
+    font-size: var(--font-size-base);
+    color: var(--text-black);
+    flex: 1;
+}
+
+.option-card .emoji {
+    font-size: var(--font-size-xl);
+    flex-shrink: 0;
+}
+
+/* Grid Layout for Clothing Sizes */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+}
+
+.grid-card {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding: var(--space-lg);
+}
+
+.option-card.grid-card span {
+    font-size: var(--font-size-sm) !important;
+    font-weight: 500;
+}
+
+/* ============================================
+   IMAGE STYLES
+   ============================================ */
+
+.option-outcome-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    flex-shrink: 0;
+}
+
+.grid-img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-sm);
+}
+
+.step-img-large {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: var(--space-lg) auto;
+    display: block;
+}
+
+.step-img-small {
+    width: 100%;
+    max-width: 180px;
+    height: auto;
+    margin: var(--space-lg) auto;
+    display: block;
+}
+
+.step-img-xl {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    margin: var(--space-lg) auto;
+    display: block;
+}
+
+.before-after-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+}
+
+.image-placeholder {
+    /* Kept for fallback/legacy steps */
+    background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    border: 2px dashed var(--border-gray);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    text-align: center;
+    font-size: var(--font-size-xs);
+    color: var(--text-light);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.image-placeholder.small {
+    min-height: 60px;
+    padding: var(--space-md);
+    margin-bottom: var(--space-sm);
+}
+
+.image-placeholder.large {
+    min-height: 150px;
+    margin-top: var(--space-lg);
+}
+
+.image-placeholder.before-after {
+    min-height: 200px;
+    flex: 1;
+}
+
+.image-placeholder.comparison {
+    min-height: 180px;
+    margin-bottom: var(--space-md);
+}
+
+/* ============================================
+   CHART STYLES
+   ============================================ */
+
+.chart-container-small {
+    height: 250px;
+    width: 100%;
+    margin: var(--space-lg) 0;
+}
+
+/* ============================================
+   INTERLUDE SECTIONS
+   ============================================ */
+
+.interlude {
+    text-align: center;
+}
+
+.before-after-container {
+    display: flex;
+    gap: var(--space-md);
+    margin: var(--space-lg) 0;
+}
+
+.testimonial-box {
+    background: var(--border-gray-light);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    margin: var(--space-lg) 0;
+}
+
+.testimonial-text {
+    font-style: italic;
+    color: var(--text-gray);
+    font-size: var(--font-size-base);
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.testimonial-author {
+    font-weight: 600;
+    color: var(--text-black);
+}
+
+.interlude-text {
+    color: var(--text-gray);
+    font-size: var(--font-size-base);
+    line-height: 1.7;
+    margin: var(--space-lg) 0;
+}
+
+/* ============================================
+   CONTINUE BUTTON
+   ============================================ */
+
+.continue-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+    color: white;
+    font-size: var(--font-size-lg);
+    font-weight: 700;
+    border-radius: var(--radius-full);
+    margin-top: var(--space-lg);
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-md);
+}
+
+.continue-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.continue-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   CTA BUTTON
+   ============================================ */
+
+.cta-btn {
+    display: block;
+    width: 100%;
+    padding: var(--space-md) var(--space-lg);
+    background: linear-gradient(135deg, var(--primary-green), var(--primary-green-dark));
+    color: white;
+    font-size: var(--font-size-lg);
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    margin: var(--space-lg) 0;
+    transition: var(--transition-fast);
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    border: none;
+}
+
+.cta-btn.large {
+    padding: var(--space-lg);
+    font-size: var(--font-size-xl);
+}
+
+.cta-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.pulse-btn {
+    animation: btnPulse 1.5s infinite;
+}
+
+@keyframes btnPulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(76, 175, 80, 0.7);
+    }
+
+    10% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 5px rgba(76, 175, 80, 0);
+    }
+
+    20% {
+        transform: scale(1);

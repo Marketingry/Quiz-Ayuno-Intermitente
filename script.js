@@ -903,10 +903,20 @@ function updateUI() {
 function updateProgressBar() {
     const progressBar = document.getElementById('progressBar');
     if (progressBar) {
-        let progress = 0;
-        if (quizState.currentStep > 0) {
-            progress = ((quizState.currentStep - 1) / (quizState.totalSteps - 1)) * 100;
-        }
+        // Start at 30% as baseline
+        let progress = 30;
+
+        // Calculate progress based on steps
+        // Formula: 30% + (70% * dynamicCurve)
+        // Curve: Ease-out (Fast start, slows down) -> 1 - (1 - x)^2
+        const ratio = quizState.currentStep / quizState.totalSteps;
+        const dynamicFactor = 1 - Math.pow(1 - ratio, 2);
+
+        progress = 30 + (70 * dynamicFactor);
+
+        // Cap at 100%
+        progress = Math.min(progress, 100);
+
         progressBar.style.width = `${progress}%`;
     }
 }
@@ -925,12 +935,8 @@ function updateBackButton() {
 function updateStickyWarning() {
     const stickyWarning = document.getElementById('stickyWarning');
     if (stickyWarning) {
-        // Show only on Step 2 (Goal) as requested
-        if (quizState.currentStep === 2) {
-            stickyWarning.classList.remove('hidden');
-        } else {
-            stickyWarning.classList.add('hidden');
-        }
+        // Disabled as per user request (Reference: Step 31/Step 2 removal)
+        stickyWarning.classList.add('hidden');
     }
 }
 
