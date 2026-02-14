@@ -588,43 +588,201 @@ function setupEventListeners() {
 // NAVIGATION
 // ============================================
 
+// Loading state
+let loadingPhaseComplete = false;
+
+function showProcessingScreen() {
+    const overlay = document.createElement('div');
+    overlay.className = 'processing-overlay';
+    overlay.innerHTML = `
+        <div class="processing-spinner"></div>
+        <div class="processing-text" id="processText">Analizando respuestas...</div>
+        <div class="processing-bar-container">
+            <div class="processing-bar-fill"></div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const textEl = overlay.querySelector('#processText');
+    const fillEl = overlay.querySelector('.processing-bar-fill');
+
+    // Animate
+    setTimeout(() => { if (fillEl) fillEl.style.width = '30%'; }, 100);
+
+    setTimeout(() => {
+        if (textEl) textEl.textContent = 'Calculando índice metabólico...';
+        if (fillEl) fillEl.style.width = '60%';
+    }, 1500);
+
+    setTimeout(() => {
+        if (textEl) textEl.textContent = 'Preparando estrategia personalizada...';
+        if (fillEl) fillEl.style.width = '90%';
+    }, 3000);
+
+    setTimeout(() => {
+        if (fillEl) fillEl.style.width = '100%';
+        loadingPhaseComplete = true;
+        setTimeout(() => {
+            overlay.remove();
+            goToNextStep();
+        }, 500);
+    }, 4500);
+}
+
 function goToNextStep() {
-    if (quizState.currentStep < quizState.totalSteps) {
-        quizState.currentStep++;
+    // console.log('goToNextStep (Enhanced) called. Current:', quizState.currentStep);
 
-        // SKIP STEP 1 (Age Range) - Requested removal
-        if (quizState.currentStep === 1) {
-            quizState.currentStep = 2;
+    // 1. Find Current Element
+    const currentEl = document.querySelector(`.quiz-step[data-step="${quizState.currentStep}"]`);
+    if (!currentEl) {
+        console.error('Current step element not found for ID:', quizState.currentStep);
+        // Fallback: try to increment if numeric
+        if (!isNaN(quizState.currentStep)) {
+            quizState.currentStep++;
+            updateUI();
         }
+        return;
+    }
 
-        // SKIP STEP 41 (Weight Loss Chart) - Requested removal
-        if (quizState.currentStep === 41) {
-            quizState.currentStep = 42;
-        }
+    // 2. Find Next Step from DOM (Source of Truth)
+    let nextStepId = null;
+    let nextEl = currentEl.nextElementSibling;
 
-        updateUI();
-        updateSession(); // Track progress
+    // Traverse until we find a quiz-step
+    while (nextEl) {
+        if (nextEl.classList && nextEl.classList.contains('quiz-step')) {
+            nextStepId = nextEl.dataset.step;
+            break;
+        }
+        nextEl = nextEl.nextElementSibling;
+    }
 
-        // Initialize charts
-        if (quizState.currentStep === 12) {
-            setTimeout(initLibidoChart, 300);
-        }
-        if (quizState.currentStep === 38) {
-            setTimeout(positionBMIArrow, 300);
-        }
-        if (quizState.currentStep === 39) {
-            setTimeout(animateChartReveal, 300);
-        }
-        if (quizState.currentStep === 40) {
-            setTimeout(startLoadingAnimation, 300);
-        }
-        // Step 41 skipped
-        if (quizState.currentStep === 42) {
-            setTimeout(initCarousel, 300);
-            setTimeout(initVSL, 500); // Initialize VSL with smart delay
-        }
+    if (!nextStepId) {
+        console.log('No next step found in DOM. Reached end?');
+        return;
+    }
+
+    // 3. Audio Stop Logic (Stop expert audio when leaving step)
+    const audio = document.getElementById('expertAudio');
+    if (audio) {
+        audio.pause();
+        audio.currentTime = 0;
+    }
+
+    // 4. Intercepts & Loading Logic
+    if (String(nextStepId) === '37' && !loadingPhaseComplete) {
+        showProcessingScreen();
+        return;
+    }
+
+    // 5. Update State
+    quizState.currentStep = nextStepId;
+
+    // 6. UI Updates
+    updateUI();
+    updateSession();
+
+    // 7. Component Initialization based on new step
+    const stepStr = String(quizState.currentStep);
+
+    if (stepStr === '12') setTimeout(initLibidoChart, 300);
+    if (stepStr === '10b') setTimeout(initSocialCarousel, 300); // Relocated Carousel
+    if (stepStr === '37') setTimeout(positionBMIArrow, 300);
+    if (stepStr === '39') setTimeout(animateChartReveal, 300);
+    if (stepStr === '40') setTimeout(startLoadingAnimation, 300);
+    if (stepStr === '42') {
+        // setTimeout(initCarousel, 300); // Legacy carousel if exists, checking...
+        if (typeof initCarousel === 'function') setTimeout(initCarousel, 300);
+        setTimeout(initVSL, 500);
     }
 }
+
+// ============================================
+// NEW FEATURES: CAROUSEL & UTILS
+// ============================================
+
+
+let socialCarouselInterval = null;
+
+function initSocialCarousel() {
+    const carousel = document.querySelector('.testimonial-carousel');
+    if (!carousel) return;
+
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const dots = carousel.querySelectorAll('.dot');
+    const prevBtn = carousel.querySelector('.carousel-arrow.prev');
+    const nextBtn = carousel.querySelector('.carousel-arrow.next');
+
+    if (slides.length <= 1) return; // evita bug se tiver 1 slide
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function updateCarousel() {
+        track.style.transform = `translateX(-${currentIndex * 100}%)`;
+
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === currentIndex);
+        });
+    }
+
+    function startAutoPlay() {
+        stopAutoPlay(); // garante que nunca duplica
+        socialCarouselInterval = setInterval(() => {
+            currentIndex++;
+            if (currentIndex >= totalSlides) {
+                currentIndex = 0; // volta corretamente
+            }
+            updateCarousel();
+        }, 5000);
+    }
+
+    function stopAutoPlay() {
+        if (socialCarouselInterval) {
+            clearInterval(socialCarouselInterval);
+            socialCarouselInterval = null;
+        }
+    }
+
+    // Dot Navigation
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            currentIndex = index;
+            updateCarousel();
+            startAutoPlay();
+        });
+    });
+
+    // Arrow Navigation
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+            startAutoPlay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            currentIndex = (currentIndex + 1) % totalSlides;
+            updateCarousel();
+            startAutoPlay();
+        });
+    }
+
+    updateCarousel();
+    startAutoPlay();
+}
+
+// Ensure handleContinue exists if not defined elsewhere
+// Since we couldn't find it, we define a safe version here.
+// If it existed, this might override or conflict depending on scope.
+// But mostly functions are hoisted. We'll use a unique name or rely on this one.
+window.handleContinue = function (btn) {
+    // Add logic if needed, or just go next
+    goToNextStep();
+};
 
 // ... existing code ...
 
@@ -860,6 +1018,17 @@ function goToStep(stepNumber) {
     updateUI();
 }
 
+function updateHeaderLayout() {
+    const header = document.querySelector('.header');
+    if (header) {
+        if (quizState.currentStep > 0) {
+            header.classList.add('logo-left-mode');
+        } else {
+            header.classList.remove('logo-left-mode');
+        }
+    }
+}
+
 function updateUI() {
     // Hide all steps
     // Defensive coding: query fresh
@@ -877,6 +1046,7 @@ function updateUI() {
     updateProgressBar();
     updateBackButton();
     updateStickyWarning();
+    updateHeaderLayout();
 
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -901,23 +1071,53 @@ function updateUI() {
 // ============================================
 
 function updateProgressBar() {
-    const progressBar = document.getElementById('progressBar');
-    if (progressBar) {
-        // Start at 30% as baseline
-        let progress = 30;
+    const container = document.getElementById('progressContainer');
+    const fill1 = document.getElementById('pFill1');
+    const fill2 = document.getElementById('pFill2');
+    const fill3 = document.getElementById('pFill3');
 
-        // Calculate progress based on steps
-        // Formula: 30% + (70% * dynamicCurve)
-        // Curve: Ease-out (Fast start, slows down) -> 1 - (1 - x)^2
-        const ratio = quizState.currentStep / quizState.totalSteps;
-        const dynamicFactor = 1 - Math.pow(1 - ratio, 2);
+    // Safety check for elements
+    if (!container || !fill1 || !fill2 || !fill3) return;
 
-        progress = 30 + (70 * dynamicFactor);
+    // ALWAYS show all 3 segments (no more single-mode)
+    container.classList.remove('single-mode');
 
-        // Cap at 100%
-        progress = Math.min(progress, 100);
+    // VSL-Style Progress: Fast -> Medium -> Slow
+    // Segment 1: Steps 0-15 (fills quickly)
+    // Segment 2: Steps 15-30 (fills moderately)
+    // Segment 3: Steps 30-42 (fills slowly)
 
-        progressBar.style.width = `${progress}%`;
+    const step = parseInt(quizState.currentStep); // Fix: Ensure it's a number (handles "10b" -> 10)
+
+    if (step <= 15) {
+        // Segment 1: Fast progression (0-15)
+        // 20% start, reaches 100% at step 15
+        let progress = 20 + (step / 15) * 80;
+        if (progress > 100) progress = 100;
+
+        fill1.style.width = `${progress}%`;
+        fill2.style.width = '0%';
+        fill3.style.width = '0%';
+    } else if (step <= 30) {
+        // Segment 1: Complete
+        fill1.style.width = '100%';
+
+        // Segment 2: Medium progression (15-30)
+        let progress = ((step - 15) / 15) * 100;
+        if (progress > 100) progress = 100;
+
+        fill2.style.width = `${progress}%`;
+        fill3.style.width = '0%';
+    } else {
+        // Segment 1 & 2: Complete
+        fill1.style.width = '100%';
+        fill2.style.width = '100%';
+
+        // Segment 3: Slow progression (30-42)
+        let progress = ((step - 30) / 12) * 100;
+        if (progress > 100) progress = 100;
+
+        fill3.style.width = `${progress}%`;
     }
 }
 
@@ -935,8 +1135,12 @@ function updateBackButton() {
 function updateStickyWarning() {
     const stickyWarning = document.getElementById('stickyWarning');
     if (stickyWarning) {
-        // Disabled as per user request (Reference: Step 31/Step 2 removal)
-        stickyWarning.classList.add('hidden');
+        // Show only on Step 2 (Goal) as requested
+        if (quizState.currentStep === 2) {
+            stickyWarning.classList.remove('hidden');
+        } else {
+            stickyWarning.classList.add('hidden');
+        }
     }
 }
 
@@ -999,17 +1203,20 @@ function handleOptionSelect(card) {
 }
 
 function handleFoodSelect(btn) {
-    // const btn = e.currentTarget; // handled by delegation
+    // Toggle selection
     btn.classList.toggle('selected');
 
-    // Save all selected foods
+    // Save all selected foods by querying DOM
+    const step = btn.closest('.quiz-step');
+    const allFoodBtns = step.querySelectorAll('.food-btn');
     const selectedFoods = [];
-    elements.foodBtns.forEach(foodBtn => {
+    allFoodBtns.forEach(foodBtn => {
         if (foodBtn.classList.contains('selected')) {
             selectedFoods.push(foodBtn.dataset.value);
         }
     });
-    quizState.answers['step_17_foods'] = selectedFoods;
+    const stepNumber = parseInt(step.dataset.step);
+    quizState.answers[`step_${stepNumber}_foods`] = selectedFoods;
 }
 
 function handleContinue(btn) {
@@ -1419,3 +1626,8 @@ window.secaJejumQuiz = {
     goToStep,
     state: quizState
 };
+
+// ============================================
+// FOOD SELECTION LOGIC
+// ============================================
+// Note: Food selection is handled by setupEventListeners delegation
