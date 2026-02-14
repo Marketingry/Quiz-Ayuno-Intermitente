@@ -3680,10 +3680,204 @@ input {
     right: 45px;
     /* Moved left to avoid spinner overlap */
     top: 50%;
+    box-shadow: var(--shadow-md);
+}
+
+/* News Article Styles */
+.news-article {}
+
+.news-content {
+    background: var(--bg-white);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border-left: none;
+    /* Removed gre/* News Image Styles */
+}
+
+.news-image-container {
+    text-align: center;
+    margin-bottom: var(--space-md);
+    /* Break out of parent padding */
+    margin-left: calc(var(--space-xl) * -1);
+    margin-right: calc(var(--space-xl) * -1);
+    width: calc(100% + (var(--space-xl) * 2));
+}
+
+.news-image {
+    width: 100%;
+    /* Full width */
+    max-width: 100%;
+    border-top: 1px solid #00a36a;
+    /* Green borders top/bottom only? Or all? User said "remove green line aside", implies keeping border around image? */
+    border-bottom: 1px solid #00a36a;
+    /* Actually user said "remova esse traço verde que esta ao lado", I removed border-left */
+    /* User said "quero que a imagem da noticia tenha uma borda fina verde" previously */
+    /* So keep border all around, but since it touches edges, maybe border-radius 0? */
+    border: 1px solid #00a36a;
+    box-shadow: var(--shadow-sm);
+    display: block;
+    height: auto;
+    border-radius: 0;
+    /* No radius if full width */
+}
+
+/* Testimonial Carousel Styles */
+.carousel-social {}
+
+.testimonial-carousel {
+    position: relative;
+    overflow: hidden;
+    margin: var(--space-xl) 0;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    padding: 0 var(--space-sm);
+}
+
+.testimonial-card-carousel {
+    background: var(--bg-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-sm);
+    /* Reduced padding */
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--border-medium);
+}
+
+.carousel-photo {
+    width: 100%;
+    border-radius: var(--radius-md);
+    margin-bottom: 0;
+    /* Remove margin since text is gone */
+    object-fit: cover;
+    max-height: 500px;
+    /* Increased from 350px */
+}
+
+.testimonial-content-carousel {
+    padding-top: var(--space-md);
+}
+
+.testimonial-quote {
+    font-size: var(--font-size-base);
+    color: var(--text-primary);
+    font-style: italic;
+    line-height: 1.6;
+    margin-bottom: var(--space-md);
+}
+
+.testimonial-author-carousel {
+    font-size: var(--font-size-sm);
+    color: var(--primary-dark);
+    font-weight: 600;
+    text-align: right;
+}
+
+.carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin-top: var(--space-lg);
+}
+
+.carousel-dots .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border-medium);
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.carousel-dots .dot.active {
+    background: var(--primary-vivid);
+    transform: scale(1.3);
+}
+
+.carousel-dots .dot:hover {
+    background: var(--primary-light);
+}
+
+/* Carousel Arrows */
+.carousel-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid var(--border-medium);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-size: 18px;
+    color: var(--primary-dark);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.carousel-arrow:hover {
+    background: var(--primary-vivid);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+    border-color: var(--primary-vivid);
+}
+
+.carousel-arrow.prev {
+    left: 10px;
+}
+
+.carousel-arrow.next {
+    right: 10px;
+}
+
+/* Metric Input Styles */
+.metric-input {
+    width: 100%;
+    padding: var(--space-md);
+    font-size: var(--font-size-xl);
+    border: 2px solid var(--border-medium);
+    border-radius: var(--radius-lg);
+    background: var(--bg-white);
+    text-align: center;
+    color: var(--text-primary);
+    outline: none;
+    transition: all var(--transition-base);
+}
+
+.metric-input:focus {
+    border-color: var(--primary-vivid);
+    box-shadow: 0 0 0 3px rgba(56, 126, 56, 0.2);
+}
+
+.metric-input::placeholder {
+    color: #9AABA4;
+    /* Explicit lighter color (Text Tertiary) */
+    opacity: 0.6;
+}
+
+.metric-input-container {
+    position: relative;
+    max-width: 200px;
+    margin: 0 auto var(--space-xl);
+}
+
+.metric-unit {
+    position: absolute;
+    right: 45px;
+    /* Moved left to avoid spinner overlap */
+    top: 50%;
     transform: translateY(-50%);
     color: var(--text-secondary);
     font-weight: 600;
     pointer-events: none;
     /* Let clicks pass through to input/spinner if needed */
-}/ *   Q u i c k   F i x   O v e r r i d e   * /   . m e t r i c - i n p u t   {   f o n t - s i z e :   2 . 5 r e m   ! i m p o r t a n t ;   m i n - w i d t h :   1 5 0 p x   ! i m p o r t a n t ;   }   . m e t r i c - u n i t   {   f o n t - s i z e :   1 . 2 r e m   ! i m p o r t a n t ;   a l i g n - s e l f :   c e n t e r   ! i m p o r t a n t ;   }  
- 
+}
