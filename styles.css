@@ -293,11 +293,20 @@ input {
 
 .quiz-title {
     font-size: var(--font-size-2xl);
-    font-weight: 700;
+    font-weight: 800;
+    /* Extra Bold */
     color: var(--text-primary);
     text-align: left;
     margin-bottom: var(--space-sm);
     line-height: var(--line-height-tight);
+}
+
+.quiz-title b,
+.quiz-title strong {
+    font-weight: 800;
+    /* Match parent */
+    color: var(--primary-vivid);
+    /* Optional: keep color highlight if any */
 }
 
 .quiz-subtitle {
@@ -826,11 +835,18 @@ input {
     justify-content: center;
     gap: var(--space-md);
     margin: var(--space-2xl) 0;
-    flex-direction: row;
-    flex-wrap: nowrap;
 }
 
-/* Old metric-input rule removed, see unified rule below */
+.metric-input {
+    width: 150px;
+    padding: var(--space-lg);
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    text-align: center;
+    border: 3px solid var(--border-gray);
+    border-radius: var(--radius-lg);
+    transition: var(--transition-fast);
+}
 
 .metric-input:focus {
     outline: none;
@@ -1196,41 +1212,13 @@ input {
 }
 
 /* Warning Box Urgent */
-/* Warning Box Urgent - Updated Colors */
 .warning-box-urgent {
-    background: #FFF9C4;
-    /* Yellow background */
-    border: 3px solid #FBC02D;
-    /* Dark yellow border */
+    background: var(--warning-yellow);
+    border: 2px solid var(--warning-yellow-border);
     border-radius: var(--radius-lg);
     padding: var(--space-lg);
     margin-top: var(--space-xl);
     text-align: center;
-}
-
-/* Metric Inputs - Larger and Non-overlapping */
-.metric-input {
-    min-width: 180px;
-    width: auto;
-    padding: var(--space-lg);
-    font-size: 3.5rem;
-    /* Much larger font */
-    font-weight: 800;
-    text-align: center;
-    border: 3px solid var(--border-gray);
-    border-radius: var(--radius-lg);
-    transition: var(--transition-fast);
-    line-height: 1.2;
-}
-
-.metric-unit {
-    font-size: 1.5rem;
-    /* Larger unit label */
-    font-weight: 600;
-    color: var(--text-gray);
-    margin-left: var(--space-sm);
-    white-space: nowrap;
-    /* Prevent wrapping */
 }
 
 .warning-title {
@@ -3644,240 +3632,1018 @@ input {
     right: 10px;
 }
 
-/* Metric Input Styles */
-.metric-input {
-    width: 100%;
-    padding: var(--space-md);
-    font-size: var(--font-size-xl);
-    border: 2px solid var(--border-medium);
-    border-radius: var(--radius-lg);
-    background: var(--bg-white);
-    text-align: center;
-    color: var(--text-primary);
-    outline: none;
-    transition: all var(--transition-base);
-}
+/* ============================================
+   WHATSAPP AUDIO PLAYER STYLES (High Fidelity)
+   ============================================ */
 
-.metric-input:focus {
-    border-color: var(--primary-vivid);
-    box-shadow: 0 0 0 3px rgba(56, 126, 56, 0.2);
-}
-
-.metric-input::placeholder {
-    color: #9AABA4;
-    /* Explicit lighter color (Text Tertiary) */
-    opacity: 0.6;
-}
-
-.metric-input-container {
+.whatsapp-audio-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+    margin: 1rem auto 2rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     position: relative;
-    max-width: 200px;
-    margin: 0 auto var(--space-xl);
+    padding-left: 0;
 }
 
-.metric-unit {
-    position: absolute;
-    right: 45px;
-    /* Moved left to avoid spinner overlap */
-    top: 50%;
-    box-shadow: var(--shadow-md);
+.wa-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
 }
 
-/* News Article Styles */
-.news-article {}
-
-.news-content {
-    background: var(--bg-white);
-    padding: var(--space-lg);
-    border-radius: var(--radius-lg);
-    border-left: none;
-    /* Removed gre/* News Image Styles */
-}
-
-.news-image-container {
-    text-align: center;
-    margin-bottom: var(--space-md);
-    /* Break out of parent padding */
-    margin-left: calc(var(--space-xl) * -1);
-    margin-right: calc(var(--space-xl) * -1);
-    width: calc(100% + (var(--space-xl) * 2));
-}
-
-.news-image {
-    width: 100%;
-    /* Full width */
-    max-width: 100%;
-    border-top: 1px solid #00a36a;
-    /* Green borders top/bottom only? Or all? User said "remove green line aside", implies keeping border around image? */
-    border-bottom: 1px solid #00a36a;
-    /* Actually user said "remova esse traço verde que esta ao lado", I removed border-left */
-    /* User said "quero que a imagem da noticia tenha uma borda fina verde" previously */
-    /* So keep border all around, but since it touches edges, maybe border-radius 0? */
-    border: 1px solid #00a36a;
-    box-shadow: var(--shadow-sm);
-    display: block;
-    height: auto;
-    border-radius: 0;
-    /* No radius if full width */
-}
-
-/* Testimonial Carousel Styles */
-.carousel-social {}
-
-.testimonial-carousel {
-    position: relative;
+.wa-profile-pic {
+    width: 35px;
+    /* Smaller in new update */
+    height: 35px;
+    border-radius: 50%;
+    background: #ece5dd;
     overflow: hidden;
-    margin: var(--space-xl) 0;
+    flex-shrink: 0;
+    margin-top: 0;
 }
 
-.carousel-track {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-slide {
-    min-width: 100%;
-    padding: 0 var(--space-sm);
-}
-
-.testimonial-card-carousel {
-    background: var(--bg-white);
-    border-radius: var(--radius-lg);
-    padding: var(--space-sm);
-    /* Reduced padding */
-    box-shadow: var(--shadow-md);
-    border: 2px solid var(--border-medium);
-}
-
-.carousel-photo {
+.wa-profile-pic img {
     width: 100%;
-    border-radius: var(--radius-md);
-    margin-bottom: 0;
-    /* Remove margin since text is gone */
+    height: 100%;
     object-fit: cover;
-    max-height: 500px;
-    /* Increased from 350px */
 }
 
-.testimonial-content-carousel {
-    padding-top: var(--space-md);
-}
-
-.testimonial-quote {
-    font-size: var(--font-size-base);
-    color: var(--text-primary);
-    font-style: italic;
-    line-height: 1.6;
-    margin-bottom: var(--space-md);
-}
-
-.testimonial-author-carousel {
-    font-size: var(--font-size-sm);
-    color: var(--primary-dark);
-    font-weight: 600;
-    text-align: right;
-}
-
-.carousel-dots {
+.wa-bubble {
+    background: #fff;
+    border-radius: 0 12px 12px 12px;
+    padding: 6px 10px 8px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
     display: flex;
-    justify-content: center;
-    gap: var(--space-sm);
-    margin-top: var(--space-lg);
+    flex-direction: column;
+    position: relative;
+    flex: 1;
+    min-width: 240px;
 }
 
-.carousel-dots .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--border-medium);
-    cursor: pointer;
-    transition: all var(--transition-base);
-}
-
-.carousel-dots .dot.active {
-    background: var(--primary-vivid);
-    transform: scale(1.3);
-}
-
-.carousel-dots .dot:hover {
-    background: var(--primary-light);
-}
-
-/* Carousel Arrows */
-.carousel-arrow {
+/* Bubble Tail */
+.wa-bubble::before {
+    content: "";
     position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255, 255, 255, 0.9);
-    border: 1px solid var(--border-medium);
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
+    top: 0;
+    left: -8px;
+    width: 0;
+    height: 0;
+    border-top: 10px solid #fff;
+    border-left: 10px solid transparent;
+}
+
+/* Header Name */
+.wa-header-name {
+    color: #075E54;
+    /* Teal Green */
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 1.4;
+    margin-bottom: 6px;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.wa-player-body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 30px;
+}
+
+/* Play/Pause Button */
+.wa-play-btn {
+    width: 30px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-    font-size: 18px;
-    color: var(--primary-dark);
-    transition: all 0.3s ease;
-    z-index: 10;
+    background: #e9e9e9;
+    /* Grey Circle */
+    border-radius: 50%;
+    border: none;
+    color: #999;
+    flex-shrink: 0;
 }
 
-.carousel-arrow:hover {
-    background: var(--primary-vivid);
-    color: white;
-    transform: translateY(-50%) scale(1.1);
-    border-color: var(--primary-vivid);
+.wa-play-btn svg {
+    width: 14px;
+    height: 14px;
+    fill: #aebac1;
+    /* Icon Grey */
+    margin-left: 2px;
 }
 
-.carousel-arrow.prev {
-    left: 10px;
+.wa-play-btn.playing svg {
+    margin-left: 0;
 }
 
-.carousel-arrow.next {
-    right: 10px;
+/* WhatsApp Background Wrapper (Inner) */
+.wa-background-wrapper {
+    background-color: #e5ddd5;
+    background-image: url("https://i.pinimg.com/originals/8f/c3/7b/8fc37b742608358501b014d7b4ca238a.jpg");
+    background-size: 400px;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    /* Ensure stacking context */
+    z-index: 1;
 }
 
-/* Metric Input Styles */
-.metric-input {
+/* Track Area */
+.wa-audio-track {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    height: 100%;
+}
+
+/* Waveform Bars Implementation */
+.wa-waveform-bg {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    height: 24px;
     width: 100%;
-    padding: var(--space-md);
-    font-size: var(--font-size-xl);
-    border: 2px solid var(--border-medium);
-    border-radius: var(--radius-lg);
-    background: var(--bg-white);
-    text-align: center;
-    color: var(--text-primary);
+    opacity: 1;
+    position: relative;
+}
+
+.wa-bar {
+    width: 3px;
+    background: #dcdcdc;
+    /* Unplayed Grey */
+    border-radius: 2px;
+    transition: background 0.1s;
+}
+
+/* Progress Mechanism (Mask or Fill) */
+/* We will use a mask container for the "played" state (blue bars) overlaying the grey ones */
+.wa-waveform-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    /* JS updates this */
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    pointer-events: none;
+}
+
+.wa-waveform-mask .wa-bar {
+    background: #34b7f1;
+    /* Played Blue */
+}
+
+/* Seek Slider (Knob) */
+.wa-seek-slider {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 20px;
+    transform: translateY(-50%);
+    -webkit-appearance: none;
+    background: transparent;
+    cursor: pointer;
+    z-index: 20;
+    margin: 0;
+}
+
+.wa-seek-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    height: 14px;
+    width: 14px;
+    border-radius: 50%;
+    background: #34b7f1;
+    /* Knob Blue */
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    margin-top: 0px;
+}
+
+/* Profile Icon on Right */
+.wa-mic-icon {
+    width: 24px;
+    /* Image shows user avatar mostly, but request implies specific layout. We stick to Mic/Avatar combo if possible or just standard avatar */
+    height: 24px;
+    border-radius: 50%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.wa-mic-icon img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+
+.wa-mic-badge {
+    position: absolute;
+    bottom: -2px;
+    right: -5px;
+    background: #34b7f1;
+    border-radius: 50%;
+    width: 14px;
+    height: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #fff;
+}
+
+.wa-mic-badge svg {
+    width: 8px;
+    height: 8px;
+    fill: #fff;
+}
+
+/* Footer Info */
+.wa-footer {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: rgba(0, 0, 0, 0.45);
+    margin-top: 4px;
+    padding-left: 42px;
+    /* Align with track start */
+}
+
+.wa-status {
+    color: #53bdeb;
+    /* Read Blue */
+    margin-left: 4px;
+    font-size: 14px;
+    letter-spacing: -3px;
+    font-weight: bold;
+}
+
+/* New Avatar-Inside Player Layout */
+.wa-bubble {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 8px 10px;
+}
+
+.wa-avatar-section {
+    position: relative;
+    margin-right: 12px;
+    margin-top: 4px;
+    flex-shrink: 0;
+}
+
+.wa-avatar-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+.wa-mic-badge-overlay {
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 18px;
+    height: 18px;
+    background: #00a884;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wa-mic-badge-overlay svg {
+    width: 10px;
+    height: 10px;
+    fill: #fff;
+}
+
+.wa-player-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+.wa-header-name {
+    margin-left: 0;
+    margin-bottom: 2px;
+}
+
+.wa-player-body {
+    width: 100%;
+}
+
+.wa-footer {
+    padding-left: 0;
+    margin-top: 2px;
+}
+
+/* NEW USER-PROVIDED AUDIO PLAYER STYLES */
+.elementor-widget-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.audio-players-container {
+    display: flex;
+    justify-content: center;
+    background-image: url('https://i.ibb.co/7tN0vQbJ/Captura-de-tela-2026-02-15-031724.png');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
+    /* Subtle depth */
+}
+
+.verde {
+    display: flex;
+    justify-content: end;
+}
+
+.audio-player {
+    --cor-destaque: #00e5c0;
+    --cor-fundo: #144d37;
+    --cor-texto: #c5c6c8;
+    --percentual-reproduzido: 0;
+    --current-time: "00:00";
+    position: relative;
+    background: var(--cor-fundo);
+    display: inline-flex;
+    min-width: clamp(230px, 100%, 340px) !important;
+    /*alterar largura do player aqui*/
+    max-width: 100%;
+    border-radius: 0 0.4rem 0.4rem 0.4rem;
+    padding: 0.4rem 0.6rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.audio-player:before {
+    position: absolute;
+    content: "";
+    top: 0px;
+    left: -10px;
+    width: 20px;
+    height: 20px;
+    background: var(--cor-fundo);
+    aspect-ratio: 1;
+    clip-path: polygon(0 0, 100% 0, 100% 100%);
+}
+
+
+.audio-player .line::after {
+    content: var(--current-time);
+    position: absolute;
+    right: 17px;
+    bottom: -8px;
+    font-size: 0.6rem;
+    color: var(--cor-texto);
+}
+
+.verde .audio-player .line::after {
+    right: 6px
+}
+
+
+.audio-player+.audio-player {
+    margin-top: 1rem;
+}
+
+.audio-player .player {
+    flex: 1;
+    display: flex;
+}
+
+.audio-player .player .btn-play {
     outline: none;
-    transition: all var(--transition-base);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    background: none;
+    border: 0;
+    padding: 0 1rem 0 0.4rem;
+    position: relative;
+    top: 2px;
 }
 
-.metric-input:focus {
-    border-color: var(--primary-vivid);
-    box-shadow: 0 0 0 3px rgba(56, 126, 56, 0.2);
+.audio-player .player .btn-play:disabled {
+    cursor: default;
 }
 
-.metric-input::placeholder {
-    color: #9AABA4;
-    /* Explicit lighter color (Text Tertiary) */
+.audio-player .player .btn-play span {
+    color: var(--cor-texto);
+    font-size: 38px;
+    opacity: 0.8;
+    display: flex;
+    /* Centering */
+    align-items: center;
+    justify-content: center;
+}
+
+.audio-player .player .btn-play .icon {
+    display: none;
+    width: 32px;
+    height: 32px;
+}
+
+.audio-player .player .btn-play .icon svg {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+}
+
+.audio-player .player .btn-play .icon-play {
+    display: inline-block;
+}
+
+.audio-player .player .btn-play .icon-pause,
+.audio-player .player .btn-play .icon-loop,
+.audio-player .player .btn-play .icon-error {
+    display: none;
+}
+
+.audio-player.playing .player .btn-play .icon-play {
+    display: none;
+}
+
+.audio-player.playing .player .btn-play .icon-pause {
+    display: inline-block;
+}
+
+.audio-player.loading .player .btn-play .icon-play,
+.audio-player.loading .player .btn-play .icon-pause {
+    display: none;
+}
+
+.audio-player.loading .player .btn-play .icon-loop {
+    display: inline-block;
+}
+
+.audio-player.error .player .btn-play .icon-play,
+.audio-player.error .player .btn-play .icon-pause,
+.audio-player.error .player .btn-play .icon-loop {
+    display: none;
+}
+
+.audio-player.error .player .btn-play .icon-error {
+    display: inline-block;
+}
+
+
+@-webkit-keyframes load {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes load {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.audio-player.loading .player .btn-play,
+.audio-player.error .player .btn-play {
+    pointer-events: none;
+}
+
+.audio-player.loading .player .btn-play span {
+    -webkit-animation: load 1s linear infinite;
+    animation: load 1s linear infinite;
+}
+
+.audio-player.loading .player .btn-play .icon-loop {
+    display: inline-block;
+}
+
+.audio-player .player .timeline {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 0.2rem;
+}
+
+.audio-player .player .timeline .line {
+    --line-height: 0.24rem;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.audio-player .player .timeline .line:before {
+    content: "";
+    width: calc(var(--percentual-reproduzido) * 0.92);
+    position: absolute;
+    background: var(--cor-destaque);
+    height: var(--line-height);
+    border-radius: calc(var(--line-height) / 2);
+}
+
+.audio-player .player .timeline .line input[type="range"] {
+    flex: 1;
+    all: unset;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-color: initial !important;
+    border: none;
+    outline: none;
+    width: 92%;
+    position: relative;
+}
+
+.audio-player .player .timeline .line input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--cor-destaque);
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    margin-top: calc(var(--line-height) * -1.4);
+}
+
+.audio-player .player .timeline .line input[type="range"]::-moz-range-thumb {
+    all: unset;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    background: var(--cor-destaque);
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    margin-top: calc(var(--line-height) * -1.4);
+}
+
+.audio-player .player .timeline .line input[type="range"]::-ms-thumb {
+    appearance: none;
+    background: var(--cor-destaque);
+    width: 0.9rem;
+    height: 0.9rem;
+    border-radius: 50%;
+    margin-top: calc(var(--line-height) * -1.4);
+}
+
+
+.audio-player .player .timeline .line input[type="range"]::-webkit-slider-runnable-track {
+    background: rgba(255, 255, 255, 0.2);
+    height: var(--line-height);
+    border-radius: calc(var(--line-height) / 2);
+}
+
+.audio-player .player .timeline .line input[type="range"]::-moz-range-track {
+    background: rgba(255, 255, 255, 0.2);
+    height: var(--line-height);
+    border-radius: calc(var(--line-height) / 2);
+}
+
+.audio-player .player .timeline .line input[type="range"]::-ms-track {
+    background: rgba(255, 255, 255, 0.2);
+    height: var(--line-height);
+    border-radius: calc(var(--line-height) / 2);
+}
+
+.audio-player .player .timeline .data {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.6rem;
+    color: var(--cor-texto);
+    position: absolute;
+    width: 100%;
+    bottom: -5px;
+}
+
+.audio-player .player .timeline .data .current-time::before {
+    content: var(--tempo-atual);
+}
+
+.audio-player .player .timeline .data .time {
+    display: flex;
+    align-items: center;
+    visibility: hidden;
+}
+
+.audio-player .player .timeline .data .time span {
+    font-size: 1rem;
+    margin-left: 0.4rem;
+    color: var(--cor-destaque);
+}
+
+.audio-player .user {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.audio-player .user img {
+    border-radius: 50%;
+    -o-object-fit: cover;
+    object-fit: cover;
+    background: transparent !important;
+    width: 100%;
+    height: 100%;
+}
+
+.audio-player .user span {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: var(--cor-destaque);
+    transform: translateX(-50%);
+    font-size: 1.6rem;
+    text-shadow: -1px -1px 0 var(--cor-fundo),
+        1px -1px 0 var (--cor-fundo),
+        -1px 1px 0 var(--cor-fundo),
+        1px 1px 0 var(--cor-fundo);
+}
+
+.mic-icon {
+    position: absolute;
+    overflow: visible;
+    padding: 0;
+    left: -2px;
+    /* Adjust position slightly for smaller icon */
+    bottom: -2px;
+    width: 10px;
+    /* Reduced from 15px */
+    z-index: 5;
+}
+
+
+.verde .audio-player {
+    --cor-destaque: #4FB2E5;
+    --cor-fundo: #035142;
+    border-radius: 0.4rem 0 0.4rem 0.4rem;
+    position: relative;
+    flex-direction: row-reverse;
+    gap: 1rem;
+}
+
+.verde .audio-player:before {
+    left: inherit;
+    right: -10px;
+    clip-path: polygon(0 0, 100% 0, 0% 100%);
+}
+
+.verde .audio-player .user {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.verde .mic-icon {
+    left: inherit;
+    right: -5px;
+}
+
+.verde .speed-control {
+    background: #093730 !important;
+}
+
+.verde .audio-player .player .timeline .line input[type="range"] {
+    width: 97% !important;
+}
+
+.verde .audio-player .player .timeline .line:before {
+    width: calc(var(--percentual-reproduzido) * 0.97);
+}
+
+.audio-player .speed-control {
+    display: none;
+    cursor: pointer;
+    background: #171F24;
+    padding: 4px 0;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+    width: 50px;
+    position: relative;
+    top: -1px
+}
+
+.audio-player.playing .user img {
+    display: none;
+}
+
+.audio-player.playing .speed-control {
+    display: block;
+}
+
+/* Step 6 Specific Adjustments */
+.quiz-step[data-step="6"] .testimonial-box {
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.quiz-step[data-step="6"] .testimonial-box p {
+    font-size: 1.2rem !important;
+    /* Reduced by approx 2px from 1.35rem */
+    font-weight: 600 !important;
+    color: var(--text-base) !important;
+    margin-bottom: 1.5rem !important;
+}
+
+/* Yellow Warning Box Styles */
+.warning-box-yellow {
+    background: #fff9c4 !important;
+    /* Light yellow background */
+    border: 2px solid #f9a825 !important;
+    /* Dark yellow solid border */
+}
+
+/* Lighter Placeholder Text for Inputs */
+.metric-input::placeholder,
+input.metric-input::placeholder {
+    color: #bdbdbd !important;
+    /* Light gray for placeholder text */
+    opacity: 0.7;
+}
+
+/* Fix for Age Input Layout - Prevent wrapping */
+.metric-input-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    gap: 8px;
+    /* Add some space between input and unit */
+}
+
+/* ============================================
+   PREMIUM WEIGHT CHART STYLES (Step 39)
+   ============================================ */
+
+/* Chart Wrapper - Premium Card Design */
+.weight-chart-wrapper {
+    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    margin: 2rem auto;
+    max-width: 700px;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.08),
+        0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(0, 163, 106, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Subtle gradient overlay for depth */
+.weight-chart-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #f72a2a, #ffd900, #20ec31);
     opacity: 0.6;
 }
 
-.metric-input-container {
-    position: relative;
-    max-width: 200px;
-    margin: 0 auto var(--space-xl);
+/* Chart Title - Larger and More Prominent */
+.weight-chart-wrapper .chart-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
 }
 
-.metric-unit {
-    position: absolute;
-    right: 45px;
-    /* Moved left to avoid spinner overlap */
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-secondary);
+/* SVG Chart - Increased Size */
+.weight-chart-svg {
+    width: 100%;
+    height: auto;
+    min-height: 350px;
+    display: block;
+}
+
+/* Progress Chart Page Specific Styles */
+.progress-chart-page {
+    padding: 2rem 1rem;
+}
+
+.progress-chart-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.progress-chart-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    line-height: 1.6;
+    margin-top: 0.5rem;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .weight-chart-wrapper {
+        padding: 2rem 1.5rem;
+        margin: 1.5rem 1rem;
+        border-radius: 20px;
+    }
+
+    .weight-chart-wrapper .chart-title {
+        font-size: 1.3rem;
+    }
+
+    .weight-chart-svg {
+        min-height: 300px;
+    }
+
+    .progress-chart-subtitle {
+        font-size: 1rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .weight-chart-wrapper {
+        padding: 1.5rem 1rem;
+        margin: 1rem 0.5rem;
+    }
+
+    .weight-chart-svg {
+        min-height: 280px;
+    }
+}
+
+/* ============================================
+   MULTI-STAGE LOADING PROGRESS (Step 40)
+   ============================================ */
+
+.multi-stage-progress {
+    max-width: 600px;
+    margin: 2.5rem auto 2rem;
+    padding: 0 1rem;
+}
+
+.progress-stage {
+    margin-bottom: 2rem;
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
+}
+
+.progress-stage.active {
+    opacity: 1;
+}
+
+.progress-stage.completed {
+    opacity: 0.7;
+}
+
+.stage-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.stage-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+.stage-icon svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+}
+
+.stage-text {
+    font-size: 1rem;
     font-weight: 600;
-    pointer-events: none;
-    /* Let clicks pass through to input/spinner if needed */
+    color: #334155;
+    flex: 1;
+}
+
+.stage-bar-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stage-bar-bg {
+    flex: 1;
+    height: 12px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+.stage-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #00a36a, #20ec31);
+    border-radius: 10px;
+    transition: width 0.3s ease;
+    position: relative;
+}
+
+.stage-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.stage-percentage {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #00a36a;
+    min-width: 45px;
+    text-align: right;
+}
+
+.loading-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .multi-stage-progress {
+        padding: 0 0.5rem;
+    }
+
+    .loading-title {
+        font-size: 1.3rem;
+    }
+
+    .stage-text {
+        font-size: 0.9rem;
+    }
+
+    .stage-icon {
+        font-size: 1.3rem;
+    }
+
+    .progress-stage {
+        margin-bottom: 1.5rem;
+    }
 }

@@ -685,6 +685,7 @@ function goToNextStep() {
     // 7. Component Initialization based on new step
     const stepStr = String(quizState.currentStep);
 
+    if (stepStr === '6') setTimeout(initWhatsAppAudio, 300);
     if (stepStr === '12') setTimeout(initLibidoChart, 300);
     if (stepStr === '10b') setTimeout(initSocialCarousel, 300); // Relocated Carousel
     if (stepStr === '37') setTimeout(positionBMIArrow, 300);
@@ -1290,54 +1291,69 @@ function calculateAndShowBMI() {
 // ============================================
 
 function startLoadingAnimation() {
-    const progressBar = document.getElementById('loadingProgressBar');
-    const percentageText = document.getElementById('loadingPercentage');
-    const statusText = document.getElementById('loadingStatus');
-
-    if (!progressBar || !percentageText || !statusText) return;
-
-    const statusMessages = [
-        "Analizando tu perfil metabólico...",
-        "Optimizando cronograma de ayuno...",
-        "Seleccionando alimentos permitidos...",
-        "Finalizando tu Plan Personalizado..."
+    // New multi-stage animation
+    const stages = [
+        { bar: document.getElementById('stageBar1'), percent: document.getElementById('stagePercent1'), element: document.querySelector('[data-stage="1"]') },
+        { bar: document.getElementById('stageBar2'), percent: document.getElementById('stagePercent2'), element: document.querySelector('[data-stage="2"]') },
+        { bar: document.getElementById('stageBar3'), percent: document.getElementById('stagePercent3'), element: document.querySelector('[data-stage="3"]') },
+        { bar: document.getElementById('stageBar4'), percent: document.getElementById('stagePercent4'), element: document.querySelector('[data-stage="4"]') }
     ];
 
-    let progress = 0;
-    let messageIndex = 0;
-    const totalDuration = 6000; // 6 seconds
-    const interval = 50; // Update every 50ms for smooth animation
-    const increment = 100 / (totalDuration / interval);
+    // Verify all elements exist
+    const allExist = stages.every(s => s.bar && s.percent && s.element);
+    if (!allExist) {
+        console.error('Multi-stage loading elements not found');
+        return;
+    }
 
-    // Update status message every 1.5 seconds
-    const messageInterval = setInterval(() => {
-        messageIndex++;
-        if (messageIndex < statusMessages.length) {
-            statusText.textContent = statusMessages[messageIndex];
-        }
-    }, 1500);
+    let currentStage = 0;
+    const stageDuration = 2500; // 2.5 seconds per stage (10s total)
+    const updateInterval = 30; // Update every 30ms
+    const totalUpdates = stageDuration / updateInterval;
+    const increment = 100 / totalUpdates;
 
-    // Animate progress bar
-    const progressInterval = setInterval(() => {
-        progress += increment;
-
-        if (progress >= 100) {
-            progress = 100;
-            progressBar.style.width = '100%';
-            percentageText.textContent = '100%';
-
-            clearInterval(progressInterval);
-            clearInterval(messageInterval);
-
-            // Auto-redirect after 500ms
+    function animateStage(stageIndex) {
+        if (stageIndex >= stages.length) {
+            // All stages complete, move to next step
             setTimeout(() => {
                 goToNextStep();
             }, 500);
-        } else {
-            progressBar.style.width = `${progress}%`;
-            percentageText.textContent = `${Math.round(progress)}%`;
+            return;
         }
-    }, interval);
+
+        const stage = stages[stageIndex];
+        let progress = 0;
+
+        // Mark stage as active
+        stage.element.classList.add('active');
+
+        const interval = setInterval(() => {
+            progress += increment;
+
+            if (progress >= 100) {
+                progress = 100;
+                stage.bar.style.width = '100%';
+                stage.percent.textContent = '100%';
+
+                clearInterval(interval);
+
+                // Mark as completed
+                stage.element.classList.remove('active');
+                stage.element.classList.add('completed');
+
+                // Move to next stage after brief pause
+                setTimeout(() => {
+                    animateStage(stageIndex + 1);
+                }, 200);
+            } else {
+                stage.bar.style.width = `${progress}%`;
+                stage.percent.textContent = `${Math.round(progress)}%`;
+            }
+        }, updateInterval);
+    }
+
+    // Start with first stage
+    animateStage(0);
 }
 
 // ============================================
@@ -1631,3 +1647,237 @@ window.secaJejumQuiz = {
 // FOOD SELECTION LOGIC
 // ============================================
 // Note: Food selection is handled by setupEventListeners delegation
+// ============================================
+// ============================================
+// NEW USER-PROVIDED AUDIO PLAYER LOGIC
+// ============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const containersPlayersAudio = document.querySelectorAll(
+        ".audio-players-container"
+    );
+
+    const urlsAudios = [
+        "audio-carol.mp3",
+        "",
+        "",
+    ];
+
+    const imagensUsuarios = [
+        "https://i.ibb.co/MxYVYRtD/unnamed-1.jpg",
+        "",
+        "",
+    ];
+    const iconesSvg = {
+        play: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>',
+        pause: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>',
+        loop: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 4V2C6.48 2 2 6.48 2 12h2c0-5.52 4.48-10 10-10zm10 8c0 5.52-4.48 10-10 10v2c6.48 0 10-4.48 10-10h-2z"/></svg>',
+        error: '<svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>',
+    };
+
+    function formatarTempoParaExibicao(segundos) {
+        const milissegundos = segundos * 1000;
+        return new Date(milissegundos).toISOString().substr(14, 5);
+    }
+
+    function lidarComErroAudio(audio) {
+        const erros = {
+            1: "Processo abortado pelo usuário",
+            2: "Ocorreu um erro no download",
+            3: "Erro na execução do áudio",
+            4: "Formato de áudio não suportado",
+        };
+        const mensagemErro = `Erro: ${audio.error ? erros[audio.error.code] : 'Desconhecido'}`;
+        console.error(mensagemErro);
+    }
+
+    function setMessageDate(audioPlayer) {
+        setInterval(() => {
+            const currentDate = new Date();
+            const currentDateTimeString = currentDate.toLocaleTimeString([], {
+                hour: "2-digit",
+                minute: "2-digit",
+            });
+            audioPlayer.style.setProperty(
+                "--current-time",
+                `'${currentDateTimeString}'`
+            );
+        }, 1000);
+    }
+
+    function criarPlayerAudio(urlAudio, container, imagemUsuario) {
+        const playerAudio = document.createElement("div");
+        playerAudio.className = "audio-player";
+        playerAudio.dataset.url = urlAudio;
+
+        const divPlayer = document.createElement("div");
+        divPlayer.className = "player";
+
+        const btnPlayToggle = document.createElement("button");
+        btnPlayToggle.type = "button";
+        btnPlayToggle.className = "btn-play";
+
+        for (const [key, svg] of Object.entries(iconesSvg)) {
+            const span = document.createElement("span");
+            span.className = `icon icon-${key}`;
+            span.innerHTML = svg;
+            btnPlayToggle.appendChild(span);
+        }
+        const linhaDoTempo = document.createElement("div");
+        linhaDoTempo.className = "timeline";
+        const linha = document.createElement("div");
+        linha.className = "line";
+        const inputRange = document.createElement("input");
+        inputRange.setAttribute("dir", "ltr");
+        inputRange.type = "range";
+        inputRange.min = "0";
+        inputRange.max = "100";
+        inputRange.value = "0";
+        linha.appendChild(inputRange);
+        linhaDoTempo.appendChild(linha);
+
+        const divDados = document.createElement("div");
+        divDados.className = "data";
+        const divTempoAtual = document.createElement("div");
+        divTempoAtual.className = "current-time";
+        divDados.appendChild(divTempoAtual);
+        divTempoAtual.textContent = "00:00";
+        const divTempoTotal = document.createElement("div");
+        divTempoTotal.className = "time";
+        divDados.appendChild(divTempoTotal);
+
+        linhaDoTempo.appendChild(divDados);
+
+        divPlayer.appendChild(btnPlayToggle);
+        divPlayer.appendChild(linhaDoTempo);
+        playerAudio.appendChild(divPlayer);
+
+        const divUsuario = document.createElement("div");
+        divUsuario.className = "user";
+        const imgUsuario = document.createElement("img");
+        imgUsuario.src = imagemUsuario;
+        divUsuario.appendChild(imgUsuario);
+
+        const divVelocidade = document.createElement("div");
+        divVelocidade.className = "speed-control";
+        divVelocidade.textContent = "1,0x";
+        divUsuario.appendChild(divVelocidade);
+
+
+
+        playerAudio.appendChild(divUsuario);
+        container.appendChild(playerAudio);
+
+        const audio = new Audio(urlAudio);
+        audio.preload = "metadata";
+
+        let currentSpeedIndex = 0;
+        const speeds = [1.0, 1.5, 2.0];
+
+        const updateSpeed = () => {
+            audio.playbackRate = speeds[currentSpeedIndex];
+            divVelocidade.textContent = `${speeds[currentSpeedIndex]
+                .toFixed(1)
+                .replace(".", ",")}x`;
+        };
+
+        divVelocidade.addEventListener("click", () => {
+            currentSpeedIndex = (currentSpeedIndex + 1) % speeds.length;
+            updateSpeed();
+        });
+
+        // Fix: Proper play/pause handling with state sync
+        btnPlayToggle.addEventListener("click", () => {
+            if (audio.paused || audio.ended) {
+                // Pause all other audios first if needed (optional)
+                audio.play().catch(e => console.error("Error playing audio:", e));
+                playerAudio.classList.add("playing");
+                divUsuario.classList.add("playing");
+                imgUsuario.style.display = "none";
+                divVelocidade.style.display = "block";
+            } else {
+                audio.pause();
+                playerAudio.classList.remove("playing");
+                divUsuario.classList.remove("playing");
+                imgUsuario.style.display = "block";
+                divVelocidade.style.display = "none";
+            }
+        });
+
+        inputRange.addEventListener("input", (e) => {
+            const percent = e.target.value;
+            if (audio.duration) {
+                audio.currentTime = (percent / 100) * audio.duration;
+            }
+        });
+
+        audio.addEventListener("play", () => {
+            playerAudio.classList.add("playing");
+            divUsuario.classList.add("playing");
+            imgUsuario.style.display = "none";
+            divVelocidade.style.display = "block";
+        });
+
+        audio.addEventListener("pause", () => {
+            playerAudio.classList.remove("playing");
+            divUsuario.classList.remove("playing");
+            imgUsuario.style.display = "block";
+            divVelocidade.style.display = "none";
+        });
+
+        audio.addEventListener("ended", () => {
+            playerAudio.classList.remove("playing");
+            divUsuario.classList.remove("playing");
+            imgUsuario.style.display = "block";
+            divVelocidade.style.display = "none";
+            audio.currentTime = 0;
+            audio.dispatchEvent(new Event("timeupdate"));
+            if (audio.currentTime === 0) {
+                divTempoAtual.textContent = formatarTempoParaExibicao(audio.duration || 0);
+            }
+        });
+
+        audio.addEventListener("timeupdate", () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                inputRange.value = percent;
+                linha.style.setProperty("--percentual-reproduzido", `${percent}%`);
+
+                divTempoAtual.textContent = formatarTempoParaExibicao(audio.currentTime);
+            }
+        });
+
+        audio.addEventListener("loadedmetadata", () => {
+            const duration = formatarTempoParaExibicao(audio.duration);
+            divTempoAtual.textContent = "00:00";
+            divTempoTotal.textContent = duration;
+        });
+
+        audio.addEventListener("error", () => {
+            lidarComErroAudio(audio);
+            playerAudio.classList.add("error");
+        });
+
+        setMessageDate(playerAudio);
+    }
+
+    containersPlayersAudio.forEach((container, index) => {
+        // Safety check for dataset
+        if (!container.dataset.audio) return;
+
+        const indiceAudio = parseInt(container.dataset.audio) - 1;
+        if (indiceAudio >= 0 && indiceAudio < urlsAudios.length) {
+            const urlAudio = urlsAudios[indiceAudio];
+            const imagemUsuario = imagensUsuarios[indiceAudio];
+            // Only create if URL exists
+            if (urlAudio) {
+                criarPlayerAudio(urlAudio, container, imagemUsuario);
+            }
+        } else {
+            console.error(
+                `Índice de áudio inválido para o container: ${indiceAudio}`
+            );
+        }
+    });
+});
+

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description"
-        content="Descubre tu plano personalizado de ayuno intermitente y pierde peso de forma saludable.">
-    <title>Seca Ayuno - Ayuno Intermitente Personalizado</title>
+        content="Descubre tu plano personalizado de ayuno efecto lipo y pierde peso de forma saludable.">
+    <title>Seca Ayuno - Ayuno Efecto Lipo Personalizado</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -63,11 +63,19 @@
             </svg>
         </button>
         <div class="logo-container">
-            <img src="https://i.ibb.co/2YK6dfqd/file-00000000d26871f5bf990689c8d57fe5-1.png" alt="Seca Jejum Logo"
+            <img src="https://i.ibb.co/jk2QLKbm/logo-ayuno-removebg-preview.png" alt="Seca Ayuno Logo"
                 class="header-logo">
         </div>
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-segment">
+                <div class="progress-fill" id="pFill1"></div>
+            </div>
+            <div class="progress-segment">
+                <div class="progress-fill" id="pFill2"></div>
+            </div>
+            <div class="progress-segment">
+                <div class="progress-fill" id="pFill3"></div>
+            </div>
         </div>
     </header>
 
@@ -80,16 +88,16 @@
             <h1 class="quiz-title">DIAGNÓSTICO GRATUITO DE AYUNO</h1>
             <p class="quiz-subtitle" style="font-size: 1.2rem; margin-bottom: 20px;">¿Comes <b>después de las 21h</b>?
             </p>
-            <div class="options-grid">
-                <button class="option-card" data-value="si"
-                    style="justify-content: center; font-weight: 600; font-size: 1.1rem;">
-                    <span class="emoji">✅</span>
-                    <span style="flex: 0 auto;">SÍ</span>
+            <div class="options-list">
+                <button class="option-card" data-value="si">
+                    <img src="https://i.ibb.co/9H81cRrd/2282889-simbolo-sim-ou-nao-conjunto-de-icones-vetor.png"
+                        alt="SÍ" class="option-icon">
+                    <span>SÍ</span>
                 </button>
-                <button class="option-card" data-value="no"
-                    style="justify-content: center; font-weight: 600; font-size: 1.1rem;">
-                    <span class="emoji">❌</span>
-                    <span style="flex: 0 auto;">NO</span>
+                <button class="option-card" data-value="no">
+                    <img src="https://i.ibb.co/W4SGNKLw/2282889-simbolo-sim-ou-nao-conjunto-de-icones-vetor-1.png"
+                        alt="NO" class="option-icon">
+                    <span>NO</span>
                 </button>
             </div>
 
@@ -202,12 +210,12 @@
                 <img src="https://i.ibb.co/CKv9jRvN/10a56da9-9f88-48f2-879e-66fdd81927ee.webp"
                     alt="Carol Antes y Después" class="before-after-img">
             </div>
-            <div class="testimonial-box">
-                <p class="testimonial-text">"Desde que conocí vuestro contenido, logré perder esos kilos de más
-                    que gané después del embarazo... ¡y lo más increíble es que no pasé hambre! ¡Gracias!"</p>
-                <p class="testimonial-author">— Carol Santana</p>
-            </div>
-            <button class="continue-btn">Continuar</button>
+            <div class="testimonial-box" style="text-align: center; border:none; background:none; padding:0;">
+                <p style="margin-bottom: 1rem; color: var(--text-secondary); font-weight: 500;">Escucha el audio que
+                    Andrea me envió:</p>
+
+                <div class="audio-players-container" data-audio="1"></div>
+                <button class="continue-btn">Continuar</button>
         </section>
 
         <!-- Etapa 7: Áreas do corpo -->
@@ -269,7 +277,7 @@
 
         <!-- Etapa 10: Conhecimento sobre JI -->
         <section class="quiz-step" data-step="10">
-            <h1 class="quiz-title">¿Qué sabes sobre el <b>ayuno intermitente</b>?</h1>
+            <h1 class="quiz-title">¿Qué sabes sobre el <b>ayuno efecto lipo</b>?</h1>
             <div class="options-list">
                 <button class="option-card" data-value="nada">
                     <span class="emoji">🤔</span>
@@ -284,6 +292,42 @@
                     <span>Entiendo bastante</span>
                 </button>
             </div>
+        </section>
+
+        <!-- NEW: Social Proof Carousel Interlude (Step 10b) -->
+        <section class="quiz-step interlude carousel-social" data-step="10b">
+            <h1 class="quiz-title">Personas reales, resultados reales</h1>
+            <p class="quiz-subtitle">Mira lo que es posible con tu plan personalizado</p>
+
+            <div class="testimonial-carousel">
+                <div class="carousel-track">
+                    <!-- Slide 1 -->
+                    <div class="carousel-slide">
+                        <div class="testimonial-card-carousel">
+                            <img src="https://i.ibb.co/gNGtMmF/unnamed-66.jpg" class="carousel-photo"
+                                alt="História de Sucesso 1">
+                        </div>
+                    </div>
+                    <!-- Slide 2 -->
+                    <div class="carousel-slide">
+                        <div class="testimonial-card-carousel">
+                            <img src="https://i.ibb.co/hFXwYd82/unnamed-67.jpg" class="carousel-photo"
+                                alt="História de Sucesso 2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation (Optional for 2 slides, but good for UX) -->
+                <button class="carousel-arrow prev">❮</button>
+                <button class="carousel-arrow next">❯</button>
+
+                <div class="carousel-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <button class="continue-btn" onclick="goToNextStep()">Continuar</button>
         </section>
 
         <!-- Etapa 11: Sentir desejada -->
@@ -546,6 +590,25 @@
             <button class="continue-btn">Continuar</button>
         </section>
 
+        <!-- NEW: Notícia / Cortisol (Problematização) -->
+        <section class="quiz-step interlude news-article" data-step="17b">
+            <h1 class="quiz-title" style="margin-bottom: 0.5rem; text-align: center;">¿Eres consciente de los riesgos
+                del cortisol elevado?</h1>
+            <p class="quiz-subtitle"
+                style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 1.5rem; text-align: center;">Por
+                favor, sé sincera</p>
+
+            <div class="news-content">
+                <!-- Imagem da Notícia -->
+                <div class="news-image-container">
+                    <img src="https://i.ibb.co/2YqKHHFZ/Screenshot-20260214-115631-Chrome.webp"
+                        alt="Cortisol y Grasa Abdominal" class="news-image">
+                </div>
+            </div>
+
+            <button class="continue-btn" style="margin-top: 1rem;">Continuar</button>
+        </section>
+
         <!-- Etapa 18: Preferência de refeição -->
         <section class="quiz-step" data-step="18">
             <h1 class="quiz-title">¿Prefieres cocinar, comer fuera o <b>pedir comida</b>?</h1>
@@ -600,7 +663,7 @@
         <!-- Etapa 21: Apoio -->
         <section class="quiz-step" data-step="21">
             <h1 class="quiz-title">¿Tu familia y amigos <b>te apoyan</b> para mantenerte en forma?</h1>
-            <div class="info-box warning">
+            <div class="info-box warning warning-box-yellow">
                 <span class="emoji">⚠️</span>
                 <p>El 68% de las personas que intentan perder peso no tienen el apoyo de familiares y amigos.</p>
             </div>
@@ -874,39 +937,8 @@
             <button class="continue-btn" id="ageContinue">Continuar</button>
         </section>
 
-        <!-- Etapa 37: Evento importante -->
-        <section class="quiz-step" data-step="37">
-            <h1 class="quiz-title">¿Tienes algún <b>evento importante</b> cerca?</h1>
-            <div class="options-list">
-                <button class="option-card" data-value="ferias">
-                    <span class="emoji">🏖️</span>
-                    <span>Vacaciones</span>
-                </button>
-                <button class="option-card" data-value="casamento">
-                    <span class="emoji">💒</span>
-                    <span>Boda</span>
-                </button>
-                <button class="option-card" data-value="feriado">
-                    <span class="emoji">🎄</span>
-                    <span>Feriado</span>
-                </button>
-                <button class="option-card" data-value="esportivo">
-                    <span class="emoji">🏃‍♀️</span>
-                    <span>Evento deportivo</span>
-                </button>
-                <button class="option-card" data-value="amigos">
-                    <span class="emoji">👯‍♀️</span>
-                    <span>Reunión de amigos</span>
-                </button>
-                <button class="option-card" data-value="aniversario">
-                    <span class="emoji">🎂</span>
-                    <span>Cumpleaños</span>
-                </button>
-            </div>
-        </section>
-
-        <!-- Etapa 38: Resumen de Condición Física -->
-        <section class="quiz-step summary-page" data-step="38">
+        <!-- Etapa 37: Resumen de Condición Física (MOVED UP) -->
+        <section class="quiz-step summary-page" data-step="37">
             <div class="summary-header">
                 <h1 class="summary-title">Resumen de tu nivel de condición física</h1>
             </div>
@@ -964,10 +996,41 @@
             <button class="continue-btn summary-cta">Continuar</button>
 
             <!-- Warning Box -->
-            <div class="warning-box-urgent">
+            <div class="warning-box-urgent warning-box-yellow">
                 <h3 class="warning-title">⚠️ ¡Tu situación es preocupante!</h3>
                 <p class="warning-text">Felicitaciones por dar el primer paso. Vamos a crear un plan personalizado para
                     acelerar tu metabolismo, aumentar tu fuerza y mejorar tu salud.</p>
+            </div>
+        </section>
+
+        <!-- Etapa 38: Evento importante (MOVED DOWN) -->
+        <section class="quiz-step" data-step="38">
+            <h1 class="quiz-title">¿Tienes algún <b>evento importante</b> cerca?</h1>
+            <div class="options-list">
+                <button class="option-card" data-value="ferias">
+                    <span class="emoji">🏖️</span>
+                    <span>Vacaciones</span>
+                </button>
+                <button class="option-card" data-value="casamento">
+                    <span class="emoji">💒</span>
+                    <span>Boda</span>
+                </button>
+                <button class="option-card" data-value="feriado">
+                    <span class="emoji">🎄</span>
+                    <span>Feriado</span>
+                </button>
+                <button class="option-card" data-value="esportivo">
+                    <span class="emoji">🏃‍♀️</span>
+                    <span>Evento deportivo</span>
+                </button>
+                <button class="option-card" data-value="amigos">
+                    <span class="emoji">👯‍♀️</span>
+                    <span>Reunión de amigos</span>
+                </button>
+                <button class="option-card" data-value="aniversario">
+                    <span class="emoji">🎂</span>
+                    <span>Cumpleaños</span>
+                </button>
             </div>
         </section>
 
@@ -982,7 +1045,7 @@
             <div class="weight-chart-wrapper animated-chart">
                 <div class="chart-title">KG en 4 semanas</div>
                 <div class="chart-reveal-mask"></div>
-                <svg viewBox="0 0 480 300" class="weight-chart-svg">
+                <svg viewBox="0 0 500 320" class="weight-chart-svg">
                     <defs>
                         <linearGradient id="premiumFillPreview" x1="0" y1="0" x2="1" y2="0">
                             <stop offset="0%" stop-color="#f72a2a" stop-opacity="0.4"></stop>
@@ -998,48 +1061,48 @@
 
                     <!-- Area fill -->
                     <path fill="url(#premiumFillPreview)"
-                        d="M40,60 C80,110 130,135 170,135 S250,145 310,155 S380,240 440,255 L440,270 L40,270 Z" />
+                        d="M40,60 C80,110 130,135 170,135 S250,145 310,155 S380,240 440,255 L440,290 L40,290 Z" />
 
                     <!-- Line stroke -->
                     <path stroke="url(#premiumStrokePreview)" stroke-width="6" fill="none" stroke-linecap="round"
                         d="M40,60 C80,110 130,135 170,135 S250,145 310,155 S380,240 440,255" />
 
                     <!-- Dots -->
-                    <circle cx="40" cy="60" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
-                    <circle cx="170" cy="135" r="8" fill="white" stroke="#00a36a" stroke-width="4"></circle>
-                    <circle cx="310" cy="155" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
-                    <circle cx="440" cy="255" r="6" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+                    <circle cx="40" cy="60" r="7" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+                    <circle cx="170" cy="135" r="9" fill="white" stroke="#00a36a" stroke-width="4"></circle>
+                    <circle cx="310" cy="155" r="7" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
+                    <circle cx="440" cy="255" r="7" fill="white" stroke="#e2e2e2" stroke-width="2"></circle>
 
                     <!-- Labels -->
                     <g font-family="Montserrat, sans-serif">
                         <!-- Badge "Tú" -->
-                        <rect x="25" y="25" rx="10" ry="10" width="40" height="20" fill="#F4F4F4"></rect>
-                        <text x="45" y="39" fill="#666" font-size="11" font-weight="bold" text-anchor="middle"
+                        <rect x="20" y="22" rx="12" ry="12" width="50" height="26" fill="#F4F4F4"></rect>
+                        <text x="45" y="41" fill="#666" font-size="13" font-weight="bold" text-anchor="middle"
                             id="chart-label-you-preview">Tú</text>
 
                         <!-- "Perdiendo peso" -->
-                        <rect x="90" y="95" rx="10" ry="10" width="160" height="26" fill="#00a36a"></rect>
-                        <text x="170" y="110" fill="#FFFFFF" font-size="11" font-weight="bold"
+                        <rect x="80" y="95" rx="12" ry="12" width="180" height="30" fill="#00a36a"></rect>
+                        <text x="170" y="113" fill="#FFFFFF" font-size="13" font-weight="bold"
                             text-anchor="middle">Perdiendo peso</text>
 
                         <!-- "Evolución" -->
-                        <rect x="275" y="115" rx="10" ry="10" width="70" height="20" fill="#F4F4F4"></rect>
-                        <text x="310" y="129" fill="#666" font-size="11" font-weight="bold"
+                        <rect x="265" y="115" rx="12" ry="12" width="90" height="26" fill="#F4F4F4"></rect>
+                        <text x="310" y="132" fill="#666" font-size="13" font-weight="bold"
                             text-anchor="middle">Evolución</text>
 
                         <!-- "Objetivo" -->
-                        <rect x="405" y="215" rx="10" ry="10" width="70" height="20" fill="#F4F4F4"></rect>
-                        <text x="440" y="229" fill="#666" font-size="11" font-weight="bold" text-anchor="middle"
+                        <rect x="395" y="215" rx="12" ry="12" width="90" height="26" fill="#F4F4F4"></rect>
+                        <text x="440" y="232" fill="#666" font-size="13" font-weight="bold" text-anchor="middle"
                             id="chart-label-goal-preview">Objetivo</text>
                     </g>
 
                     <!-- Timeline -->
-                    <line x1="40" y1="270" x2="440" y2="270" stroke="#E2E2E2" stroke-width="2" />
-                    <g font-size="14" fill="#94a3b8" font-weight="600" font-family="Montserrat, sans-serif">
-                        <text x="40" y="285" text-anchor="middle">Hoy</text>
-                        <text x="170" y="285" text-anchor="middle">1ª semana</text>
-                        <text x="310" y="285" text-anchor="middle">2ª semana</text>
-                        <text x="440" y="285" text-anchor="middle">4ª semana</text>
+                    <line x1="40" y1="290" x2="440" y2="290" stroke="#E2E2E2" stroke-width="2" />
+                    <g font-size="15" fill="#94a3b8" font-weight="600" font-family="Montserrat, sans-serif">
+                        <text x="40" y="308" text-anchor="middle">Hoy</text>
+                        <text x="170" y="308" text-anchor="middle">1ª semana</text>
+                        <text x="310" y="308" text-anchor="middle">2ª semana</text>
+                        <text x="440" y="308" text-anchor="middle">4ª semana</text>
                     </g>
                 </svg>
             </div>
@@ -1052,14 +1115,94 @@
             <div class="loading-container">
                 <h2 class="loading-title">Preparando tu plan personalizado...</h2>
 
-                <div class="loading-progress-wrapper">
-                    <div class="loading-progress-bar">
-                        <div class="loading-progress-fill" id="loadingProgressBar"></div>
+                <!-- 4-Stage Progress Bars -->
+                <div class="multi-stage-progress">
+                    <!-- Stage 1 -->
+                    <div class="progress-stage" data-stage="1">
+                        <div class="stage-label">
+                            <span class="stage-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M3 3V21H21" stroke="#00a36a" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M18 9L13 14L9 10L3 16" stroke="#00a36a" stroke-width="2"
+                                        stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="stage-text">Analizando tu perfil metabólico</span>
+                        </div>
+                        <div class="stage-bar-wrapper">
+                            <div class="stage-bar-bg">
+                                <div class="stage-bar-fill" id="stageBar1"></div>
+                            </div>
+                            <span class="stage-percentage" id="stagePercent1">0%</span>
+                        </div>
                     </div>
-                    <span class="loading-percentage" id="loadingPercentage">0%</span>
-                </div>
 
-                <p class="loading-status" id="loadingStatus">Analizando tu perfil metabólico...</p>
+                    <!-- Stage 2 -->
+                    <div class="progress-stage" data-stage="2">
+                        <div class="stage-label">
+                            <span class="stage-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="#00a36a" stroke-width="2" />
+                                    <path d="M12 6V12L16 14" stroke="#00a36a" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </span>
+                            <span class="stage-text">Optimizando cronograma de ayuno</span>
+                        </div>
+                        <div class="stage-bar-wrapper">
+                            <div class="stage-bar-bg">
+                                <div class="stage-bar-fill" id="stageBar2"></div>
+                            </div>
+                            <span class="stage-percentage" id="stagePercent2">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Stage 3 -->
+                    <div class="progress-stage" data-stage="3">
+                        <div class="stage-label">
+                            <span class="stage-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M20 7L10 17L4 11" stroke="#00a36a" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path
+                                        d="M12 3C7.58172 3 4 6.58172 4 11C4 15.4183 7.58172 19 12 19C16.4183 19 20 15.4183 20 11"
+                                        stroke="#00a36a" stroke-width="2" stroke-linecap="round" />
+                                </svg>
+                            </span>
+                            <span class="stage-text">Seleccionando alimentos permitidos</span>
+                        </div>
+                        <div class="stage-bar-wrapper">
+                            <div class="stage-bar-bg">
+                                <div class="stage-bar-fill" id="stageBar3"></div>
+                            </div>
+                            <span class="stage-percentage" id="stagePercent3">0%</span>
+                        </div>
+                    </div>
+
+                    <!-- Stage 4 -->
+                    <div class="progress-stage" data-stage="4">
+                        <div class="stage-label">
+                            <span class="stage-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <circle cx="12" cy="12" r="10" stroke="#00a36a" stroke-width="2" />
+                                    <path d="M9 12L11 14L15 10" stroke="#00a36a" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg>
+                            </span>
+                            <span class="stage-text">Finalizando tu Plan Personalizado</span>
+                        </div>
+                        <div class="stage-bar-wrapper">
+                            <div class="stage-bar-bg">
+                                <div class="stage-bar-fill" id="stageBar4"></div>
+                            </div>
+                            <span class="stage-percentage" id="stagePercent4">0%</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Prueba Social -->
@@ -1289,7 +1432,7 @@
                         </div>
                         <div class="result-item">
                             <a href="https://ibb.co/fzQ9Rtcp"><img src="https://i.ibb.co/q3xCG9Zs/unnamed-55.webp"
-                                    alt="Antes y después del ayuno intermitente" border="0"></a>
+                                    alt="Antes y después del ayuno efecto lipo" border="0"></a>
                         </div>
                         <div class="result-item">
                             <a href="https://ibb.co/zTXNkG4f"><img src="https://i.ibb.co/rRxvW4wy/unnamed-54.webp"
@@ -1357,7 +1500,7 @@
                         </button>
                         <div class="faq-answer">
                             <p>Nuestro plan es 100% personalizado según tus respuestas. Recibirás una guía completa
-                                de ayuno intermitente adaptada a tu estilo de vida, con horarios ideales para tus
+                                de ayuno efecto lipo adaptada a tu estilo de vida, con horarios ideales para tus
                                 comidas y consejos prácticos para acelerar tu metabolismo.</p>
                         </div>
                     </div>
@@ -1379,7 +1522,7 @@
                             <span class="faq-icon">+</span>
                         </button>
                         <div class="faq-answer">
-                            <p>¡No es obligatorio! El ayuno intermitente funciona incluso sin ejercicios intensos. Sin
+                            <p>¡No es obligatorio! El ayuno efecto lipo funciona incluso sin ejercicios intensos. Sin
                                 embargo,
                                 caminatas ligeras pueden potenciar tus resultados.</p>
                         </div>
